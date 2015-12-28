@@ -1,0 +1,108 @@
+use NFLStats1;
+
+SET FOREIGN_KEY_CHECKS = 0;
+SET GROUP_CONCAT_MAX_LEN=32768;
+
+SET @tables = NULL;
+SELECT GROUP_CONCAT('`', table_name, '`') INTO @tables
+  FROM information_schema.tables
+  WHERE table_schema = (SELECT DATABASE());
+SELECT IFNULL(@tables,'dummy') INTO @tables;
+
+SET @tables = CONCAT('DROP TABLE IF EXISTS ', @tables);
+PREPARE stmt FROM @tables;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+SET FOREIGN_KEY_CHECKS = 1;
+  
+CREATE TABLE Players (
+	playerId INT UNSIGNED PRIMARY KEY,
+	firstName VARCHAR (30) NOT NULL,
+	lastName VARCHAR (30) NOT NULL,
+	position VARCHAR (3) NOT NULL
+);
+
+CREATE TABLE Statistics (
+	statId INT UNSIGNED PRIMARY KEY,
+	name VARCHAR (30) NOT NULL
+);
+
+CREATE TABLE Teams (
+	teamId VARCHAR (3) PRIMARY KEY,
+	name VARCHAR (30) NOT NULL
+);
+
+CREATE TABLE Season (
+	seasonID INT UNSIGNED PRIMARY KEY,
+	week TINYINT NOT NULL,
+	year YEAR (4) NOT NULL
+);
+
+CREATE TABLE Weather (
+	locationId INT UNSIGNED PRIMARY KEY,
+	location VARCHAR (30) NOT NULL,
+	lowTemp TINYINT( 3) NOT NULL,
+	highTemp TINYINT (3) NOT NULL,
+	isDome tinyint (1) NOT NULL,
+	forecast VARCHAR (15) NOT NULL,
+	windSpeed TINYINT (3) NOT NULL
+);
+
+CREATE TABLE PlayerStats (
+	playerId INT UNSIGNED,
+	statId INT UNSIGNED,
+	seasonID INT UNSIGNED,
+	statValue INT NOT NULL,
+	FOREIGN KEY (playerId) 
+			REFERENCES Players(playerId)
+			ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (statId) 
+			REFERENCES Statistics(statId)
+			ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (seasonID) 
+			REFERENCES Season(seasonID)
+			ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE InjuryReport (
+	playerId INT UNSIGNED,
+	seasonID INT UNSIGNED,
+	injuryType VARCHAR(10) NOT NULL,
+	injurySeverity CHAR NOT NULL,
+	FOREIGN KEY (playerId) 
+			REFERENCES Players(playerId)
+			ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (seasonID) 
+			REFERENCES Season(seasonID)
+			ON UPDATE CASCADE ON DELETE CASCADE
+);		
+
+CREATE TABLE PlayerTeam (
+	playerId INT UNSIGNED,
+	teamId VARCHAR (3),
+	FOREIGN KEY (playerId) 
+			REFERENCES Players(playerId)
+			ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (teamId) 
+			REFERENCES Teams(teamId)
+			ON UPDATE CASCADE ON DELETE CASCADE
+);	
+
+CREATE TABLE Games (
+	seasonID INT UNSIGNED,
+	homeTeam VARCHAR (3),
+	awayTeam VARCHAR (3),
+	locationId INT UNSIGNED,
+	FOREIGN KEY (homeTeam) 
+			REFERENCES Teams(teamId)
+			ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (awayTeam) 
+			REFERENCES Teams(teamId)
+			ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (seasonID) 
+			REFERENCES Season(seasonID)
+			ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (locationId) 
+			REFERENCES Weather(locationId)
+			ON UPDATE CASCADE ON DELETE CASCADE
+);	
