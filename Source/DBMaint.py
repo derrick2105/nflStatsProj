@@ -4,10 +4,11 @@ import MySQLdb
 
 ######
 # This is a wrapper class that is designed to abstract away Database specifics.
+######
 class DBMaint():
 	def __init__(self):
 		self.conn = None
-
+		self.cursor = None
 	def __del__(self):
 		self.closeDBConnection()
 	
@@ -42,8 +43,12 @@ class DBMaint():
 	def executeStatement(self, statement):
 		if self.cursor is None:
 			self.getCursor()
+		#self.cursor.execute('Select * from ' + table)
+		#results = self.getResults()
+		#updateStatement, insertStatement = self.createStatements(results, values)
 		self.cursor.execute(statement)
-
+		self.conn.commit()
+	
 	def getResults(self):
 		ret = []
 		for x in range(int(self.cursor.rowcount)):
