@@ -1,6 +1,10 @@
 #!/usr/bin/python
 import MySQLdb
 
+####
+# TODO:
+#		1. Create a config file with database connection data
+####
 
 ######
 # This is a wrapper class that is designed to abstract away Database specifics.
