@@ -47,9 +47,6 @@ class DBMaint():
 	def executeStatement(self, statement):
 		if self.cursor is None:
 			self.getCursor()
-		#self.cursor.execute('Select * from ' + table)
-		#results = self.getResults()
-		#updateStatement, insertStatement = self.createStatements(results, values)
 		self.cursor.execute(statement)
 		self.conn.commit()
 	

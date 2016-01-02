@@ -13,7 +13,7 @@ class NFLStatsProvider():
 		week = str(week)
 		season = str(season)
 		if dataType == StatType.playerInfo:
-			return self.requestContent("http://api.fantasy.nfl.com/v1/players/researchinfo?season=" + season + "&week=" + week + "&count=2000&format=json")
+			return self.requestContent("http://api.fantasy.nfl.com/v1/players/researchinfo?season=" + season + "&week=" + week + "&count=3000&format=json")
 		elif dataType == StatType.statistics:
 			return self.requestContent("http://api.fantasy.nfl.com/v1/game/stats?format=json")
 		elif dataType == StatType.weather:

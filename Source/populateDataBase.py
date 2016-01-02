@@ -8,7 +8,7 @@ from DBMaint import DBMaint
 ####
 # TODO: 
 #		1. Add error catching to each call.
-#		2. write the games, injury, stats, and Weather methods
+#		2. write the games, injury, and Weather methods
 ###
 class populateNFLDB():
 	def __init__(self):
@@ -35,28 +35,28 @@ class populateNFLDB():
 
 
 	def populatePlayers(self):
-		# Get stats JSON file
-		results =  json.loads(self.provider.getData(StatType.playerInfo))['players']
-		
-		# build statement
-		statement1 = "insert IGNORE into Players (playerId, firstName, lastName, position) values "
-		insertTuples1 = []
-		statement2 = "insert IGNORE into PlayerTeam(playerId, teamId) values "
-		insertTuples2 = []
-		for value in results:
-			tup = '(' + str(value['id']) + ',"' + str(value['firstName']) + '","' 
-			tup = tup + str(value['lastName']) + '","' + str(value['position']) + '")'
-			insertTuples1.append(tup)
-			if str(value['teamAbbr']) == '':
-				continue
-			else:
-				insertTuples2.append( '(' + str(value['id']) + ',"' + str(value['teamAbbr']) + '")')
-		statement1 += ','.join(insertTuples1)
-		statement2 += ','.join(insertTuples2)
-		
-		# Execute Statements
-		self.populateDB(statement1)
-		self.populateDB(statement2)
+		for season in range(2010,2016):
+			for week in range (1,18):
+				# Get stats JSON file
+				results =  json.loads(self.provider.getData(StatType.playerInfo,week, season))['players']
+				
+				# build statement
+				statement1 = "insert IGNORE into Players (playerId, firstName, lastName, position) values "
+				insertTuples1 = []
+				statement2 = "insert IGNORE into PlayerTeam(playerId, teamId) values "
+				insertTuples2 = []
+				for value in results:
+					tup = '(' + str(value['id']) + ',"' + str(value['firstName']) + '","' 
+					tup = tup + str(value['lastName']) + '","' + str(value['position']) + '")'
+					insertTuples1.append(tup)
+					if str(value['teamAbbr']) != '':
+						insertTuples2.append( '(' + str(value['id']) + ',"' + str(value['teamAbbr']) + '")')
+				statement1 += ','.join(insertTuples1)
+				statement2 += ','.join(insertTuples2)
+				
+				# Execute Statements
+				self.populateDB(statement1)
+				self.populateDB(statement2)
 		
 	def populateStats(self):
 		# Get stats JSON file
@@ -78,7 +78,29 @@ class populateNFLDB():
 		return
 	def populateInjuryReport(self):
 		return
+
 	def populatePlayerStats(self):
+		#  Fill the players stats table for the last five season
+		Seasonid = 1
+		for year in range (2010,2016):
+			for week in range (1,18):
+				# Get stats JSON file
+				results =  json.loads(self.provider.getData(StatType.playerWeekly, week, year))['players']
+		
+				# Build statement 
+				statement = "insert IGNORE into PlayerStats (playerId, statId, Seasonid, statValue) values "
+				insertTuples = []
+				for value in results:
+					for stat, v in value['stats'].iteritems():
+						tup = "(" + str(value['id']) + "," + str(stat) + "," + str(Seasonid)
+						tup += "," + str(v) + ")"
+						
+						insertTuples.append(tup)
+				statement += ','.join(insertTuples)
+
+				# Execute Statement
+				self.populateDB(statement)
+				Seasonid += 1		
 		return
 		
 	def populateTeams(self):
@@ -88,9 +110,7 @@ class populateNFLDB():
 		statement = "insert IGNORE into Teams (teamID, name) values "
 		insertTuples = []
 		for value in results:
-			if str(value['teamAbbr']) == '':
-				continue
-			else:
+			if str(value['teamAbbr']) != '':
 				tup = "('" + str(value['teamAbbr']) + "','filler')" 
 				insertTuples.append(tup)
 		statement += ','.join(insertTuples)
@@ -125,4 +145,5 @@ class populateNFLDB():
 
 if __name__ == '__main__':
 	populator = populateNFLDB()
-	populator.populateSeasons()
+	populator.populatePlayers()
+	populator.populatePlayerStats()
