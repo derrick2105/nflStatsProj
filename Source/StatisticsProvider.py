@@ -3,7 +3,14 @@ import urllib2
 from Common import StatType
 
 ######
-# Add Error handling and interface with a url config file. 
+# TODO:
+# Add Error handling
+######
+
+######
+# This is a wrapper class for statistics api calls. Replace the urls to
+# change the data source.
+######
 
 
 class NFLStatsProvider:
@@ -14,7 +21,7 @@ class NFLStatsProvider:
         week = str(week)
         season = str(season)
         if data_type == StatType.playerInfo:
-            return self.request("http://api.fantasy.nfl.com/v1/players"
+            return self.request("http://api.fantasy.nfl.com/v1/players "
                                 "/researchinfo?season=" + season + "&week=" +
                                 week + "&count=3000&format=json")
         elif data_type == StatType.statistics:
