@@ -52,7 +52,7 @@ CREATE TABLE PlayerStats (
 	playerId INT UNSIGNED,
 	statId INT UNSIGNED,
 	seasonID INT UNSIGNED,
-	statValue INT NOT NULL,
+	statValue DECIMAL NOT NULL,
 	FOREIGN KEY (playerId) 
 			REFERENCES Players(playerId)
 			ON UPDATE CASCADE ON DELETE CASCADE,
