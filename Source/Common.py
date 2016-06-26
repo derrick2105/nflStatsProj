@@ -52,3 +52,11 @@ class StatType:
 
     def __init__(self):
         pass
+
+
+class Position:
+    quarterback, running_back, kicker, defense, wide_receiver = range(5)
+    tight_end = wide_receiver
+
+    def __init__(self):
+        pass

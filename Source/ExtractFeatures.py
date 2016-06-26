@@ -1,5 +1,6 @@
 import Common
 import DbMaintenance
+import numpy as np
 
 
 ######
@@ -24,4 +25,40 @@ class ExtractFeatures:
         del self.db
 
     def extract(self, position):
+        results = None
+        if position == Common.Position.quarterback:
+            results = self.__extract_quarter_back()
+        elif position == Common.Position.running_back:
+            results = self.__extract_running_back()
+        elif position == Common.Position.wide_receiver:
+            results = self.__extract_wide_receiver()
+        elif position == Common.Position.kicker:
+            results = self.__extract_kicker()
+        elif position == Common.Position.defense:
+            results = self.__extract_defense()
+
+        return results
+
+    def __extract_quarter_back(self):
+        self.__get_data()
+        np.random.random(1)
+        return 1
+
+    def __extract_wide_receiver(self):
+        self.__get_data()
+        return 1
+
+    def __extract_running_back(self):
+        self.__get_data()
+        return 1
+
+    def __extract_kicker(self):
+        self.__get_data()
+        return 1
+
+    def __extract_defense(self):
+        self.__get_data()
+        return 1
+
+    def __get_data(self):
         pass
