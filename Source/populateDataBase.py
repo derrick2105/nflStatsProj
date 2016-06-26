@@ -2,11 +2,13 @@
 import Common
 from StatisticsProvider import NFLStatsProvider as Provider
 from DbMaintenance import DbMaintenance
+from os import listdir, path
 
 
 ####
 # TODO:
-#   1. Write the Weather method
+#   1. Implement game import method
+#   2. Write the Weather method
 ####
 
 class PopulateNFLDB:
@@ -23,7 +25,8 @@ class PopulateNFLDB:
         # Add all of the non player specific information.
         self.populate_seasons()
         self.populate_teams()
-        self.populate_games()
+        self.populate_games_from_data(Common.game_data_path)
+        self.populate_new_season_games()
         self.populate_stats()
         self.populate_weather()
 
@@ -105,7 +108,7 @@ class PopulateNFLDB:
 
         return True
 
-    def populate_games(self):
+    def populate_new_season_games(self):
         get_statement1 = "Select MAX(seasonId) from Season;"
         get_statement2 = "Select MAX(seasonId) from Games;"
         put_statement = "Insert into Games (seasonID, homeTeam, awayTeam, " \
@@ -145,6 +148,66 @@ class PopulateNFLDB:
                 Common.log_exception(e, Common.populate_log)
                 return False
 
+        return True
+
+    def populate_games_from_data(self, data_path=Common.game_data_path):
+        start_year = 2010
+        put_statement = "Insert ignore into Games (seasonId, homeTeam, " \
+                        "awayTeam) values (%s, %s, %s);"
+
+        try:
+            # Assuming data_files have the naming convention <year>_sched.csv
+            data_files = [file_name for file_name in sorted(listdir(
+                          data_path)) if path.isfile(path.join(data_path,
+                                                               file_name))]
+
+        except OSError, e:
+            Common.log_exception(e, Common.populate_log)
+            return False
+
+        insert_tuples = []
+        for file_name in data_files:
+            try:
+                offset = int(file_name[0:4]) - start_year
+            except ValueError, e:
+                Common.log_exception(e, Common.populate_log)
+                return False
+
+            file_name = path.join(data_path, file_name)
+            with open(file_name) as f:
+                for line in f:
+                    team_schedule = line.strip('\r\n').split(',')
+                    try:
+                        if team_schedule[0] == "WSH":
+                            team_schedule[0] = "WAS"
+                        for index in xrange(1, len(team_schedule)):
+                            if team_schedule[index].upper() == "BYE":
+                                continue
+                            season_id = offset*17 + index
+                            if team_schedule[index][0] == '@':
+                                if team_schedule[index] == "@WSH":
+                                    team_schedule[index] = "@WAS"
+                                tup = (season_id, team_schedule[index][1:],
+                                       team_schedule[0])
+                            else:
+                                if team_schedule[index] == "WSH":
+                                    team_schedule[index] = "WAS"
+                                tup = (season_id, team_schedule[0],
+                                       team_schedule[index])
+
+                            if tup not in insert_tuples:
+                                insert_tuples.append(tup)
+
+                    except IndexError, e:
+                        Common.log_exception(e, Common.populate_log)
+                        return False
+
+        print "inserting games into the Database."
+        if not self.populate_db(put_statement, insert_tuples):
+            Common.log("Couldn't insert games int the database.",
+                       Common.populate_log)
+
+            return False
         return True
 
     def populate_new_season(self, year):
@@ -356,5 +419,5 @@ class PopulateNFLDB:
 
 if __name__ == '__main__':
     populator = PopulateNFLDB()
-    if not populator.populate_locations():
+    if not populator.populate_games_from_data():
         print "Aborting."

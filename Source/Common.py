@@ -2,8 +2,9 @@ import datetime
 import os.path
 
 # DEFAULT LOG FILES
-log_path = './'
-config_path = './'
+log_path = '../logs/'
+config_path = '../config/'
+game_data_path = '../data'
 stadium_file = os.path.join(config_path, 'stadiums.csv')
 db_config = os.path.join(config_path, 'config.yml')
 db_log_file = os.path.join(log_path, 'dbMaintenanceLog.txt')
