@@ -45,6 +45,9 @@ class NFLStatsProvider:
         elif data_type == Common.StatType.games:
             return self.request("http://www.fantasyfootballnerd.com/service/"
                                 "schedule/json/n4j9tv9n5env/")
+        elif data_type == Common.StatType.teams:
+            return self.request(("http://www.fantasyfootballnerd.com/service/"
+                                 "nfl-teams/json/n4j9tv9n5env/"))
 
     @staticmethod
     def request(url):
@@ -59,7 +62,7 @@ class NFLStatsProvider:
             return None
 
         except ValueError, e:
-            Common.log(e.msg, Common.stat_provider_log)
+            Common.log_exception(e, Common.stat_provider_log)
             if e.args != ():
                 Common.log("Args: " + str(e.args), Common.stat_provider_log)
             return None

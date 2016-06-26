@@ -32,7 +32,7 @@ class DbMaintenance:
             with open(config_file, 'r') as f:
                 config = yaml.load(f)
         except IOError, e:
-            Common.log(str(e), Common.db_log_file)
+            Common.log_exception(e, Common.db_log_file)
             config = None
 
         if config is not None:
@@ -77,7 +77,7 @@ class DbMaintenance:
             return True
 
         except sql_module.Error, e:
-            Common.log(str(e), Common.db_log_file)
+            Common.log_exception(e, Common.db_log_file)
             self.conn = None
             return False
 
@@ -99,7 +99,7 @@ class DbMaintenance:
             return True
 
         except sql_module.Error, e:
-            Common.log(str(e), Common.db_log_file)
+            Common.log_exception(e, Common.db_log_file)
             self.close_connection()
             return False
 
@@ -118,14 +118,13 @@ class DbMaintenance:
             return True
 
         except sql_module.Error, e:
-            Common.log(str(e), Common.db_log_file)
+            Common.log_exception(e, Common.db_log_file)
             self.close_connection()
             return False
 
     # Only commit if it is an update
     def execute_statement(self, values=None, commit=False, statement=None):
         execute_many = False
-        current_value = None
         if type(values) is list:
             execute_many = True
 
@@ -142,11 +141,7 @@ class DbMaintenance:
             if values is None:
                 self.cursor.execute(self.statement)
             elif execute_many:
-                print values[0]
-                print self.statement
-                for value in values:
-                    current_value = value
-                    self.cursor.execute(self.statement, value)
+                self.cursor.executemany(self.statement, values)
             else:
                 self.cursor.execute(self.statement, values)
 
@@ -155,9 +150,7 @@ class DbMaintenance:
             return True
 
         except sql_module.Error, e:
-            Common.log(str(e), Common.db_log_file)
-            Common.log(str(e.args), Common.db_log_file)
-            print current_value
+            Common.log_exception(e, Common.db_log_file)
             self.close_connection()
             return False
 
@@ -171,7 +164,7 @@ class DbMaintenance:
             self.conn.commit()
             return True
         except sql_module.Error, e:
-            Common.log(str(e), Common.db_log_file)
+            Common.log_exception(e, Common.db_log_file)
             return False
 
     def get_results(self):

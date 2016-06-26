@@ -6,15 +6,13 @@ from DbMaintenance import DbMaintenance
 
 ####
 # TODO:
-# 1. write the locations method
-# 2. Write the Weather method
-###
+#   1. Write the Weather method
+####
 
 class PopulateNFLDB:
     def __init__(self):
         self.DB = DbMaintenance()
         self.provider = Provider()
-        self.junk = 1
         self.DB.import_db_config(Common.db_config)
 
     def __del__(self):
@@ -67,7 +65,7 @@ class PopulateNFLDB:
                                 insert_tuples2.append(tup2)
 
                 except TypeError or KeyError, e:
-                    Common.log(str(e), Common.populate_log)
+                    Common.log_exception(e, Common.populate_log)
                     return False
 
             message = "Inserting values for season: " + str(season) +\
@@ -102,7 +100,7 @@ class PopulateNFLDB:
                 return False
 
         except TypeError or KeyError, e:
-            Common.log(str(e), Common.populate_log)
+            Common.log_exception(e, Common.populate_log)
             return False
 
         return True
@@ -144,7 +142,7 @@ class PopulateNFLDB:
                     return False
 
             except TypeError or KeyError, e:
-                Common.log(str(e), Common.populate_log)
+                Common.log_exception(e, Common.populate_log)
                 return False
 
         return True
@@ -153,10 +151,10 @@ class PopulateNFLDB:
         return self.populate_seasons(year, year+1)
 
     def populate_injury_report(self):
-
         get_statement = 'select playerId from Players;'
         insert_statement = 'REPLACE into InjuryReport (playerId, ' \
                            'injurySeverity) values (%s, %s);'
+
         insert_tuples = []
         print "Retrieving injury reports."
         count = 0
@@ -175,7 +173,7 @@ class PopulateNFLDB:
                 insert_tuples.append((id_tup[0], str(stats['players'][0]
                                                      ['injuryGameStatus'])))
             except TypeError or KeyError, e:
-                Common.log(str(e), Common.populate_log)
+                Common.log_exception(e, Common.populate_log)
                 return False
 
         message = "Inserting player Injury Statuses into the database."
@@ -187,7 +185,6 @@ class PopulateNFLDB:
                        "Aborting.", Common.populate_log)
 
             return False
-
         return True
 
     def populate_player_stats(self):
@@ -220,7 +217,7 @@ class PopulateNFLDB:
                     season_id += 1
 
                 except KeyError or TypeError, e:
-                    Common.log(str(e), Common.populate_log)
+                    Common.log_exception(e, Common.populate_log)
                     return False
 
             message = "Inserting values for year " + str(year) + " into the " \
@@ -239,7 +236,7 @@ class PopulateNFLDB:
         statement = "insert IGNORE into Teams (teamID, name) values (%s, %s)"
 
         try:
-            results = self.provider.get_data(Common.StatType.playerInfo)
+            results = self.provider.get_data(Common.StatType.teams)['NFLTeams']
             if results is None:
                 message = "Could not download teams."
                 Common.log(message, Common.populate_log)
@@ -247,16 +244,20 @@ class PopulateNFLDB:
 
             insert_tuples = []
             for value in results:
-                if str(value['teamAbbr']) != '':
-                    insert_tuples.append((str(value['teamAbbr']), 'filler'))
+                if str(value['code']) == 'JAC':
+                    value['code'] = 'JAX'
+
+                insert_tuples.append((str(value['code']),
+                                      str(value['fullName'])))
 
             if not self.populate_db(statement, insert_tuples):
                 Common.log("Problem executing statement in the database. "
                            "Aborting.", Common.populate_log)
 
                 return False
+
         except TypeError or KeyError, e:
-            Common.log(str(e), Common.populate_log)
+            Common.log_exception(e, Common.populate_log)
             return False
         return True
 
@@ -269,7 +270,7 @@ class PopulateNFLDB:
             try:
                 season_id = season_id[0][0]
             except IndexError, e:
-                Common.log(str(e), Common.populate_log)
+                Common.log_exception(e, Common.populate_log)
                 return False
 
         statement = "insert IGNORE into Season (SeasonId, week, year) values " \
@@ -292,9 +293,44 @@ class PopulateNFLDB:
     def populate_weather(self):
         pass
 
-    # TODO
     def populate_locations(self):
-        pass
+        get_statement1 = "Select * from TeamLocations;"
+        get_statement2 = "select teamId, name from Teams;"
+        put_statement = "Insert into TeamLocations (locationId, teamId, " \
+                        "Stadium) values (%s, %s, %s);"
+
+        try:
+            location_arr = self.pull_from_db(get_statement1)
+            if location_arr:
+                Common.log("The locations are already populated. Purge "
+                           "locations and try again.", Common.populate_log)
+
+                return False
+
+            location_id = 1
+            stadiums = [line.strip('\r\n').split(',') for line in open(
+                Common.stadium_file)]
+
+            teams_tuples = self.pull_from_db(get_statement2)
+            teams_dict = {}
+            for team in teams_tuples:
+                teams_dict[team[1]] = team[0]
+
+            insert_tuples = []
+            for stadium in stadiums:
+                tup = (location_id, teams_dict[stadium[2]], stadium[0])
+                insert_tuples.append(tup)
+                location_id += 1
+
+            if not self.populate_db(put_statement, insert_tuples):
+                Common.log("Couldn't insert stadiums into the database.",
+                           Common.populate_log)
+                return False
+            return True
+
+        except KeyError or TypeError, e:
+            Common.log_exception(e, Common.populate_log)
+            return False
 
     def populate_db(self, statement, values):
         if not self.DB.prepare_statement(statement):
@@ -320,5 +356,5 @@ class PopulateNFLDB:
 
 if __name__ == '__main__':
     populator = PopulateNFLDB()
-    if not populator.populate_games():
+    if not populator.populate_locations():
         print "Aborting."

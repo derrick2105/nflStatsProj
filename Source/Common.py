@@ -4,6 +4,7 @@ import os.path
 # DEFAULT LOG FILES
 log_path = './'
 config_path = './'
+stadium_file = os.path.join(config_path, 'stadiums.csv')
 db_config = os.path.join(config_path, 'config.yml')
 db_log_file = os.path.join(log_path, 'dbMaintenanceLog.txt')
 populate_log = os.path.join(log_path, 'populateDBLog.txt')
@@ -15,6 +16,13 @@ def log(message, outfile='./log.txt'):
     with open(outfile, 'a') as f:
         f.write(str(datetime.datetime.now()) + ': ' + message.strip('\r\n') +
                 '\n')
+
+
+# A simple extension to uniformly log exceptions
+def log_exception(e, log_file):
+    template = "Exception: {0}. Arguments: {1!r}"
+    message = template.format(type(e).__name__, e.args)
+    log(message, log_file)
 
 
 # A method to convert from valid 12 hour time to 24 hour time
@@ -39,7 +47,8 @@ def convert_to_24(time):
 
 
 class StatType:
-    playerInfo, statistics, playerWeekly, weather, injury, games = range(6)
+    playerInfo, statistics, playerWeekly, weather, injury, games, teams = \
+        range(7)
 
     def __init__(self):
         pass
