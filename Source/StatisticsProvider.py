@@ -27,7 +27,7 @@ class NFLStatsProvider:
         if data_type == Common.StatType.playerInfo:
             return self.request("http://api.fantasy.nfl.com/v1/players"
                                 "/researchinfo?season=" + season + "&week=" +
-                                week + "&count=3000&format=json")
+                                week + "&count=5000&format=json")
         elif data_type == Common.StatType.statistics:
             return self.request("http://api.fantasy.nfl.com/"
                                 "v1/game/stats?format=json")

@@ -74,6 +74,7 @@ class DbMaintenance:
             self.conn = sql_module.connect(host=self.ip, user=self.username,
                                            password=self.password,
                                            database=self.database)
+
             return True
 
         except sql_module.Error, e:
@@ -88,14 +89,16 @@ class DbMaintenance:
         if self.cursor:
             self.cursor = None
 
-    def get_cursor(self):
+    def get_cursor(self, stored=False):
         # Open a connection if the dataBase is closed.
         if self.conn is None:
             if not self.open_connection():
                 return False
-
         try:
-            self.cursor = self.conn.cursor(prepared=True, buffered=True)
+            if not stored:
+                self.cursor = self.conn.cursor(prepared=True, buffered=True)
+            else:
+                self.cursor = self.conn.cursor()
             return True
 
         except sql_module.Error, e:
@@ -104,7 +107,6 @@ class DbMaintenance:
             return False
 
     def prepare_statement(self, statement):
-        print statement
         if self.cursor is None:
             if not self.get_cursor():
                 return False
@@ -123,7 +125,7 @@ class DbMaintenance:
             return False
 
     # Only commit if it is an update
-    def execute_statement(self, values=None, commit=False, statement=None):
+    def execute_statement(self, statement=None, values=None, commit=False):
         execute_many = False
         if type(values) is list:
             execute_many = True
@@ -141,6 +143,7 @@ class DbMaintenance:
             if values is None:
                 self.cursor.execute(self.statement)
             elif execute_many:
+
                 self.cursor.executemany(self.statement, values)
             else:
                 self.cursor.execute(self.statement, values)
@@ -167,13 +170,34 @@ class DbMaintenance:
             Common.log_exception(e, Common.db_log_file)
             return False
 
-    def get_results(self):
+    def execute_stored_procedure(self, procedure, args):
+        if self.cursor is None:
+            if not self.get_cursor(stored=True):
+                return False
+
+        try:
+            self.cursor.callproc(procedure, args)
+
+        except sql_module.Error, e:
+            print str(e)
+            Common.log_exception(e, Common.db_log_file)
+            self.close_connection()
+            return False
+
+        return True
+
+    def get_results(self, stored=False):
         ret = []
         if self.cursor is None:
             return None
 
-        row = self.cursor.fetchone()
-        while row is not None:
-            ret.append(row)
+        if not stored:
             row = self.cursor.fetchone()
+            while row is not None:
+                ret.append(row)
+                row = self.cursor.fetchone()
+
+        else:
+            for result in self.cursor.stored_results():
+                ret.extend(result.fetchall())
         return ret

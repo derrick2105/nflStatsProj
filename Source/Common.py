@@ -1,15 +1,21 @@
 import datetime
 import os.path
 
-# DEFAULT LOG FILES
+# DEFAULT PATHS and LOG FILES
 log_path = '../logs/'
-config_path = '../config/'
-game_data_path = '../data'
-stadium_file = os.path.join(config_path, 'stadiums.csv')
+config_path = '../config_files/'
+data_path = '../data'
+
+schedule_data_path = os.path.join(data_path, 'schedules')
+point_breakdown_path = os.path.join(data_path, 'point_breakdowns')
+
+stadium_file = os.path.join(data_path, 'stadiums/stadiums.csv')
 db_config = os.path.join(config_path, 'config.yml')
+
 db_log_file = os.path.join(log_path, 'dbMaintenanceLog.txt')
 populate_log = os.path.join(log_path, 'populateDBLog.txt')
 stat_provider_log = os.path.join(log_path, 'StatisticsProviderLog.txt')
+extract_log = os.path.join(log_path, 'extractLog.txt')
 
 
 # A simple log function that just appends to a log file

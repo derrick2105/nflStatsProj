@@ -7,8 +7,10 @@ from os import listdir, path
 
 ####
 # TODO:
-#   1. Implement game import method
-#   2. Write the Weather method
+#   1. Write the Weather method
+#   2. Refactor the db schema to add turf info to the teamLocation table
+#   3. update populate_teams to reflect changes to the db
+#   4. update the gameCondition schema and weather method to include a gameId
 ####
 
 class PopulateNFLDB:
@@ -25,7 +27,7 @@ class PopulateNFLDB:
         # Add all of the non player specific information.
         self.populate_seasons()
         self.populate_teams()
-        self.populate_games_from_data(Common.game_data_path)
+        self.populate_games_from_data(Common.schedule_data_path)
         self.populate_new_season_games()
         self.populate_stats()
         self.populate_weather()
@@ -37,15 +39,15 @@ class PopulateNFLDB:
         self.populate_injury_report()
 
     def populate_players(self):
+        # Test this before sending it to Zach.
         statement1 = "insert IGNORE into Players (playerId, firstName, " \
                      "lastName, position) values (%s, %s, %s, %s);"
 
-        statement2 = "insert IGNORE into PlayerTeam(playerId, teamId)" \
+        statement2 = "insert replace into PlayerTeam(playerId, teamId)" \
                      " values (%s, %s);"
 
         for season in range(2010, 2016):
             message = "Downloading players from " + str(season)
-            print message
             Common.log(message, Common.populate_log)
 
             insert_tuples1 = []
@@ -74,7 +76,6 @@ class PopulateNFLDB:
             message = "Inserting values for season: " + str(season) +\
                       " into the database."
 
-            print message
             Common.log(message, Common.populate_log)
             if not self.populate_db(statement1, insert_tuples1) or not \
                     self.populate_db(statement2, insert_tuples2):
@@ -88,8 +89,8 @@ class PopulateNFLDB:
         result = self.provider.get_data(
             Common.StatType.statistics)['stats']
 
-        statement = "INSERT IGNORE into Statistics (statID, name) values " \
-                    "(%s, %s);"
+        statement = "INSERT IGNORE into Statistics (statID, stat_name) values" \
+                    " (%s, %s);"
 
         insert_tuples = []
         try:
@@ -119,7 +120,7 @@ class PopulateNFLDB:
         games_max_id = self.pull_from_db(get_statement2)[0][0]
 
         if max_season_id != games_max_id:
-            # Possible refactor this line. It can cause the db to become
+            # Possibly refactor this line. It can cause the db to become
             # inconsistent
             games_max_id = max_season_id - 17
             try:
@@ -150,7 +151,7 @@ class PopulateNFLDB:
 
         return True
 
-    def populate_games_from_data(self, data_path=Common.game_data_path):
+    def populate_games_from_data(self, data_path=Common.schedule_data_path):
         start_year = 2010
         put_statement = "Insert ignore into Games (seasonId, homeTeam, " \
                         "awayTeam) values (%s, %s, %s);"
@@ -252,19 +253,19 @@ class PopulateNFLDB:
 
     def populate_player_stats(self):
         season_id = 1
-        insert_tuples = []
         statement = "Insert IGNORE into PlayerStats (playerId, statId, " \
                     "Seasonid, statValue) values (%s, %s, %s, %s);"
 
-        for year in range(2014, 2016):
+        for year in range(2010, 2016):
             message = "Downloading player stats from " + str(year)
             print message
             Common.log(message, Common.populate_log)
+            insert_tuples = []
             for week in range(1, 18):
                 try:
                     results = self.provider.get_data(
-                        Common.StatType.playerWeekly, week, year)
-
+                        Common.StatType.playerWeekly, week, year)['players']
+                    print week, len(results)
                     if results is None:
                         message = "Could not download teams."
                         Common.log(message, Common.populate_log)
@@ -336,8 +337,8 @@ class PopulateNFLDB:
                 Common.log_exception(e, Common.populate_log)
                 return False
 
-        statement = "insert IGNORE into Season (SeasonId, week, year) values " \
-                    "(%s, %s, %s)"
+        statement = "insert IGNORE into Season (SeasonId, week, seasonYear) " \
+                    "values ( %s, %s, %s)"
 
         insert_tuples = []
         for i in range(start, end):
@@ -354,7 +355,49 @@ class PopulateNFLDB:
 
     # TODO
     def populate_weather(self):
-        pass
+        # gameCondition table
+        # locationId, lowTemp, highTemp, isDome, forecast, windSpeed, turf
+        # json result per game
+        # gameWeek, gameId, geoLat, windChill, domeImg, homeTeam, winner,
+        # gameTime, largeImg, geoLong, tvStation, high, awayTeam, windSpeed,
+        # mediumImg, low, stadium, isDome, forecast, gameDate, smallImg
+
+        # pull current week information
+        data = self.provider.get_data(Common.StatType.weather)
+
+        # db info statements
+        location_id_statement = 'select stadium, locationId from TeamLocations;'
+
+        # Probable refactor to add turf info to the stadium table in the db
+        # This is dumb, but I don't want to fuck with the Db schema right now.
+        # get list of stadium info for turf portion
+        results = self.pull_from_db(location_id_statement)
+        if not results:
+            message = 'Cannot pull stadium info from the database.'
+            Common.log(message, Common.populate_log)
+            return False
+
+        stadiums = {}
+        for tup in results:
+            stadiums[tup[0]] = int(tup[1])
+
+        for row in open(Common.stadium_file):
+            line = row.strip('\r\n').split(',')
+            stadiums[line[0]] = (stadiums[line[0]], line[1], line[2])
+
+        # for each game, build tuple
+        insert_tuples = []
+        for key, value in data['Games'].iteritems():
+            new_tup = (stadiums[value['stadium']][0], int(value['low'] or 0),
+                       int(value['high'] or 0), int(value['isDome']),
+                       value['forecast'], value['windSpeed'],
+                       stadiums[value['stadium']][1])
+
+            insert_tuples.append(new_tup)
+
+        # insert tuples into the database. Replace them if they already exist
+
+        return True
 
     def populate_locations(self):
         get_statement1 = "Select * from TeamLocations;"
@@ -407,9 +450,11 @@ class PopulateNFLDB:
         self.DB.close_connection()
         return True
 
-    def pull_from_db(self, statement):
+    def pull_from_db(self, statement, vals=None):
         results = None
-        if self.DB.execute_statement(statement=statement):
+        if vals:
+            self.DB.prepare_statement(statement)
+        if self.DB.execute_statement(statement=statement, values=vals):
             results = self.DB.get_results()
         else:
             Common.log("Could not execute statement.", Common.populate_log)
@@ -419,5 +464,4 @@ class PopulateNFLDB:
 
 if __name__ == '__main__':
     populator = PopulateNFLDB()
-    if not populator.populate_games_from_data():
-        print "Aborting."
+    populator.populate_all()
