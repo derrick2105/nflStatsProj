@@ -17,6 +17,11 @@ populate_log = os.path.join(log_path, 'populateDBLog.txt')
 stat_provider_log = os.path.join(log_path, 'StatisticsProviderLog.txt')
 extract_log = os.path.join(log_path, 'extractLog.txt')
 
+# current_season year and week default week 1 2016
+current_season = 2016
+current_week = 1
+starting_year = 2010
+
 
 # A simple log function that just appends to a log file
 def log(message, outfile='./log.txt'):
@@ -51,6 +56,26 @@ def convert_to_24(time):
     time = ":".join([hours, minutes, seconds])
 
     return time
+
+
+# function to update the current week
+def update_week(new_week):
+    global current_week
+    current_week = new_week
+    return current_week
+
+
+# function to update the current season
+def update_season(new_season):
+    global current_season
+    current_season = new_season
+    return current_season
+
+
+# function to get the current season
+def get_current_season():
+    global current_season
+    return current_season
 
 
 class StatType:

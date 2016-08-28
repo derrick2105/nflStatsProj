@@ -1,195 +1,146 @@
--- MySQL Workbench Forward Engineering
+--
+-- Table structure for table `GameConditions`
+--
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+DROP TABLE IF EXISTS `GameConditions`;
+CREATE TABLE `GameConditions` (
+  `gameId` int(10) unsigned NOT NULL,
+  `locationId` int(10) unsigned NOT NULL,
+  `lowTemp` tinyint(3) NOT NULL,
+  `highTemp` tinyint(3) NOT NULL,
+  `isDome` tinyint(1) NOT NULL,
+  `forecast` varchar(15) NOT NULL,
+  `windSpeed` tinyint(3) NOT NULL,
+  `turf` varchar(45) NOT NULL,
+  PRIMARY KEY (`gameId`, `locationId`),
+  KEY `locationId_idx` (`locationId`),
+  CONSTRAINT `gameId` FOREIGN KEY (`gameId`) REFERENCES `Games` (`seasonID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `locationId` FOREIGN KEY (`locationId`) REFERENCES `TeamLocations` (`locationId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema NFLStats1
--- -----------------------------------------------------
+--
+-- Table structure for table `Games`
+--
 
--- -----------------------------------------------------
--- Schema NFLStats1
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `NFLStats1` DEFAULT CHARACTER SET utf8 ;
-USE `NFLStats1` ;
+DROP TABLE IF EXISTS `Games`;
+CREATE TABLE `Games` (
+  `seasonID` int(10) unsigned NOT NULL,
+  `homeTeam` varchar(3) NOT NULL DEFAULT '',
+  `awayTeam` varchar(3) NOT NULL DEFAULT '',
+  `locationId` int(10) unsigned DEFAULT NULL,
+  `gameTime` time DEFAULT NULL,
+  PRIMARY KEY (`seasonID`,`homeTeam`,`awayTeam`),
+  KEY `homeTeam` (`homeTeam`),
+  KEY `awayTeam` (`awayTeam`),
+  KEY `Games_ibfk_4` (`locationId`),
+  CONSTRAINT `Games_ibfk_1` FOREIGN KEY (`homeTeam`) REFERENCES `Teams` (`teamId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Games_ibfk_2` FOREIGN KEY (`awayTeam`) REFERENCES `Teams` (`teamId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Games_ibfk_3` FOREIGN KEY (`seasonID`) REFERENCES `Season` (`seasonID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Games_ibfk_4` FOREIGN KEY (`locationId`) REFERENCES `TeamLocations` (`locationId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- -----------------------------------------------------
--- Table `NFLStats1`.`GameConditions`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `NFLStats1`.`GameConditions` (
-  `locationId` INT(10) UNSIGNED NOT NULL COMMENT '',
-  `lowTemp` TINYINT(3) NOT NULL COMMENT '',
-  `highTemp` TINYINT(3) NOT NULL COMMENT '',
-  `isDome` TINYINT(1) NOT NULL COMMENT '',
-  `forecast` VARCHAR(15) NOT NULL COMMENT '',
-  `windSpeed` TINYINT(3) NOT NULL COMMENT '',
-  `turf` VARCHAR(45) NOT NULL COMMENT '',
-  PRIMARY KEY (`locationId`)  COMMENT '')
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+--
+-- Table structure for table `InjuryReport`
+--
 
+DROP TABLE IF EXISTS `InjuryReport`;
+CREATE TABLE `InjuryReport` (
+  `playerId` int(10) unsigned NOT NULL DEFAULT '0',
+  `injurySeverity` varchar(20) NOT NULL,
+  PRIMARY KEY (`playerId`),
+  CONSTRAINT `fk_InjuryReport_1` FOREIGN KEY (`playerId`) REFERENCES `Players` (`playerId`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- -----------------------------------------------------
--- Table `NFLStats1`.`Teams`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `NFLStats1`.`Teams` (
-  `teamId` VARCHAR(3) NOT NULL COMMENT '',
-  `name` VARCHAR(30) NOT NULL COMMENT '',
-  PRIMARY KEY (`teamId`)  COMMENT '')
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+--
+-- Table structure for table `PlayerStats`
+--
 
+DROP TABLE IF EXISTS `PlayerStats`;
+CREATE TABLE `PlayerStats` (
+  `playerId` int(10) unsigned NOT NULL DEFAULT '0',
+  `statId` int(10) unsigned NOT NULL DEFAULT '0',
+  `seasonID` int(10) unsigned NOT NULL DEFAULT '0',
+  `statValue` decimal(5,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`playerId`,`statId`,`seasonID`),
+  KEY `seasonID` (`seasonID`),
+  KEY `fk_PlayerStats_2` (`statId`),
+  CONSTRAINT `fk_PlayerStats_1` FOREIGN KEY (`playerId`) REFERENCES `Players` (`playerId`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `fk_PlayerStats_2` FOREIGN KEY (`statId`) REFERENCES `Statistics` (`statId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 DELAY_KEY_WRITE=1;
 
--- -----------------------------------------------------
--- Table `NFLStats1`.`Season`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `NFLStats1`.`Season` (
-  `seasonID` INT(10) UNSIGNED NOT NULL COMMENT '',
-  `week` TINYINT(4) NOT NULL COMMENT '',
-  `year` YEAR NOT NULL COMMENT '',
-  PRIMARY KEY (`seasonID`)  COMMENT '')
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+--
+-- Table structure for table `PlayerTeam`
+--
 
+DROP TABLE IF EXISTS `PlayerTeam`;
+CREATE TABLE `PlayerTeam` (
+  `playerId` int(10) unsigned NOT NULL DEFAULT '0',
+  `teamId` varchar(3) NOT NULL DEFAULT '',
+  PRIMARY KEY (`playerId`,`teamId`),
+  KEY `fk_PlayerTeam_2` (`teamId`),
+  CONSTRAINT `fk_PlayerTeam_1` FOREIGN KEY (`playerId`) REFERENCES `Players` (`playerId`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `fk_PlayerTeam_2` FOREIGN KEY (`teamId`) REFERENCES `Teams` (`teamId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- -----------------------------------------------------
--- Table `NFLStats1`.`Games`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `NFLStats1`.`Games` (
-  `seasonID` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '',
-  `homeTeam` VARCHAR(3) NOT NULL DEFAULT '' COMMENT '',
-  `awayTeam` VARCHAR(3) NOT NULL DEFAULT '' COMMENT '',
-  `locationId` INT(10) UNSIGNED NULL DEFAULT NULL COMMENT '',
-  `gameTime` TIME NULL DEFAULT NULL COMMENT '',
-  PRIMARY KEY (`seasonID`, `homeTeam`, `awayTeam`)  COMMENT '',
-  INDEX `homeTeam` (`homeTeam` ASC)  COMMENT '',
-  INDEX `awayTeam` (`awayTeam` ASC)  COMMENT '',
-  INDEX `Games_ibfk_4` (`locationId` ASC)  COMMENT '',
-  CONSTRAINT `Games_ibfk_4`
-    FOREIGN KEY (`locationId`)
-    REFERENCES `NFLStats1`.`GameConditions` (`locationId`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `Games_ibfk_1`
-    FOREIGN KEY (`homeTeam`)
-    REFERENCES `NFLStats1`.`Teams` (`teamId`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `Games_ibfk_2`
-    FOREIGN KEY (`awayTeam`)
-    REFERENCES `NFLStats1`.`Teams` (`teamId`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `Games_ibfk_3`
-    FOREIGN KEY (`seasonID`)
-    REFERENCES `NFLStats1`.`Season` (`seasonID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+--
+-- Table structure for table `Players`
+--
 
+DROP TABLE IF EXISTS `Players`;
+CREATE TABLE `Players` (
+  `playerId` int(10) unsigned NOT NULL,
+  `firstName` varchar(30) NOT NULL,
+  `lastName` varchar(30) NOT NULL,
+  `position` varchar(3) NOT NULL,
+  PRIMARY KEY (`playerId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- -----------------------------------------------------
--- Table `NFLStats1`.`Players`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `NFLStats1`.`Players` (
-  `playerId` INT(10) UNSIGNED NOT NULL COMMENT '',
-  `firstName` VARCHAR(30) NOT NULL COMMENT '',
-  `lastName` VARCHAR(30) NOT NULL COMMENT '',
-  `position` VARCHAR(3) NOT NULL COMMENT '',
-  PRIMARY KEY (`playerId`)  COMMENT '')
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+--
+-- Table structure for table `Season`
+--
 
+DROP TABLE IF EXISTS `Season`;
+CREATE TABLE `Season` (
+  `seasonID` int(10) unsigned NOT NULL,
+  `week` tinyint(4) NOT NULL,
+  `seasonYear` year(4) NOT NULL,
+  PRIMARY KEY (`seasonID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- -----------------------------------------------------
--- Table `NFLStats1`.`InjuryReport`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `NFLStats1`.`InjuryReport` (
-  `playerId` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '',
-  `injurySeverity` VARCHAR(20) NOT NULL COMMENT '',
-  PRIMARY KEY (`playerId`)  COMMENT '',
-  CONSTRAINT `fk_InjuryReport_1`
-    FOREIGN KEY (`playerId`)
-    REFERENCES `NFLStats1`.`Players` (`playerId`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+--
+-- Table structure for table `Statistics`
+--
 
+DROP TABLE IF EXISTS `Statistics`;
+CREATE TABLE `Statistics` (
+  `statId` int(10) unsigned NOT NULL,
+  `stat_name` varchar(50) NOT NULL,
+  PRIMARY KEY (`statId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- -----------------------------------------------------
--- Table `NFLStats1`.`PlayerStats`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `NFLStats1`.`PlayerStats` (
-  `playerId` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '',
-  `statId` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '',
-  `seasonID` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '',
-  `statValue` DECIMAL(11,0) NOT NULL DEFAULT '0' COMMENT '',
-  PRIMARY KEY (`playerId`, `statId`, `seasonID`)  COMMENT '',
-  INDEX `statId` (`statId` ASC)  COMMENT '',
-  INDEX `seasonID` (`seasonID` ASC)  COMMENT '')
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-DELAY_KEY_WRITE = 1;
+--
+-- Table structure for table `TeamLocations`
+--
 
+DROP TABLE IF EXISTS `TeamLocations`;
+CREATE TABLE `TeamLocations` (
+  `locationId` int(10) unsigned NOT NULL DEFAULT '0',
+  `teamId` varchar(3) NOT NULL,
+  `Stadium` varchar(45) NOT NULL DEFAULT 'Null',
+  `turf` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`locationId`,`teamId`,`Stadium`),
+  KEY `fk_teamLocations_1_idx` (`teamId`),
+  CONSTRAINT `fk_teamLocations_1` FOREIGN KEY (`teamId`) REFERENCES `Teams` (`teamId`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- -----------------------------------------------------
--- Table `NFLStats1`.`PlayerTeam`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `NFLStats1`.`PlayerTeam` (
-  `playerId` INT(10) UNSIGNED NULL DEFAULT NULL COMMENT '',
-  `teamId` VARCHAR(3) NULL DEFAULT NULL COMMENT '',
-  INDEX `playerId` (`playerId` ASC)  COMMENT '',
-  INDEX `teamId` (`teamId` ASC)  COMMENT '',
-  CONSTRAINT `PlayerTeam_ibfk_1`
-    FOREIGN KEY (`playerId`)
-    REFERENCES `NFLStats1`.`Players` (`playerId`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `PlayerTeam_ibfk_2`
-    FOREIGN KEY (`teamId`)
-    REFERENCES `NFLStats1`.`Teams` (`teamId`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+--
+-- Table structure for table `Teams`
+--
 
+DROP TABLE IF EXISTS `Teams`;
+CREATE TABLE `Teams` (
+  `teamId` varchar(3) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`teamId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- -----------------------------------------------------
--- Table `NFLStats1`.`Statistics`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `NFLStats1`.`Statistics` (
-  `statId` INT(10) UNSIGNED NOT NULL COMMENT '',
-  `name` VARCHAR(50) NOT NULL COMMENT '',
-  PRIMARY KEY (`statId`)  COMMENT '')
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `NFLStats1`.`TeamLocations`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `NFLStats1`.`TeamLocations` (
-  `locationId` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '',
-  `teamId` VARCHAR(3) NOT NULL DEFAULT 'Nul' COMMENT '',
-  `Stadium` VARCHAR(45) NOT NULL DEFAULT 'Null' COMMENT '',
-  PRIMARY KEY (`locationId`)  COMMENT '',
-  UNIQUE INDEX `Stadium_UNIQUE` (`Stadium` ASC)  COMMENT '',
-  INDEX `fk_teamLocations_1_idx` (`teamId` ASC)  COMMENT '',
-  CONSTRAINT `fk_teamLocations_1`
-    FOREIGN KEY (`teamId`)
-    REFERENCES `NFLStats1`.`Teams` (`teamId`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
