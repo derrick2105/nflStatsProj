@@ -414,9 +414,10 @@ class PopulateNFLDB:
             new_tup = (games[(value['homeTeam'], value['awayTeam'])],
                        stadiums[value['stadium']][0], int(value['low'] or 0),
                        int(value['high'] or 0), int(value['isDome']),
-                       str(value['forecast'] or 'NULL'), int(value['windSpeed']
-                                                         or 0),
+                       str(value['forecast'] or 'NULL'),
+                       int(value['windSpeed'] or 0),
                        stadiums[value['stadium']][1])
+
             insert_tuples.append(new_tup)
 
         # insert tuples into the database. Replace them if they already exist

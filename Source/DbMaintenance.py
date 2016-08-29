@@ -179,7 +179,6 @@ class DbMaintenance:
             self.cursor.callproc(procedure, args)
 
         except sql_module.Error, e:
-            print str(e)
             Common.log_exception(e, Common.db_log_file)
             self.close_connection()
             return False

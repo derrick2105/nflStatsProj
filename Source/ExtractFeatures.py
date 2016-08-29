@@ -5,14 +5,6 @@ import copy
 from os import path
 
 
-######
-# TODO
-#   1. Create store procedures to build and return a set of features for a
-#       specified position as a list of tuples
-#   2. Transform the tuples into a set of numpy array, probably a 1d array,
-#      but possible an n-d array where n is the number of samples.
-######
-
 def import_features(import_file):
     feature_dictionary = {}
 
@@ -34,83 +26,86 @@ class ExtractFeatures:
     def __init__(self):
         self.db = DbMaintenance.DbMaintenance()
         self.db.import_db_config(Common.db_config)
-        self.off_dict = {}
-        self.def_dict = {}
-        self.empty_off = {}
-        self.empty_def = {}
-        self.__populate_feature_dictionaries()
+        self.positions = {Common.Position.quarterback: 'QB',
+                          Common.Position.running_back: 'RB',
+                          Common.Position.kicker: 'K',
+                          Common.Position.defense: 'DEF',
+                          Common.Position.wide_receiver: 'WR'}
+        self.off_dict_p = import_features(path.join(Common.point_breakdown_path,
+                                        'offensive_draftday.csv'))
+        self.def_dict_p = import_features(path.join(Common.point_breakdown_path,
+                                        'defensive_draftday.csv'))
+
+        self.off_dict_emp = {}
+        self.def_dict_emp = {}
+        self.__fill_empty_dicts()
 
     def __del__(self):
         del self.db
 
-    def extract(self, position):
-        results = None
-        if position == Common.Position.quarterback:
-            results = self.__extract_quarter_back()
-        elif position == Common.Position.running_back:
-            results = self.__extract_running_back()
-        elif position == Common.Position.wide_receiver:
-            results = self.__extract_wide_receiver()
-        elif position == Common.Position.kicker:
-            results = self.__extract_kicker()
-        elif position == Common.Position.defense:
-            results = self.__extract_defense()
+    def extract(self, position, current_season_id):
+        Common.log('Entering extract method.', Common.extract_log)
+        if position not in self.positions:
+            Common.log('Error, invalid position.', Common.extract_log)
+            return []
 
-        return results
+        Common.log('Pulling data from the database.', Common.extract_log)
+        results = self.__get_data(self.positions[position],
+                                  season_id=current_season_id)
 
-    def __populate_feature_dictionaries(self):
-        self.off_dict = import_features(path.join(Common.point_breakdown_path,
-                                        'offensive_draftday.csv'))
-        self.def_dict = import_features(path.join(Common.point_breakdown_path,
-                                        'defensive_draftday.csv'))
+        Common.log('Building feature vectors.', Common.extract_log)
 
-        empty_off_dict = copy.deepcopy(self.off_dict)
-        empty_def_dict = copy.deepcopy(self.def_dict)
-        for key in empty_off_dict.iterkeys():
-            empty_off_dict[key] = 0.0
-        for key in empty_def_dict.iterkeys():
-            empty_def_dict[key] = 0.0
+        feature_list = []
+        current_feature_dict = self.__get_fresh_feature_dict(position)
+        current_player = results[0][0]
 
-        self.empty_off = empty_off_dict
-        self.empty_def = empty_def_dict
+        print results[0]
+        for line in results:
+            if line[0] != current_player:
+                feature_list.append((current_player, current_feature_dict))
+                current_feature_dict = self.__get_fresh_feature_dict(position)
+                current_player = line[0]
 
-    def __extract_quarter_back(self):
-        data = self.__get_data('QB')
-        return data
+            if str(line[3]) in current_feature_dict:
+                if position == Common.Position.defense:
+                    current_feature_dict[str(line[3])] = float(line[4]) * \
+                                        self.def_dict_p[str(line[3])]
+                else:
+                    current_feature_dict[str(line[3])] = float(line[4]) * \
+                                        self.off_dict_p[str(line[3])]
 
-    def __extract_wide_receiver(self):
-        return self.__get_data('WR')
+        # print current_player
+        Common.log('Exiting extract method.', Common.extract_log)
+        return feature_list
 
-    def __extract_running_back(self):
-        return self.__get_data('RB')
+    def __get_fresh_feature_dict(self, position):
+        if position == Common.Position.defense:
+            return_dict = copy.deepcopy(self.def_dict_emp)
+        else:
+            return_dict = copy.deepcopy(self.off_dict_emp)
 
-    def __extract_kicker(self):
-        return self.__get_data('K')
+        return return_dict
 
-    def __extract_defense(self):
-        return self.__get_data('DEF')
+    def __fill_empty_dicts(self):
+        self.off_dict_emp = copy.deepcopy(self.off_dict_p)
+        self.def_dict_emp = copy.deepcopy(self.off_dict_p)
+
+        for k in self.off_dict_emp:
+            self.off_dict_emp[k] = 0.0
+
+        for k in self.def_dict_emp:
+            self.def_dict_emp[k] = 0.0
 
     def __get_data(self, position, player_id=None, season_id=None):
         self.db.execute_stored_procedure('extract_statistics',
-                                         args=[position, player_id, season_id])
+                                         args=[position, season_id, player_id])
+
         data = self.db.get_results(stored=True)
         self.db.close_connection()
         return data
 
-    def __get_year_range(self):
-        max_year, min_year = 0, 0
-        statement1 = "select CAST(MAX(seasonYear) as UNSIGNED), " \
-                     "CAST(MIN(seasonYear) as UNSIGNED) from Season;"
-
-        if self.db.execute_statement(statement=statement1):
-            max_year, min_year = self.db.get_results()[0]
-        else:
-            Common.log("Could not execute statement.", Common.populate_log)
-        self.db.close_connection()
-        return max_year, min_year
-
 if __name__ == '__main__':
     feature_extractor = ExtractFeatures()
 
-    for tup in feature_extractor.extract(Common.Position.quarterback):
-        print tup[0], tup[1], tup[2], tup[3], float(tup[4])
+    for t in feature_extractor.extract(Common.Position.quarterback, 101):
+        print t[0], t[1]
