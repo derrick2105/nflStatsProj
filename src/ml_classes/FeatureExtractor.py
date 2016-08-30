@@ -1,11 +1,16 @@
-import Common
-import DbMaintenance
+import src.Utilities
 # import numpy as np
 import copy
 from os import path
 
+positions = {src.Utilities.Position.quarterback: 'QB',
+             src.Utilities.Position.running_back: 'RB',
+             src.Utilities.Position.kicker: 'K',
+             src.Utilities.Position.defense: 'DEF',
+             src.Utilities.Position.wide_receiver: 'WR'}
 
-def import_features(import_file):
+
+def import_feat(import_file):
     feature_dictionary = {}
 
     with open(import_file, 'r') as f:
@@ -19,47 +24,50 @@ def import_features(import_file):
 
 ######
 # A wrapper class to extract features from the NFL data set. Replace and extend
-# any of the provided features. I am assuming that we will need a feature
-# vector for each fantasy position.
+# any of the provided features.
 ######
-class ExtractFeatures:
+class FeatureExtractor:
     def __init__(self):
-        self.db = DbMaintenance.DbMaintenance()
-        self.db.import_db_config(Common.db_config)
-        self.positions = {Common.Position.quarterback: 'QB',
-                          Common.Position.running_back: 'RB',
-                          Common.Position.kicker: 'K',
-                          Common.Position.defense: 'DEF',
-                          Common.Position.wide_receiver: 'WR'}
-        self.off_dict_p = import_features(path.join(Common.point_breakdown_path,
-                                        'offensive_draftday.csv'))
-        self.def_dict_p = import_features(path.join(Common.point_breakdown_path,
-                                        'defensive_draftday.csv'))
+        self.off_dict_p = import_feat(path.join(
+            src.Utilities.point_breakdown_path,
+                                      'offensive_draftday.csv'))
+        self.def_dict_p = import_feat(path.join(
+            src.Utilities.point_breakdown_path,
+                                      'defensive_draftday.csv'))
 
         self.off_dict_emp = {}
         self.def_dict_emp = {}
         self.__fill_empty_dicts()
 
     def __del__(self):
-        del self.db
+        pass
 
     def extract(self, position, current_season_id):
-        Common.log('Entering extract method.', Common.extract_log)
-        if position not in self.positions:
-            Common.log('Error, invalid position.', Common.extract_log)
+        global positions
+        src.Utilities.log('Entering extract method.', src.Utilities.extract_log)
+
+        if position not in positions:
+            src.Utilities.log('Error, invalid position.',
+                              src.Utilities.extract_log)
             return []
 
-        Common.log('Pulling data from the database.', Common.extract_log)
-        results = self.__get_data(self.positions[position],
+        src.Utilities.log('Pulling data from the database.',
+                          src.Utilities.extract_log)
+
+        results = self.__get_data(positions[position],
                                   season_id=current_season_id)
 
-        Common.log('Building feature vectors.', Common.extract_log)
+        if not results:
+            src.Utilities.log('Empty result set.',
+                              src.Utilities.extract_log)
+
+        src.Utilities.log('Building feature vectors.',
+                          src.Utilities.extract_log)
 
         feature_list = []
         current_feature_dict = self.__get_fresh_feature_dict(position)
         current_player = results[0][0]
 
-        print results[0]
         for line in results:
             if line[0] != current_player:
                 feature_list.append((current_player, current_feature_dict))
@@ -67,7 +75,7 @@ class ExtractFeatures:
                 current_player = line[0]
 
             if str(line[3]) in current_feature_dict:
-                if position == Common.Position.defense:
+                if position == src.Utilities.Position.defense:
                     current_feature_dict[str(line[3])] = float(line[4]) * \
                                         self.def_dict_p[str(line[3])]
                 else:
@@ -75,11 +83,11 @@ class ExtractFeatures:
                                         self.off_dict_p[str(line[3])]
 
         # print current_player
-        Common.log('Exiting extract method.', Common.extract_log)
+        src.Utilities.log('Exiting extract method.', src.Utilities.extract_log)
         return feature_list
 
     def __get_fresh_feature_dict(self, position):
-        if position == Common.Position.defense:
+        if position == src.Utilities.Position.defense:
             return_dict = copy.deepcopy(self.def_dict_emp)
         else:
             return_dict = copy.deepcopy(self.off_dict_emp)
@@ -96,16 +104,14 @@ class ExtractFeatures:
         for k in self.def_dict_emp:
             self.def_dict_emp[k] = 0.0
 
-    def __get_data(self, position, player_id=None, season_id=None):
-        self.db.execute_stored_procedure('extract_statistics',
-                                         args=[position, season_id, player_id])
-
-        data = self.db.get_results(stored=True)
-        self.db.close_connection()
-        return data
+    @staticmethod
+    def __get_data(position, player_id=None, season_id=None):
+        return src.Utilities.execute_procedure('extract_statistics',
+                                               [position, season_id, player_id],
+                                               src.Utilities.extract_log)
 
 if __name__ == '__main__':
-    feature_extractor = ExtractFeatures()
+    feature_extractor = FeatureExtractor()
 
-    for t in feature_extractor.extract(Common.Position.quarterback, 101):
+    for t in feature_extractor.extract(src.Utilities.Position.quarterback, 101):
         print t[0], t[1]
