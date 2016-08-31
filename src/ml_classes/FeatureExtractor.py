@@ -1,5 +1,4 @@
 import src.Utilities
-# import numpy as np
 import copy
 from os import path
 
@@ -27,21 +26,23 @@ def import_feat(import_file):
 # any of the provided features.
 ######
 class FeatureExtractor:
-    def __init__(self):
+    def __init__(self, off_scoring_file_name='offensive_draftday.csv',
+                 def_scoring_file_name='defensive_draftday.csv'):
+
+        # offensive and defensive point breakdowns for each stat
         self.off_dict_p = import_feat(path.join(
-            src.Utilities.point_breakdown_path,
-                                      'offensive_draftday.csv'))
+            src.Utilities.point_breakdown_path, off_scoring_file_name))
         self.def_dict_p = import_feat(path.join(
-            src.Utilities.point_breakdown_path,
-                                      'defensive_draftday.csv'))
+            src.Utilities.point_breakdown_path, def_scoring_file_name))
 
         self.off_dict_emp = {}
         self.def_dict_emp = {}
         self.__fill_empty_dicts()
 
-    def __del__(self):
-        pass
-
+    # TODO:
+    #       Add opponent to both feature dicts and injury status to the
+    #       offensive feature dict. Also add dome, turf, and location to both
+    #       feature dicts.
     def extract(self, position, current_season_id):
         global positions
         src.Utilities.log('Entering extract method.', src.Utilities.extract_log)
