@@ -15,6 +15,7 @@ class DbMaintenance:
         self.conn = None
         self.cursor = None
         self.statement = None
+        self.results_tup = None
 
         # CHANGE THESE FROM THERE DEFAULT VALUES!!!!!!
         ################################
@@ -172,12 +173,15 @@ class DbMaintenance:
             return False
 
     def execute_stored_procedure(self, procedure, args):
+        self.results_tup = None
         if self.cursor is None:
             if not self.get_cursor(stored=True):
                 return False
 
         try:
-            self.cursor.callproc(procedure, args)
+            res = self.cursor.callproc(procedure, args)
+            if list(res) != args:
+                self.results_tup = res
 
         except sql_module.Error, e:
             src.Utilities.log_exception(e, src.Utilities.db_log_file)
@@ -198,6 +202,9 @@ class DbMaintenance:
                 row = self.cursor.fetchone()
 
         else:
-            for result in self.cursor.stored_results():
-                ret.extend(result.fetchall())
+            if self.results_tup:
+                ret.append(self.results_tup)
+            else:
+                for result in self.cursor.stored_results():
+                    ret.extend(result.fetchall())
         return ret

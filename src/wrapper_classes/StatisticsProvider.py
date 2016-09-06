@@ -48,6 +48,9 @@ class NFLStatsProvider:
         elif data_type == src.Utilities.StatType.teams:
             return self.request(("http://www.fantasyfootballnerd.com/service/"
                                  "nfl-teams/json/n4j9tv9n5env/"))
+        elif data_type == src.Utilities.StatType.byes:
+            return self.request(("http://www.fantasyfootballnerd.com/service/"
+                                "byes/json/n4j9tv9n5env/"))
 
     @staticmethod
     def request(url):

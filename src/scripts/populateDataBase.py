@@ -11,6 +11,9 @@ from src.wrapper_classes.StatisticsProvider import NFLStatsProvider as Provider
 #   1. Refactor populate_player_stats to pull out individual weekly stats pulls
 #   2. Add a weekly player stats update
 #
+#   Issue where LP Field is used instead of Nissan Stadium
+#   Current implementation will improperly assign locationId for
+#   international games
 ####
 
 class PopulateNFLDB:
@@ -118,9 +121,11 @@ class PopulateNFLDB:
     def populate_new_season_games(self):
         get_statement1 = "Select MAX(seasonId) from Season;"
         get_statement2 = "Select MAX(seasonId) from Games;"
-        put_statement = "Insert into Games (seasonID, homeTeam, awayTeam, " \
-                        "gameTime) values " \
-                        "(%s, %s, %s, %s);"
+        put_statement1 = "Insert Ignore into Games (seasonID, homeTeam, " \
+                         "awayTeam, gameTime) values (%s, %s, %s, %s);"
+
+        put_statement2 = "Insert Ignore into ByeWeeks (seasonId, teamId) " \
+                         "values (%s, %s);"
 
         max_season_id = src.Utilities.pull_from_db(get_statement1,
                                                    src.Utilities.populate_log)[
@@ -137,11 +142,12 @@ class PopulateNFLDB:
                             src.Utilities.starting_year) * 17
 
             try:
-                results = self.provider.get_data(
+                results1 = self.provider.get_data(
                     data_type=src.Utilities.StatType.games)['Schedule']
 
-                insert_tuples = []
-                for result in results:
+                insert_tuples1 = []
+
+                for result in results1:
                     if result['homeTeam'] == 'JAC':
                         result['homeTeam'] = 'JAX'
                     if result['awayTeam'] == 'JAC':
@@ -150,12 +156,32 @@ class PopulateNFLDB:
                            str(result['homeTeam']), str(result['awayTeam']),
                            str(src.Utilities.convert_to_24(
                                result['gameTimeET'])))
-                    insert_tuples.append(tup)
+                    insert_tuples1.append(tup)
+
+                results2 = self.provider.get_data(
+                    data_type=src.Utilities.StatType.byes)
+
+                insert_tuples2 = []
+                for week in results2.iteritems():
+                    for team_dict in week[1]:
+                        tup = (games_max_id + int(team_dict['byeWeek']),
+                               str(team_dict['team']))
+                        print tup
+                        insert_tuples2.append(tup)
 
                 print "Inserting into the Database"
-                if not src.Utilities.populate_db(put_statement,
+                if not src.Utilities.populate_db(put_statement1,
                                                  src.Utilities.populate_log,
-                                                 insert_tuples):
+                                                 insert_tuples1):
+                    src.Utilities.log("Problem executing statement in the "
+                                      "database...Aborting.",
+                                      src.Utilities.populate_log)
+
+                    return False
+
+                if not src.Utilities.populate_db(put_statement2,
+                                                 src.Utilities.populate_log,
+                                                 insert_tuples2):
                     src.Utilities.log("Problem executing statement in the "
                                       "database...Aborting.",
                                       src.Utilities.populate_log)
@@ -170,9 +196,12 @@ class PopulateNFLDB:
 
     @staticmethod
     def populate_games_from_data(data_path=src.Utilities.schedule_data_path):
-        start_year = 2010
-        put_statement = "Insert ignore into Games (seasonId, homeTeam, " \
-                        "awayTeam) values (%s, %s, %s);"
+        start_year = src.Utilities.starting_year
+        put_statement1 = "Insert ignore into Games (seasonId, homeTeam, " \
+                         "awayTeam) values (%s, %s, %s);"
+
+        put_statement2 = "Insert Ignore into ByeWeeks (seasonId, teamId) " \
+                         "values (%s, %s);"
 
         try:
             # Assuming data_files have the naming convention <year>_sched.csv
@@ -184,7 +213,8 @@ class PopulateNFLDB:
             src.Utilities.log_exception(e, src.Utilities.populate_log)
             return False
 
-        insert_tuples = []
+        insert_tuples1 = []
+        insert_tuples2 = []
         for file_name in data_files:
             try:
                 offset = int(file_name[0:4]) - start_year
@@ -197,25 +227,23 @@ class PopulateNFLDB:
                 for line in f:
                     team_schedule = line.strip('\r\n').split(',')
                     try:
-                        if team_schedule[0] == "WSH":
-                            team_schedule[0] = "WAS"
                         for index in xrange(1, len(team_schedule)):
-                            if team_schedule[index].upper() == "BYE":
-                                continue
                             season_id = offset * 17 + index
+
+                            if team_schedule[index].upper() == "BYE":
+                                insert_tuples2.append((season_id,
+                                                       team_schedule[0]))
+                                continue
+
                             if team_schedule[index][0] == '@':
-                                if team_schedule[index] == "@WSH":
-                                    team_schedule[index] = "@WAS"
                                 tup = (season_id, team_schedule[index][1:],
                                        team_schedule[0])
                             else:
-                                if team_schedule[index] == "WSH":
-                                    team_schedule[index] = "WAS"
                                 tup = (season_id, team_schedule[0],
                                        team_schedule[index])
 
-                            if tup not in insert_tuples:
-                                insert_tuples.append(tup)
+                            if tup not in insert_tuples1:
+                                insert_tuples1.append(tup)
 
                     except IndexError, e:
                         src.Utilities.log_exception(e,
@@ -223,9 +251,16 @@ class PopulateNFLDB:
                         return False
 
         print "inserting games into the Database."
-        if not src.Utilities.populate_db(put_statement,
+        if not src.Utilities.populate_db(put_statement1,
                                          src.Utilities.populate_log,
-                                         insert_tuples):
+                                         insert_tuples1):
+            src.Utilities.log("Couldn't insert games int the database.",
+                              src.Utilities.populate_log)
+
+            return False
+        if not src.Utilities.populate_db(put_statement2,
+                                         src.Utilities.populate_log,
+                                         insert_tuples2):
             src.Utilities.log("Couldn't insert games int the database.",
                               src.Utilities.populate_log)
 
@@ -332,7 +367,8 @@ class PopulateNFLDB:
         return True
 
     def populate_teams(self):
-        statement = "insert IGNORE into Teams (teamID, name) values (%s, %s)"
+        statement = "Insert IGNORE into Teams (teamID, name, teamNumber) " \
+                    "values (%s, %s, %s);"
 
         try:
             results = self.provider.get_data(
@@ -344,12 +380,15 @@ class PopulateNFLDB:
                 return False
 
             insert_tuples = []
+            team_number = 1
             for value in results:
                 if str(value['code']) == 'JAC':
                     value['code'] = 'JAX'
 
                 insert_tuples.append((str(value['code']),
-                                      str(value['fullName'])))
+                                      str(value['fullName']), team_number))
+
+                team_number += 1
 
             if not src.Utilities.populate_db(statement,
                                              src.Utilities.populate_log,
@@ -453,6 +492,10 @@ class PopulateNFLDB:
             if value['awayTeam'] == 'JAC':
                 value['awayTeam'] = 'JAX'
 
+            # Hack until I can get the locationId from each game into a .csv
+            # file from 2010 - 2015
+            if value['stadium'] == 'LP Field':
+                value['stadium'] = 'Nissan Stadium'
             new_tup = (games[(value['homeTeam'], value['awayTeam'])],
                        stadiums[value['stadium']][0], int(value['low'] or 0),
                        int(value['high'] or 0), int(value['isDome']),
@@ -477,45 +520,48 @@ class PopulateNFLDB:
 
     @staticmethod
     def populate_locations():
-        get_statement1 = "Select * from TeamLocations;"
-        get_statement2 = "select teamId, name from Teams;"
-        put_statement = "Insert into TeamLocations (locationId, teamId, " \
-                        "Stadium, turf) values (%s, %s, " \
-                        "%s, %s);"
+        get_statement = "select teamId, name from Teams;"
+        put_statement1 = "Insert ignore into TeamLocations (locationId, " \
+                         "teamId, " \
+                         "Stadium, turf) values (%s, %s, " \
+                         "%s, %s);"
+
+        put_statement2 = "Insert ignore into TurfTypes (turf) values (%s);"
 
         try:
-            location_arr = src.Utilities.pull_from_db(get_statement1,
-                                                      src.Utilities.populate_log
-                                                      )
-            if location_arr:
-                src.Utilities.log("The locations are already populated. Purge "
-                                  "locations and try again.",
-                                  src.Utilities.populate_log)
-
-                return False
-
             location_id = 1
             stadiums = [line.strip('\r\n').split(',') for line in open(
                 src.Utilities.stadium_file)]
 
-            teams_tuples = src.Utilities.pull_from_db(get_statement2,
+            teams_tuples = src.Utilities.pull_from_db(get_statement,
                                                       src.Utilities.populate_log
                                                       )
             teams_dict = {}
             for team in teams_tuples:
                 teams_dict[team[1]] = team[0]
 
-            insert_tuples = []
+            insert_tuples1 = []
+            insert_tuples2 = []
             for stadium in stadiums:
                 tup = (location_id, teams_dict[stadium[2]], stadium[0],
                        stadium[1])
-                insert_tuples.append(tup)
+                insert_tuples1.append(tup)
+                if (stadium[1],) not in insert_tuples2:
+                    insert_tuples2.append((stadium[1],))
+
                 location_id += 1
 
-            if not src.Utilities.populate_db(put_statement,
+            if not src.Utilities.populate_db(put_statement1,
                                              src.Utilities.populate_log,
-                                             insert_tuples):
+                                             insert_tuples1):
                 src.Utilities.log("Couldn't insert stadiums into the database.",
+                                  src.Utilities.populate_log)
+                return False
+
+            if not src.Utilities.populate_db(put_statement2,
+                                             src.Utilities.populate_log,
+                                             insert_tuples2):
+                src.Utilities.log("Couldn't insert turf into the database.",
                                   src.Utilities.populate_log)
                 return False
             return True
@@ -527,4 +573,4 @@ class PopulateNFLDB:
 
 if __name__ == '__main__':
     populator = PopulateNFLDB()
-    populator.populate_weather()
+    populator.populate_games_from_data()

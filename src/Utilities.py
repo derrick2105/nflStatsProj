@@ -20,6 +20,8 @@ db_log_file = os.path.join(log_path, 'dbMaintenanceLog.txt')
 populate_log = os.path.join(log_path, 'populateDBLog.txt')
 stat_provider_log = os.path.join(log_path, 'StatisticsProviderLog.txt')
 extract_log = os.path.join(log_path, 'extractLog.txt')
+driver_log = os.path.join(log_path, 'driverLog.txt')
+class_log = os.path.join(log_path, 'classifierLog.txt')
 
 
 def log(message, outfile='./log.txt'):
@@ -145,8 +147,8 @@ def pull_from_db(statement, log_file, values_list=None):
 
 # -------------------------- start statType enum class ----------------------- #
 class StatType:
-    playerInfo, statistics, playerWeekly, weather, injury, games, teams = \
-        range(7)
+    playerInfo, statistics, playerWeekly, weather, injury, games, teams, byes =\
+        range(8)
 
     def __init__(self):
         pass
@@ -154,10 +156,21 @@ class StatType:
 
 
 # ----------------------- start position enum class -------------------------- #
-class Position:
+class Positions:
     quarterback, running_back, kicker, defense, wide_receiver = range(5)
     tight_end = wide_receiver
 
+    positions_dict = {quarterback: 'QB',
+                      running_back: 'RB',
+                      kicker: 'K',
+                      defense: 'DEF',
+                      wide_receiver: 'WR'}
+
     def __init__(self):
         pass
+
+    @staticmethod
+    def get_positions():
+        return Positions.positions_dict
+
 # ------------------------ end position enum class --------------------------- #
