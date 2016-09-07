@@ -1,7 +1,7 @@
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 
-import src.Utilities as Utils
+import Utilities as Utils
 
 
 class RandomForest(object):

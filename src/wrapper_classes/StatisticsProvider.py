@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import urllib2
-import src.Utilities
+import Utilities
 import json
 
 ######
@@ -19,36 +19,36 @@ class NFLStatsProvider:
     def __init__(self):
         self.url = None
 
-    def get_data(self, data_type=src.Utilities.StatType.playerInfo, week=1,
+    def get_data(self, data_type=Utilities.StatType.playerInfo, week=1,
                  season=2015, player_id=0):
         week = str(week)
         season = str(season)
 
-        if data_type == src.Utilities.StatType.playerInfo:
+        if data_type == Utilities.StatType.playerInfo:
             return self.request("http://api.fantasy.nfl.com/v1/players"
                                 "/researchinfo?season=" + season + "&week=" +
                                 week + "&count=5000&format=json")
-        elif data_type == src.Utilities.StatType.statistics:
+        elif data_type == Utilities.StatType.statistics:
             return self.request("http://api.fantasy.nfl.com/"
                                 "v1/game/stats?format=json")
-        elif data_type == src.Utilities.StatType.weather:
+        elif data_type == Utilities.StatType.weather:
             return self.request("http://www.fantasyfootballnerd.com/"
                                 "service/weather/json/n4j9tv9n5env/")
-        elif data_type == src.Utilities.StatType.injury:
+        elif data_type == Utilities.StatType.injury:
             return self.request("http://api.fantasy.nfl.com/v1/players/"
                                 "details?playerId=" + str(player_id) +
                                 "&format=json")
-        elif data_type == src.Utilities.StatType.playerWeekly:
+        elif data_type == Utilities.StatType.playerWeekly:
             return self.request("http://api.fantasy.nfl.com/v1/players"
                                 "/stats?statType=weekStats&season=" +
                                 season + "&week=" + week + "&format=json")
-        elif data_type == src.Utilities.StatType.games:
+        elif data_type == Utilities.StatType.games:
             return self.request("http://www.fantasyfootballnerd.com/service/"
                                 "schedule/json/n4j9tv9n5env/")
-        elif data_type == src.Utilities.StatType.teams:
+        elif data_type == Utilities.StatType.teams:
             return self.request(("http://www.fantasyfootballnerd.com/service/"
                                  "nfl-teams/json/n4j9tv9n5env/"))
-        elif data_type == src.Utilities.StatType.byes:
+        elif data_type == Utilities.StatType.byes:
             return self.request(("http://www.fantasyfootballnerd.com/service/"
                                 "byes/json/n4j9tv9n5env/"))
 
@@ -59,22 +59,22 @@ class NFLStatsProvider:
             return json.loads(urllib2.urlopen(req).read())
 
         except urllib2.HTTPError, e:
-            src.Utilities.log(e.msg, src.Utilities.stat_provider_log)
+            Utilities.log(e.msg, Utilities.stat_provider_log)
             if e.args != ():
-                src.Utilities.log("Args: " + str(e.args),
-                                  src.Utilities.stat_provider_log)
+                Utilities.log("Args: " + str(e.args),
+                              Utilities.stat_provider_log)
             return None
 
         except ValueError, e:
-            src.Utilities.log_exception(e, src.Utilities.stat_provider_log)
+            Utilities.log_exception(e, Utilities.stat_provider_log)
             if e.args != ():
-                src.Utilities.log("Args: " + str(e.args),
-                                  src.Utilities.stat_provider_log)
+                Utilities.log("Args: " + str(e.args),
+                              Utilities.stat_provider_log)
             return None
 
 if __name__ == '__main__':
     statsProvider = NFLStatsProvider()
-    raw_data = statsProvider.get_data(data_type=src.Utilities.StatType.games)
+    raw_data = statsProvider.get_data(data_type=Utilities.StatType.games)
     if raw_data is not None:
         results = json.loads(raw_data)
         print results

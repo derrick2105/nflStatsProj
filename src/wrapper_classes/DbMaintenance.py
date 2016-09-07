@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import mysql.connector as sql_module
-import src.Utilities
+import Utilities
 import yaml
 
 ######
@@ -33,7 +33,7 @@ class DbMaintenance:
             with open(config_file, 'r') as f:
                 config = yaml.load(f)
         except IOError, e:
-            src.Utilities.log_exception(e, src.Utilities.db_log_file)
+            Utilities.log_exception(e, Utilities.db_log_file)
             config = None
 
         if config is not None:
@@ -53,7 +53,7 @@ class DbMaintenance:
                                 database: database
 
                     """
-                src.Utilities.log(message, src.Utilities.db_log_file)
+                Utilities.log(message, Utilities.db_log_file)
 
         return False
 
@@ -67,9 +67,9 @@ class DbMaintenance:
     def open_connection(self):
         if self.conn is not None:
             if not self.close_connection():
-                src.Utilities.log("Cannot Connect to the database. Check the "
+                Utilities.log("Cannot Connect to the database. Check the "
                                   "login credentials.",
-                                  src.Utilities.db_log_file)
+                                  Utilities.db_log_file)
                 return False
 
         try:
@@ -80,7 +80,7 @@ class DbMaintenance:
             return True
 
         except sql_module.Error, e:
-            src.Utilities.log_exception(e, src.Utilities.db_log_file)
+            Utilities.log_exception(e, Utilities.db_log_file)
             self.conn = None
             return False
 
@@ -104,7 +104,7 @@ class DbMaintenance:
             return True
 
         except sql_module.Error, e:
-            src.Utilities.log_exception(e, src.Utilities.db_log_file)
+            Utilities.log_exception(e, Utilities.db_log_file)
             self.close_connection()
             return False
 
@@ -122,7 +122,7 @@ class DbMaintenance:
             return True
 
         except sql_module.Error, e:
-            src.Utilities.log_exception(e, src.Utilities.db_log_file)
+            Utilities.log_exception(e, Utilities.db_log_file)
             self.close_connection()
             return False
 
@@ -155,21 +155,21 @@ class DbMaintenance:
             return True
 
         except sql_module.Error, e:
-            src.Utilities.log_exception(e, src.Utilities.db_log_file)
+            Utilities.log_exception(e, Utilities.db_log_file)
             self.close_connection()
             return False
 
     def commit(self):
         if self.conn is None:
             message = "There currently is not a connection to the database"
-            src.Utilities.log(message, src.Utilities.db_log_file)
+            Utilities.log(message, Utilities.db_log_file)
             return False
 
         try:
             self.conn.commit()
             return True
         except sql_module.Error, e:
-            src.Utilities.log_exception(e, src.Utilities.db_log_file)
+            Utilities.log_exception(e, Utilities.db_log_file)
             return False
 
     def execute_stored_procedure(self, procedure, args):
@@ -184,7 +184,7 @@ class DbMaintenance:
                 self.results_tup = res
 
         except sql_module.Error, e:
-            src.Utilities.log_exception(e, src.Utilities.db_log_file)
+            Utilities.log_exception(e, Utilities.db_log_file)
             self.close_connection()
             return False
 

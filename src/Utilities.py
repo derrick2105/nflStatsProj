@@ -1,13 +1,14 @@
 import datetime
 import os.path
 
-from src.wrapper_classes import DbMaintenance
+from wrapper_classes import DbMaintenance
 
 
 # ----------------------- start default config and data paths ---------------- #
-config_path = '../config_files/'
+base_dir = '/home/derrick/Documents/customModules/nflStatsProj/'
+config_path = os.path.join(base_dir, 'config_files/')
 
-data_path = '../data'
+data_path = os.path.join(base_dir, 'data')
 schedule_data_path = os.path.join(data_path, 'schedules')
 point_breakdown_path = os.path.join(data_path, 'point_breakdowns')
 stadium_file = os.path.join(data_path, 'stadiums/stadiums.csv')
@@ -15,7 +16,7 @@ stadium_file = os.path.join(data_path, 'stadiums/stadiums.csv')
 
 
 # --------------------------- start logging utilities ------------------------ #
-log_path = '../logs/'
+log_path = os.path.join(base_dir, 'logs/')
 db_log_file = os.path.join(log_path, 'dbMaintenanceLog.txt')
 populate_log = os.path.join(log_path, 'populateDBLog.txt')
 stat_provider_log = os.path.join(log_path, 'StatisticsProviderLog.txt')

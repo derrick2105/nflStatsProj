@@ -1,6 +1,6 @@
-import src.Utilities as Utils
-import src.ml_classes.FeatureExtractor
-import src.ml_classes.Classifiers
+import Utilities as Utils
+import ml_classes.FeatureExtractor as FeatureExtractor
+import ml_classes.Classifiers as Classifiers
 import sys
 
 GAMES_BACK = 6
@@ -13,14 +13,14 @@ else:
 Utils.log('Building classifiers', Utils.driver_log)
 
 if import_class == 'randomforest':
-    clf = src.ml_classes.Classifiers.RandomForest()
+    clf = Classifiers.RandomForest()
 
 elif import_class == 'kneighbors':
-    clf = src.ml_classes.Classifiers.KNeighborsClassifier()
+    clf = Classifiers.KNeighborsClassifier()
 
 
 Utils.log('Extracting features.', Utils.driver_log)
-extractor = src.ml_classes.FeatureExtractor.FeatureExtractor()
+extractor = FeatureExtractor.FeatureExtractor()
 
 
 current_season_id = (Utils.get_current_season() - Utils.starting_year)*17 + \
