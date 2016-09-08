@@ -29,10 +29,12 @@ class PopulateNFLDB:
     def populate_all(self):
         # Add all of the non player specific information.
         self.populate_seasons()
+        self.populate_new_season(Utilities.current_season)
         self.populate_teams()
         self.populate_games_from_data(Utilities.schedule_data_path)
         self.populate_new_season_games()
         self.populate_stats()
+        self.populate_locations()
         self.populate_weather()
 
         # Add each player, their statistics, and their injury report.
@@ -42,48 +44,45 @@ class PopulateNFLDB:
         self.populate_injury_report()
 
     def populate_players(self):
-        statement1 = "insert IGNORE into Players (playerId, firstName, " \
+        statement1 = "Insert Ignore into Players (playerId, firstName, " \
                      "lastName, position) values (%s, %s, %s, %s);"
 
-        statement2 = "insert replace into PlayerTeam(playerId, teamId)" \
+        statement2 = "Replace into PlayerTeam(playerId, teamId)" \
                      " values (%s, %s);"
 
-        for season in range(2010, 2016):
-            message = "Downloading players from " + str(season)
-            Utilities.log(message, Utilities.populate_log)
+        insert_tuples1 = []
+        insert_tuples2 = []
 
-            insert_tuples1 = []
-            insert_tuples2 = []
+        Utilities.log("Downloading players.", Utilities.populate_log)
 
-            for week in range(1, 18):
-                try:
-                    results = self.provider.get_data(
-                        Utilities.StatType.playerInfo, week, season)[
-                        'players']
+        try:
+            results = self.provider.get_data(Utilities.StatType.playerInfo,
+                                             season=Utilities.current_season)[
+                                             'players']
 
-                    for value in results:
-                        tup = (int(value['id']), str(value['firstName']),
-                               str(value['lastName']), str(value['position']))
+            for value in results:
+                tup = (int(value['id']), str(value['firstName']),
+                       str(value['lastName']), str(value['position']))
 
-                        if tup not in insert_tuples1:
-                            insert_tuples1.append(tup)
-                        if str(value['teamAbbr']) != '':
-                            tup2 = (int(value['id']), str(value['teamAbbr']))
-                            if tup2 not in insert_tuples2:
-                                insert_tuples2.append(tup2)
+                if tup not in insert_tuples1:
+                    insert_tuples1.append(tup)
+                if str(value['teamAbbr']) == '':
+                    value['teamAbbr'] = None
+                tup2 = (int(value['id']), str(value['teamAbbr'] or None))
+                if tup2 not in insert_tuples2:
+                    insert_tuples2.append(tup2)
 
-                except TypeError or KeyError, e:
-                    Utilities.log_exception(e, Utilities.populate_log)
-                    return False
+        except TypeError or KeyError, e:
+            Utilities.log_exception(e, Utilities.populate_log)
+            return False
 
-            message = "Inserting values for season: " + str(season) + \
-                      " into the database."
+        message = "Inserting values into the database."
 
-            Utilities.log(message, Utilities.populate_log)
-            if not Utilities.populate_db(statement1, Utilities.populate_log,
-                                         insert_tuples1) \
-               or not Utilities.populate_db(statement2, Utilities.populate_log,
-                                            insert_tuples2):
+        Utilities.log(message, Utilities.populate_log)
+        if not Utilities.populate_db(statement1, Utilities.populate_log,
+                                     insert_tuples1) \
+            or not Utilities.populate_db(statement2, Utilities.populate_log,
+                                         insert_tuples2):
                 Utilities.log("Problem executing statement in the database."
                               " Aborting.", Utilities.populate_log)
 
@@ -161,7 +160,7 @@ class PopulateNFLDB:
                     for team_dict in week[1]:
                         tup = (games_max_id + int(team_dict['byeWeek']),
                                str(team_dict['team']))
-                        print tup
+
                         insert_tuples2.append(tup)
 
                 print "Inserting into the Database"
@@ -313,9 +312,8 @@ class PopulateNFLDB:
         statement = "Insert IGNORE into PlayerStats (playerId, statId, " \
                     "Seasonid, statValue) values (%s, %s, %s, %s);"
 
-        for year in range(2010, 2016):
+        for year in range(2011, 2016):
             message = "Downloading player stats from " + str(year)
-            print message
             Utilities.log(message, Utilities.populate_log)
             insert_tuples = []
             for week in range(1, 18):
@@ -323,7 +321,6 @@ class PopulateNFLDB:
                     results = self.provider.get_data(
                         Utilities.StatType.playerWeekly, week, year)[
                         'players']
-                    print week, len(results)
                     if results is None:
                         message = "Could not download teams."
                         Utilities.log(message, Utilities.populate_log)
@@ -345,7 +342,6 @@ class PopulateNFLDB:
             message = "Inserting values for year " + str(year) + " into the " \
                                                                  "database."
 
-            print message
             Utilities.log(message, Utilities.populate_log)
             if not Utilities.populate_db(statement, Utilities.populate_log,
                                          insert_tuples):
@@ -380,6 +376,8 @@ class PopulateNFLDB:
 
                 team_number += 1
 
+            # Needed for international games
+            insert_tuples.append(('NFL', 'NFL international', '33'))
             if not Utilities.populate_db(statement, Utilities.populate_log,
                                          insert_tuples):
                 Utilities.log(
@@ -398,7 +396,7 @@ class PopulateNFLDB:
         season_id = Utilities.pull_from_db("select max(seasonId) from Season;",
                                            Utilities.populate_log)
 
-        if season_id is None:
+        if season_id is None or season_id[0][0] is None:
             season_id = 0
         else:
             try:
@@ -544,7 +542,8 @@ class PopulateNFLDB:
                               Utilities.populate_log)
                 return False
 
-            if not Utilities.populate_db(put_statement2, Utilities.populate_log,
+            if not Utilities.populate_db(put_statement2,
+                                         Utilities.populate_log,
                                          insert_tuples2):
                 Utilities.log("Couldn't insert turf into the database.",
                               Utilities.populate_log)
@@ -558,4 +557,4 @@ class PopulateNFLDB:
 
 if __name__ == '__main__':
     populator = PopulateNFLDB()
-    populator.populate_games_from_data()
+    populator.populate_all()

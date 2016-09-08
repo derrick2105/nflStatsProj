@@ -68,8 +68,7 @@ class DbMaintenance:
         if self.conn is not None:
             if not self.close_connection():
                 Utilities.log("Cannot Connect to the database. Check the "
-                                  "login credentials.",
-                                  Utilities.db_log_file)
+                              "login credentials.", Utilities.db_log_file)
                 return False
 
         try:

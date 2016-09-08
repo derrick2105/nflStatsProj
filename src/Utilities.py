@@ -36,6 +36,7 @@ def log_exception(e, log_file):
     template = "Exception: {0}. Arguments: {1!r}"
     message = template.format(type(e).__name__, e.args)
     log(message, log_file)
+    log(str(e), log_file)
 # -------------------------- end logging urilities --------------------------- #
 
 

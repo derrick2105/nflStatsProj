@@ -35,7 +35,7 @@ for season_id in xrange(current_season_id - GAMES_BACK, current_season_id):
     for position in Utils.Positions.get_positions():
         if position not in position_x_y_dicts:
             position_x_y_dicts[position] = {}
-        feature_list = extractor.extract_feature(position, season_id)
+        feature_list = extractor.extract_training_feature(position, season_id)
         for item in feature_list:
             player, x, y = item[0], item[1][1:], item[1][0]
             if player not in position_x_y_dicts[position]:
@@ -50,8 +50,20 @@ for key, item in position_x_y_dicts.iteritems():
             position_x_y_dicts[key][l][0].append([0, 0, 0])
             position_x_y_dicts[key][l][1].append(0.0)
 
-for key, item in position_x_y_dicts.iteritems():
-    print key, item
+position_data_dicts = {}
+for position in Utils.Positions.get_positions():
+    if position not in position_data_dicts:
+        position_data_dicts[position] = {}
+    feature_list = extractor.extract_prediction_features(position,
+                                                         current_season_id)
+
+    # for value in feature_list:
+    #     print value
+
 
 Utils.log('Finished extracting features.', Utils.driver_log)
+
 Utils.log('labeling players', Utils.driver_log)
+for key, item in position_x_y_dicts.iteritems():
+    for k, v in item.iteritems():
+        print key, k, v

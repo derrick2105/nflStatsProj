@@ -40,25 +40,15 @@ class FeatureExtractor:
         # [points, opponent, location, turf]
         self.empty_feature_vector = []
 
-    def extract_feature(self, position, current_season_id):
+    def extract_training_feature(self, position, current_season_id):
         global positions
         Utilities.log('Entering extract method.', Utilities.extract_log)
 
-        # select game_info statement
-        statement = "select s.locationId, s.turf, g.homeTeam, g.awayTeam from "\
-                    "TeamLocations s, Games g where s.teamId = g.homeTeam " \
-                    "and g.seasonId = %s;"
-
-        if not statement:
-            return []
-
         if position not in positions:
-            Utilities.log('Error, invalid position.',
-                              Utilities.extract_log)
+            Utilities.log('Error, invalid position.', Utilities.extract_log)
             return []
 
-        Utilities.log('Pulling data from the database.',
-                          Utilities.extract_log)
+        Utilities.log('Pulling data from the database.', Utilities.extract_log)
 
         results = self.__get_data('extract_statistics', [positions[position],
                                                          current_season_id,
@@ -66,17 +56,15 @@ class FeatureExtractor:
 
         res = self.__get_data('extract_game_info',
                               [current_season_id,
-                               positions[position]])
+                               positions[position], True])
 
         if not results or not res:
-            Utilities.log('Empty result set.',
-                              Utilities.extract_log)
+            Utilities.log('Empty result set.', Utilities.extract_log)
 
         player_game_info = {}
         for item in res:
             player_game_info[item[0]] = (item[1], item[2], item[3])
-        Utilities.log('Building feature vectors.',
-                          Utilities.extract_log)
+        Utilities.log('Building feature vectors.', Utilities.extract_log)
 
         feature_list = []
         point_sum = 0
@@ -117,6 +105,12 @@ class FeatureExtractor:
         Utilities.log('Exiting extract method.', Utilities.extract_log)
         return feature_list
 
+    def extract_prediction_features(self, position, current_season_id):
+        res = self.__get_data('extract_game_info',
+                              [current_season_id,
+                               positions[position], False])
+        return res
+
     def __get_fresh_feature_dict(self, position):
         if position == Utilities.Positions.defense:
             return_dict = self.def_dict_emp
@@ -137,6 +131,5 @@ class FeatureExtractor:
 
     @staticmethod
     def __get_data(procedure, args):
-        return Utilities.execute_procedure(procedure,
-                                               args,
-                                               Utilities.extract_log)
+        return Utilities.execute_procedure(procedure, args,
+                                           Utilities.extract_log)
