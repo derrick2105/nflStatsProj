@@ -31,8 +31,8 @@
 
   
     <link rel="top" title="NFLStats Project 0.1 documentation" href="index.html"/>
-        <link rel="next" title="How To Complete Assignments" href="how_to.html"/>
-        <link rel="prev" title="Conventions" href="conventions.html"/> 
+        <link rel="next" title="Utilities package" href="Utilities.html"/>
+        <link rel="prev" title="Stored Procedures" href="stored_procedures.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -80,7 +80,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="quick_start.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="quick_start.html#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quick_start.html#clone-and-install-project-module">Clone and install project Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#clone-and-install-the-project-module">Clone and install the project Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quick_start.html#run-the-populatedatabase-script">Run the populateDataBase script</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="quick_start.html#from-the-terminal">From the terminal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="quick_start.html#from-pycharm">From  Pycharm</a></li>
@@ -93,31 +93,35 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="conventions.html">Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stored_procedures.html">Stored Procedures</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Design and Architecture</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#utilities">Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#wrapper-classes">wrapper_classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#ml-classes">ml_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#populate-database">Populate Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wrapper-classes">Wrapper Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ml-classes">Ml Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="how_to.html">How To Complete Assignments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Utilities.html">wrapper_classes.DbMaintenance package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Utilities.html#module-contents">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Utilities.html">Utilities package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Utilities.html#module-Utilities">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="wrapper_classes.DbMaintenance.html">wrapper_classes.DbMaintenance package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="scripts.populateDataBase.html">PopulateDataBase package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scripts.populateDataBase.html#module-scripts.populateDataBase">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wrapper_classes.DbMaintenance.html">DbMaintenance package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="wrapper_classes.DbMaintenance.html#module-wrapper_classes.DbMaintenance">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="wrapper_classes.StatisticsProvider.html">wrapper_classes.StatisticsProvider package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="wrapper_classes.StatisticsProvider.html">StatisticsProvider package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="wrapper_classes.StatisticsProvider.html#module-wrapper_classes.StatisticsProvider">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ml_classes.Classifiers.html">ml_classes.Classifiers package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="ml_classes.Classifiers.html">Classifiers package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ml_classes.Classifiers.html#module-ml_classes.Classifiers">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ml_classes.FeatureExtractor.html">ml_classes.FeatureExtractor package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="ml_classes.FeatureExtractor.html">FeatureExtractor package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ml_classes.FeatureExtractor.html#module-ml_classes.FeatureExtractor">Module contents</a></li>
 </ul>
 </li>
@@ -163,34 +167,29 @@
 <p>Below is a breif explination of how the modules interact with eachother.</p>
 <div class="section" id="utilities">
 <h2>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
-<p>This peculiarity and much more is documented extensively in the class documentation for the
-games which can be found <tt class="xref doc docutils literal">here</tt>.</p>
+<p>This is a group of common classes, functions, and parameters that more than one other class use.
+This is where all of the logging functions are defined. <a class="reference internal" href="Utilities.html"><em>Documentation for Utilities</em></a>.</p>
+</div>
+<div class="section" id="populate-database">
+<h2>Populate Database<a class="headerlink" href="#populate-database" title="Permalink to this headline">¶</a></h2>
+<p>A set of functions that are used to populate the database with data pulled from the internet
+using a statisticsProvider. <a class="reference internal" href="scripts.populateDataBase.html"><em>Documentation for Populating Database can be found</em></a>.</p>
 </div>
 <div class="section" id="wrapper-classes">
-<h2>wrapper_classes<a class="headerlink" href="#wrapper-classes" title="Permalink to this headline">¶</a></h2>
-<p>Because our games mirror their theoretical counterparts they do not include
-the ability to run themselves. As such we have created the notion of a
-simulator for a game. Each of our game classes have corresponding simulator
-classes which can be used to &#8220;run&#8221; a game. In general simulator constructors
-take a game and an adversary as parameters. From there you can perform any
-number of runs of that adversary, all games are built to clean up state between
-runs, and thus to run a game again you just call the <code class="docutils literal highlight highlight-python"><span class="n">run</span></code> method on the
-simulator. Furthermore, all simulators have a method that can approximate the
-advantage that the adversary, which is passed in as a parameter, has against
-that particular instance of the game (this is the <code class="docutils literal highlight highlight-python"><span class="n">compute_advantage</span></code>
-method).
-<a class="reference internal" href="wrapper_classes.DbMaintenance.html#module-wrapper_classes.DbMaintenance" title="wrapper_classes.DbMaintenance"><tt class="xref py py-mod docutils literal">Database Maintenance</tt></a>,
-<a class="reference internal" href="wrapper_classes.StatisticsProvider.html#module-wrapper_classes.StatisticsProvider" title="wrapper_classes.StatisticsProvider"><tt class="xref py py-mod docutils literal">Statistics Providers</tt></a>.</p>
+<h2>Wrapper Classes<a class="headerlink" href="#wrapper-classes" title="Permalink to this headline">¶</a></h2>
+<p>DataBaseMaintenance is a class that abstracts away many of the functions used to create and
+use connections to the database. It provides an easy way to replace the module used to connect
+to the database. It also uses prepared statements for all calls to the database without exposing
+any of the setup or teardown. <a class="reference internal" href="wrapper_classes.DbMaintenance.html"><em>Documentation for the Database Maintenance</em></a>.</p>
+<p>StatisticsProviders is a group of classes that abstract away code that makes api calls to
+data sources. Currently there is one stats provider that uses two different data sources.
+This module returns a dictionary representation of the JSON object returned from the data source. <a class="reference internal" href="wrapper_classes.StatisticsProvider.html"><em>Documentation for the Statistics Providers</em></a>.</p>
 </div>
 <div class="section" id="ml-classes">
-<h2>ml_classes<a class="headerlink" href="#ml-classes" title="Permalink to this headline">¶</a></h2>
-<p>In addition to creating game and simulator classes we have also created an
-additional set of tools that instructors can use to create assignments. These
-tools allow instructors to simulate ideal versions of several cryptographic
-primitives. We call this set of tools our &#8220;Abstract Cryptography Library&#8221;.
-Currently we include classes which simulate
-<a class="reference internal" href="ml_classes.Classifiers.html#module-ml_classes.Classifiers" title="ml_classes.Classifiers"><tt class="xref py py-mod docutils literal">Classifiers</tt></a>,
-<tt class="xref py py-mod docutils literal">FeatureExtractor</tt>.</p>
+<h2>Ml Classes<a class="headerlink" href="#ml-classes" title="Permalink to this headline">¶</a></h2>
+<p>A group of classifiers with a common interface. This interface will provide methods for labeling and labeling. <a class="reference internal" href="ml_classes.Classifiers.html"><em>Documentation for the Classifiers</em></a>.</p>
+<p>Feature Extractor provides feature vectors for training and for labeling data. The training method returns a list
+of tuples containing (label, featur vecotr). The labeling method return a list of features that require labeling.  <a class="reference internal" href="ml_classes.FeatureExtractor.html"><em>Documentation for the FeatureExtractor</em></a>.</p>
 </div>
 </div>
 
@@ -200,10 +199,10 @@ Currently we include classes which simulate
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="how_to.html" class="btn btn-neutral float-right" title="How To Complete Assignments" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Utilities.html" class="btn btn-neutral float-right" title="Utilities package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="conventions.html" class="btn btn-neutral" title="Conventions" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="stored_procedures.html" class="btn btn-neutral" title="Stored Procedures" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

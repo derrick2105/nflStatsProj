@@ -1,5 +1,5 @@
-ml_classes.FeatureExtractor package
-==============================
+FeatureExtractor package
+========================
 
 Module contents
 ---------------

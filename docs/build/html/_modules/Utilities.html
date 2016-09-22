@@ -95,28 +95,32 @@
 <li class="toctree-l1"><a class="reference internal" href="../stored_procedures.html">Stored Procedures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../design_and_architecture.html">Design and Architecture</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../design_and_architecture.html#utilities">Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../design_and_architecture.html#wrapper-classes">wrapper_classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../design_and_architecture.html#ml-classes">ml_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../design_and_architecture.html#populate-database">Populate Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../design_and_architecture.html#wrapper-classes">Wrapper Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../design_and_architecture.html#ml-classes">Ml Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../how_to.html">How To Complete Assignments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Utilities.html">Utilities package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Utilities.html#module-Utilities">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../wrapper_classes.DbMaintenance.html">wrapper_classes.DbMaintenance package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.populateDataBase.html">PopulateDataBase package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../scripts.populateDataBase.html#module-scripts.populateDataBase">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../wrapper_classes.DbMaintenance.html">DbMaintenance package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../wrapper_classes.DbMaintenance.html#module-wrapper_classes.DbMaintenance">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../wrapper_classes.StatisticsProvider.html">wrapper_classes.StatisticsProvider package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../wrapper_classes.StatisticsProvider.html">StatisticsProvider package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../wrapper_classes.StatisticsProvider.html#module-wrapper_classes.StatisticsProvider">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../ml_classes.Classifiers.html">ml_classes.Classifiers package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../ml_classes.Classifiers.html">Classifiers package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../ml_classes.Classifiers.html#module-ml_classes.Classifiers">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../ml_classes.FeatureExtractor.html">ml_classes.FeatureExtractor package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../ml_classes.FeatureExtractor.html">FeatureExtractor package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../ml_classes.FeatureExtractor.html#module-ml_classes.FeatureExtractor">Module contents</a></li>
 </ul>
 </li>
@@ -186,6 +190,12 @@
 
 
 <div class="viewcode-block" id="log"><a class="viewcode-back" href="../Utilities.html#Utilities.log">[docs]</a><span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s">&#39;./log.txt&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param message:</span>
+<span class="sd">    :param outfile:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span> <span class="o">+</span> <span class="s">&#39;: &#39;</span> <span class="o">+</span> <span class="n">message</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\r\n</span><span class="s">&#39;</span><span class="p">)</span> <span class="o">+</span>
                 <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
@@ -193,6 +203,12 @@
 
 <span class="c"># A simple extension to uniformly log exceptions</span></div>
 <div class="viewcode-block" id="log_exception"><a class="viewcode-back" href="../Utilities.html#Utilities.log_exception">[docs]</a><span class="k">def</span> <span class="nf">log_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">log_file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param e:</span>
+<span class="sd">    :param log_file:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">template</span> <span class="o">=</span> <span class="s">&quot;Exception: {0}. Arguments: {1!r}&quot;</span>
     <span class="n">message</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
     <span class="n">log</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
@@ -202,6 +218,11 @@
 
 <span class="c"># ------------------- start time conversion helper methods ------------------- #</span></div>
 <div class="viewcode-block" id="convert_to_24"><a class="viewcode-back" href="../Utilities.html#Utilities.convert_to_24">[docs]</a><span class="k">def</span> <span class="nf">convert_to_24</span><span class="p">(</span><span class="n">time</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param time:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">time</span><span class="p">,</span> <span class="n">meridiem</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">)</span>
 
     <span class="n">time_list</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)</span>
@@ -229,18 +250,32 @@
 
 
 <div class="viewcode-block" id="update_week"><a class="viewcode-back" href="../Utilities.html#Utilities.update_week">[docs]</a><span class="k">def</span> <span class="nf">update_week</span><span class="p">(</span><span class="n">new_week</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param new_week:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">global</span> <span class="n">current_week</span>
     <span class="n">current_week</span> <span class="o">=</span> <span class="n">new_week</span>
     <span class="k">return</span> <span class="n">current_week</span>
 
 </div>
 <div class="viewcode-block" id="update_season"><a class="viewcode-back" href="../Utilities.html#Utilities.update_season">[docs]</a><span class="k">def</span> <span class="nf">update_season</span><span class="p">(</span><span class="n">new_season</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param new_season:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">global</span> <span class="n">current_season</span>
     <span class="n">current_season</span> <span class="o">=</span> <span class="n">new_season</span>
     <span class="k">return</span> <span class="n">current_season</span>
 
 </div>
 <div class="viewcode-block" id="get_current_season"><a class="viewcode-back" href="../Utilities.html#Utilities.get_current_season">[docs]</a><span class="k">def</span> <span class="nf">get_current_season</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">global</span> <span class="n">current_season</span>
     <span class="k">return</span> <span class="n">current_season</span>
 <span class="c"># -------------------- end season and week helper methods -------------------- #</span>
@@ -253,10 +288,22 @@
 
 
 <div class="viewcode-block" id="import_db_config"><a class="viewcode-back" href="../Utilities.html#Utilities.import_db_config">[docs]</a><span class="k">def</span> <span class="nf">import_db_config</span><span class="p">(</span><span class="n">config_file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param config_file:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">db</span><span class="o">.</span><span class="n">import_db_config</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
 
 </div>
 <div class="viewcode-block" id="execute_procedure"><a class="viewcode-back" href="../Utilities.html#Utilities.execute_procedure">[docs]</a><span class="k">def</span> <span class="nf">execute_procedure</span><span class="p">(</span><span class="n">procedure_name</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">log_file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param procedure_name:</span>
+<span class="sd">    :param args:</span>
+<span class="sd">    :param log_file:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">log</span><span class="p">(</span><span class="s">&#39;Entering execute_procedure.&#39;</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
 
     <span class="k">global</span> <span class="n">db</span>
@@ -271,6 +318,13 @@
 
 </div>
 <div class="viewcode-block" id="populate_db"><a class="viewcode-back" href="../Utilities.html#Utilities.populate_db">[docs]</a><span class="k">def</span> <span class="nf">populate_db</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="n">log_file</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param statement:</span>
+<span class="sd">    :param log_file:</span>
+<span class="sd">    :param values:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">log</span><span class="p">(</span><span class="s">&#39;Entering populate_db.&#39;</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
 
     <span class="k">global</span> <span class="n">db</span>
@@ -289,6 +343,13 @@
 
 </div>
 <div class="viewcode-block" id="pull_from_db"><a class="viewcode-back" href="../Utilities.html#Utilities.pull_from_db">[docs]</a><span class="k">def</span> <span class="nf">pull_from_db</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="n">log_file</span><span class="p">,</span> <span class="n">values_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param statement:</span>
+<span class="sd">    :param log_file:</span>
+<span class="sd">    :param values_list:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">log</span><span class="p">(</span><span class="s">&#39;Entering pull_from_db.&#39;</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
 
     <span class="k">global</span> <span class="n">db</span>
@@ -309,6 +370,10 @@
 
 <span class="c"># -------------------------- start statType enum class ----------------------- #</span></div>
 <div class="viewcode-block" id="StatType"><a class="viewcode-back" href="../Utilities.html#Utilities.StatType">[docs]</a><span class="k">class</span> <span class="nc">StatType</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        StatType enum class with playerInfo, statistics, playerWeekly, weather,</span>
+<span class="sd">        injury, games, teams, byes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">playerInfo</span><span class="p">,</span> <span class="n">statistics</span><span class="p">,</span> <span class="n">playerWeekly</span><span class="p">,</span> <span class="n">weather</span><span class="p">,</span> <span class="n">injury</span><span class="p">,</span> <span class="n">games</span><span class="p">,</span> <span class="n">teams</span><span class="p">,</span> <span class="n">byes</span> <span class="o">=</span>\
         <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 
@@ -319,6 +384,10 @@
 
 <span class="c"># ----------------------- start position enum class -------------------------- #</span></div>
 <div class="viewcode-block" id="Positions"><a class="viewcode-back" href="../Utilities.html#Utilities.Positions">[docs]</a><span class="k">class</span> <span class="nc">Positions</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       Positions enum class with quarterback, running_back, kicker, defense</span>
+<span class="sd">       wide_receiver, and tight_end</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">quarterback</span><span class="p">,</span> <span class="n">running_back</span><span class="p">,</span> <span class="n">kicker</span><span class="p">,</span> <span class="n">defense</span><span class="p">,</span> <span class="n">wide_receiver</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
     <span class="n">tight_end</span> <span class="o">=</span> <span class="n">wide_receiver</span>
 
@@ -333,6 +402,11 @@
 
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Positions.get_positions"><a class="viewcode-back" href="../Utilities.html#Utilities.Positions.get_positions">[docs]</a>    <span class="k">def</span> <span class="nf">get_positions</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :return: a dictionary containing the enum and the string \</span>
+<span class="sd">        representation of each position.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Positions</span><span class="o">.</span><span class="n">positions_dict</span>
 
 <span class="c"># ------------------------ end position enum class --------------------------- #</span></div></div>

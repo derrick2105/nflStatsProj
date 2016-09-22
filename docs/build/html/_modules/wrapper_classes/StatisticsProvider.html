@@ -95,28 +95,32 @@
 <li class="toctree-l1"><a class="reference internal" href="../../stored_procedures.html">Stored Procedures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../design_and_architecture.html">Design and Architecture</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#utilities">Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#wrapper-classes">wrapper_classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#ml-classes">ml_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#populate-database">Populate Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#wrapper-classes">Wrapper Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#ml-classes">Ml Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../how_to.html">How To Complete Assignments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Utilities.html">Utilities package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../Utilities.html#module-Utilities">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../wrapper_classes.DbMaintenance.html">wrapper_classes.DbMaintenance package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../scripts.populateDataBase.html">PopulateDataBase package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../scripts.populateDataBase.html#module-scripts.populateDataBase">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../wrapper_classes.DbMaintenance.html">DbMaintenance package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../wrapper_classes.DbMaintenance.html#module-wrapper_classes.DbMaintenance">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../wrapper_classes.StatisticsProvider.html">wrapper_classes.StatisticsProvider package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../wrapper_classes.StatisticsProvider.html">StatisticsProvider package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../wrapper_classes.StatisticsProvider.html#module-wrapper_classes.StatisticsProvider">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../ml_classes.Classifiers.html">ml_classes.Classifiers package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ml_classes.Classifiers.html">Classifiers package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../ml_classes.Classifiers.html#module-ml_classes.Classifiers">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../ml_classes.FeatureExtractor.html">ml_classes.FeatureExtractor package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ml_classes.FeatureExtractor.html">FeatureExtractor package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../ml_classes.FeatureExtractor.html#module-ml_classes.FeatureExtractor">Module contents</a></li>
 </ul>
 </li>
@@ -176,44 +180,55 @@
 
 
 <div class="viewcode-block" id="NFLStatsProvider"><a class="viewcode-back" href="../../wrapper_classes.StatisticsProvider.html#wrapper_classes.StatisticsProvider.NFLStatsProvider">[docs]</a><span class="k">class</span> <span class="nc">NFLStatsProvider</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       NFL Stats Provider wrapper class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="bp">None</span>
 
 <div class="viewcode-block" id="NFLStatsProvider.get_data"><a class="viewcode-back" href="../../wrapper_classes.StatisticsProvider.html#wrapper_classes.StatisticsProvider.NFLStatsProvider.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="n">Utilities</span><span class="o">.</span><span class="n">StatType</span><span class="o">.</span><span class="n">playerInfo</span><span class="p">,</span> <span class="n">week</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                  <span class="n">season</span><span class="o">=</span><span class="mi">2015</span><span class="p">,</span> <span class="n">player_id</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param data_type:</span>
+<span class="sd">        :param week:</span>
+<span class="sd">        :param season:</span>
+<span class="sd">        :param player_id:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">week</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">week</span><span class="p">)</span>
         <span class="n">season</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">season</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">data_type</span> <span class="o">==</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">StatType</span><span class="o">.</span><span class="n">playerInfo</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s">&quot;http://api.fantasy.nfl.com/v1/players&quot;</span>
-                                <span class="s">&quot;/researchinfo?season=&quot;</span> <span class="o">+</span> <span class="n">season</span> <span class="o">+</span> <span class="s">&quot;&amp;week=&quot;</span> <span class="o">+</span>
-                                <span class="n">week</span> <span class="o">+</span> <span class="s">&quot;&amp;count=5000&amp;format=json&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="s">&quot;http://api.fantasy.nfl.com/v1/players&quot;</span>
+                                 <span class="s">&quot;/researchinfo?season=&quot;</span> <span class="o">+</span> <span class="n">season</span> <span class="o">+</span> <span class="s">&quot;&amp;week=&quot;</span> <span class="o">+</span>
+                                 <span class="n">week</span> <span class="o">+</span> <span class="s">&quot;&amp;count=5000&amp;format=json&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">StatType</span><span class="o">.</span><span class="n">statistics</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s">&quot;http://api.fantasy.nfl.com/&quot;</span>
-                                <span class="s">&quot;v1/game/stats?format=json&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="s">&quot;http://api.fantasy.nfl.com/&quot;</span>
+                                 <span class="s">&quot;v1/game/stats?format=json&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">StatType</span><span class="o">.</span><span class="n">weather</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s">&quot;http://www.fantasyfootballnerd.com/&quot;</span>
-                                <span class="s">&quot;service/weather/json/n4j9tv9n5env/&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="s">&quot;http://www.fantasyfootballnerd.com/&quot;</span>
+                                 <span class="s">&quot;service/weather/json/n4j9tv9n5env/&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">StatType</span><span class="o">.</span><span class="n">injury</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s">&quot;http://api.fantasy.nfl.com/v1/players/&quot;</span>
-                                <span class="s">&quot;details?playerId=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">player_id</span><span class="p">)</span> <span class="o">+</span>
-                                <span class="s">&quot;&amp;format=json&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="s">&quot;http://api.fantasy.nfl.com/v1/players/&quot;</span>
+                                 <span class="s">&quot;details?playerId=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">player_id</span><span class="p">)</span> <span class="o">+</span>
+                                 <span class="s">&quot;&amp;format=json&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">StatType</span><span class="o">.</span><span class="n">playerWeekly</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s">&quot;http://api.fantasy.nfl.com/v1/players&quot;</span>
-                                <span class="s">&quot;/stats?statType=weekStats&amp;season=&quot;</span> <span class="o">+</span>
-                                <span class="n">season</span> <span class="o">+</span> <span class="s">&quot;&amp;week=&quot;</span> <span class="o">+</span> <span class="n">week</span> <span class="o">+</span> <span class="s">&quot;&amp;format=json&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="s">&quot;http://api.fantasy.nfl.com/v1/players&quot;</span>
+                                 <span class="s">&quot;/stats?statType=weekStats&amp;season=&quot;</span> <span class="o">+</span>
+                                 <span class="n">season</span> <span class="o">+</span> <span class="s">&quot;&amp;week=&quot;</span> <span class="o">+</span> <span class="n">week</span> <span class="o">+</span> <span class="s">&quot;&amp;format=json&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">StatType</span><span class="o">.</span><span class="n">games</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s">&quot;http://www.fantasyfootballnerd.com/service/&quot;</span>
-                                <span class="s">&quot;schedule/json/n4j9tv9n5env/&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="s">&quot;http://www.fantasyfootballnerd.com/service/&quot;</span>
+                                 <span class="s">&quot;schedule/json/n4j9tv9n5env/&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">StatType</span><span class="o">.</span><span class="n">teams</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">((</span><span class="s">&quot;http://www.fantasyfootballnerd.com/service/&quot;</span>
-                                 <span class="s">&quot;nfl-teams/json/n4j9tv9n5env/&quot;</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">((</span><span class="s">&quot;http://www.fantasyfootballnerd.com/service/&quot;</span>
+                                  <span class="s">&quot;nfl-teams/json/n4j9tv9n5env/&quot;</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">StatType</span><span class="o">.</span><span class="n">byes</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">((</span><span class="s">&quot;http://www.fantasyfootballnerd.com/service/&quot;</span>
-                                <span class="s">&quot;byes/json/n4j9tv9n5env/&quot;</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">((</span><span class="s">&quot;http://www.fantasyfootballnerd.com/service/&quot;</span>
+                                  <span class="s">&quot;byes/json/n4j9tv9n5env/&quot;</span><span class="p">))</span>
 </div>
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="NFLStatsProvider.request"><a class="viewcode-back" href="../../wrapper_classes.StatisticsProvider.html#wrapper_classes.StatisticsProvider.NFLStatsProvider.request">[docs]</a>    <span class="k">def</span> <span class="nf">request</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_request</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">req</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="s">&quot;Magic Browser&quot;</span><span class="p">})</span>
             <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
@@ -230,14 +245,7 @@
             <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span> <span class="o">!=</span> <span class="p">():</span>
                 <span class="n">Utilities</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s">&quot;Args: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">),</span>
                               <span class="n">Utilities</span><span class="o">.</span><span class="n">stat_provider_log</span><span class="p">)</span>
-            <span class="k">return</span> <span class="bp">None</span>
-</div></div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">statsProvider</span> <span class="o">=</span> <span class="n">NFLStatsProvider</span><span class="p">()</span>
-    <span class="n">raw_data</span> <span class="o">=</span> <span class="n">statsProvider</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">data_type</span><span class="o">=</span><span class="n">Utilities</span><span class="o">.</span><span class="n">StatType</span><span class="o">.</span><span class="n">games</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">raw_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="n">results</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
-        <span class="k">print</span> <span class="n">results</span>
+            <span class="k">return</span> <span class="bp">None</span></div>
 </pre></div>
 
           </div>

@@ -21,8 +21,8 @@ Contents:
    quick_start
    stored_procedures
    design_and_architecture
-   how_to
    Utilities
+   scripts.populateDataBase
    wrapper_classes.DbMaintenance
    wrapper_classes.StatisticsProvider
    ml_classes.Classifiers

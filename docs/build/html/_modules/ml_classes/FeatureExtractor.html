@@ -95,28 +95,32 @@
 <li class="toctree-l1"><a class="reference internal" href="../../stored_procedures.html">Stored Procedures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../design_and_architecture.html">Design and Architecture</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#utilities">Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#wrapper-classes">wrapper_classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#ml-classes">ml_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#populate-database">Populate Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#wrapper-classes">Wrapper Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#ml-classes">Ml Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../how_to.html">How To Complete Assignments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Utilities.html">Utilities package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../Utilities.html#module-Utilities">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../wrapper_classes.DbMaintenance.html">wrapper_classes.DbMaintenance package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../scripts.populateDataBase.html">PopulateDataBase package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../scripts.populateDataBase.html#module-scripts.populateDataBase">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../wrapper_classes.DbMaintenance.html">DbMaintenance package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../wrapper_classes.DbMaintenance.html#module-wrapper_classes.DbMaintenance">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../wrapper_classes.StatisticsProvider.html">wrapper_classes.StatisticsProvider package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../wrapper_classes.StatisticsProvider.html">StatisticsProvider package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../wrapper_classes.StatisticsProvider.html#module-wrapper_classes.StatisticsProvider">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../ml_classes.Classifiers.html">ml_classes.Classifiers package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ml_classes.Classifiers.html">Classifiers package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../ml_classes.Classifiers.html#module-ml_classes.Classifiers">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../ml_classes.FeatureExtractor.html">ml_classes.FeatureExtractor package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ml_classes.FeatureExtractor.html">FeatureExtractor package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../ml_classes.FeatureExtractor.html#module-ml_classes.FeatureExtractor">Module contents</a></li>
 </ul>
 </li>
@@ -182,9 +186,16 @@
 <span class="c"># any of the provided features.</span>
 <span class="c">######</span></div>
 <div class="viewcode-block" id="FeatureExtractor"><a class="viewcode-back" href="../../ml_classes.FeatureExtractor.html#ml_classes.FeatureExtractor.FeatureExtractor">[docs]</a><span class="k">class</span> <span class="nc">FeatureExtractor</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">off_scoring_file_name</span><span class="o">=</span><span class="s">&#39;offensive_draftday.csv&#39;</span><span class="p">,</span>
                  <span class="n">def_scoring_file_name</span><span class="o">=</span><span class="s">&#39;defensive_draftday.csv&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="sd">        :param off_scoring_file_name:</span>
+<span class="sd">        :param def_scoring_file_name:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c"># offensive and defensive point breakdowns for each stat</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">off_dict_p</span> <span class="o">=</span> <span class="n">import_feat</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
             <span class="n">Utilities</span><span class="o">.</span><span class="n">point_breakdown_path</span><span class="p">,</span> <span class="n">off_scoring_file_name</span><span class="p">))</span>
@@ -201,6 +212,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">empty_feature_vector</span> <span class="o">=</span> <span class="p">[]</span>
 
 <div class="viewcode-block" id="FeatureExtractor.extract_training_feature"><a class="viewcode-back" href="../../ml_classes.FeatureExtractor.html#ml_classes.FeatureExtractor.FeatureExtractor.extract_training_feature">[docs]</a>    <span class="k">def</span> <span class="nf">extract_training_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">current_season_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param position:</span>
+<span class="sd">        :param current_season_id:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">global</span> <span class="n">positions</span>
         <span class="n">Utilities</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#39;Entering extract method.&#39;</span><span class="p">,</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">extract_log</span><span class="p">)</span>
 
@@ -267,6 +284,12 @@
         <span class="k">return</span> <span class="n">feature_list</span>
 </div>
 <div class="viewcode-block" id="FeatureExtractor.extract_prediction_features"><a class="viewcode-back" href="../../ml_classes.FeatureExtractor.html#ml_classes.FeatureExtractor.FeatureExtractor.extract_prediction_features">[docs]</a>    <span class="k">def</span> <span class="nf">extract_prediction_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">current_season_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param position:</span>
+<span class="sd">        :param current_season_id:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_data</span><span class="p">(</span><span class="s">&#39;extract_game_info&#39;</span><span class="p">,</span>
                               <span class="p">[</span><span class="n">current_season_id</span><span class="p">,</span>
                                <span class="n">positions</span><span class="p">[</span><span class="n">position</span><span class="p">],</span> <span class="bp">False</span><span class="p">])</span>

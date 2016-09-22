@@ -1,5 +1,5 @@
-wrapper_classes.StatisticsProvider package
-==========================================
+StatisticsProvider package
+==========================
 
 Module contents
 ---------------

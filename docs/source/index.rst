@@ -22,6 +22,7 @@ Contents:
    stored_procedures
    design_and_architecture
    Utilities
+   scripts.populateDataBase
    wrapper_classes.DbMaintenance
    wrapper_classes.StatisticsProvider
    ml_classes.Classifiers

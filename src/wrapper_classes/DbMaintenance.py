@@ -11,6 +11,9 @@ import yaml
 
 
 class DbMaintenance:
+    """
+    Database Maintenance class.
+    """
     def __init__(self):
         self.conn = None
         self.cursor = None
@@ -29,6 +32,11 @@ class DbMaintenance:
         self.close_connection()
 
     def import_db_config(self, config_file):
+        """
+
+        :param config_file:
+        :return:
+        """
         try:
             with open(config_file, 'r') as f:
                 config = yaml.load(f)
@@ -58,6 +66,14 @@ class DbMaintenance:
         return False
 
     def set_db_config(self, username, password, ip, database):
+        """
+
+        :param username:
+        :param password:
+        :param ip:
+        :param database:
+        :return:
+        """
         self.ip = ip
         self.username = username
         self.password = password
@@ -65,6 +81,10 @@ class DbMaintenance:
 
     # Add a config file for this.
     def open_connection(self):
+        """
+
+        :return:
+        """
         if self.conn is not None:
             if not self.close_connection():
                 Utilities.log("Cannot Connect to the database. Check the "
@@ -84,6 +104,10 @@ class DbMaintenance:
             return False
 
     def close_connection(self):
+        """
+
+        :return:
+        """
         if self.conn:
             self.conn.close()
             self.conn = None
@@ -91,6 +115,11 @@ class DbMaintenance:
             self.cursor = None
 
     def get_cursor(self, stored=False):
+        """
+
+        :param stored:
+        :return:
+        """
         # Open a connection if the dataBase is closed.
         if self.conn is None:
             if not self.open_connection():
@@ -108,6 +137,11 @@ class DbMaintenance:
             return False
 
     def prepare_statement(self, statement):
+        """
+
+        :param statement:
+        :return:
+        """
         if self.cursor is None:
             if not self.get_cursor():
                 return False
@@ -127,6 +161,13 @@ class DbMaintenance:
 
     # Only commit if it is an update
     def execute_statement(self, statement=None, values=None, commit=False):
+        """
+
+        :param statement:
+        :param values:
+        :param commit:
+        :return:
+        """
         execute_many = False
         if type(values) is list:
             execute_many = True
@@ -159,6 +200,10 @@ class DbMaintenance:
             return False
 
     def commit(self):
+        """
+
+        :return:
+        """
         if self.conn is None:
             message = "There currently is not a connection to the database"
             Utilities.log(message, Utilities.db_log_file)
@@ -172,6 +217,12 @@ class DbMaintenance:
             return False
 
     def execute_stored_procedure(self, procedure, args):
+        """
+
+        :param procedure:
+        :param args:
+        :return:
+        """
         self.results_tup = None
         if self.cursor is None:
             if not self.get_cursor(stored=True):
@@ -190,6 +241,11 @@ class DbMaintenance:
         return True
 
     def get_results(self, stored=False):
+        """
+
+        :param stored:
+        :return:
+        """
         ret = []
         if self.cursor is None:
             return None

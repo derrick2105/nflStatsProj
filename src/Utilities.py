@@ -26,6 +26,12 @@ class_log = os.path.join(log_path, 'classifierLog.txt')
 
 
 def log(message, outfile='./log.txt'):
+    """
+
+    :param message:
+    :param outfile:
+    :return:
+    """
     with open(outfile, 'a') as f:
         f.write(str(datetime.datetime.now()) + ': ' + message.strip('\r\n') +
                 '\n')
@@ -33,6 +39,12 @@ def log(message, outfile='./log.txt'):
 
 # A simple extension to uniformly log exceptions
 def log_exception(e, log_file):
+    """
+
+    :param e:
+    :param log_file:
+    :return:
+    """
     template = "Exception: {0}. Arguments: {1!r}"
     message = template.format(type(e).__name__, e.args)
     log(message, log_file)
@@ -42,6 +54,11 @@ def log_exception(e, log_file):
 
 # ------------------- start time conversion helper methods ------------------- #
 def convert_to_24(time):
+    """
+
+    :param time:
+    :return:
+    """
     time, meridiem = time.split(' ')
 
     time_list = time.split(':')
@@ -69,18 +86,32 @@ starting_year = 2010
 
 
 def update_week(new_week):
+    """
+
+    :param new_week:
+    :return:
+    """
     global current_week
     current_week = new_week
     return current_week
 
 
 def update_season(new_season):
+    """
+
+    :param new_season:
+    :return:
+    """
     global current_season
     current_season = new_season
     return current_season
 
 
 def get_current_season():
+    """
+
+    :return:
+    """
     global current_season
     return current_season
 # -------------------- end season and week helper methods -------------------- #
@@ -93,10 +124,22 @@ db.import_db_config(db_config)
 
 
 def import_db_config(config_file):
+    """
+
+    :param config_file:
+    :return:
+    """
     return db.import_db_config(config_file)
 
 
 def execute_procedure(procedure_name, args, log_file):
+    """
+
+    :param procedure_name:
+    :param args:
+    :param log_file:
+    :return:
+    """
     log('Entering execute_procedure.', log_file)
 
     global db
@@ -111,6 +154,13 @@ def execute_procedure(procedure_name, args, log_file):
 
 
 def populate_db(statement, log_file, values):
+    """
+
+    :param statement:
+    :param log_file:
+    :param values:
+    :return:
+    """
     log('Entering populate_db.', log_file)
 
     global db
@@ -129,6 +179,13 @@ def populate_db(statement, log_file, values):
 
 
 def pull_from_db(statement, log_file, values_list=None):
+    """
+
+    :param statement:
+    :param log_file:
+    :param values_list:
+    :return:
+    """
     log('Entering pull_from_db.', log_file)
 
     global db
@@ -149,6 +206,10 @@ def pull_from_db(statement, log_file, values_list=None):
 
 # -------------------------- start statType enum class ----------------------- #
 class StatType:
+    """
+        StatType enum class with playerInfo, statistics, playerWeekly, weather,
+        injury, games, teams, byes.
+    """
     playerInfo, statistics, playerWeekly, weather, injury, games, teams, byes =\
         range(8)
 
@@ -159,6 +220,10 @@ class StatType:
 
 # ----------------------- start position enum class -------------------------- #
 class Positions:
+    """
+       Positions enum class with quarterback, running_back, kicker, defense
+       wide_receiver, and tight_end
+    """
     quarterback, running_back, kicker, defense, wide_receiver = range(5)
     tight_end = wide_receiver
 
@@ -173,6 +238,11 @@ class Positions:
 
     @staticmethod
     def get_positions():
+        """
+
+        :return: a dictionary containing the enum and the string \
+        representation of each position.
+        """
         return Positions.positions_dict
 
 # ------------------------ end position enum class --------------------------- #

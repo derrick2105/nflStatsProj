@@ -22,9 +22,16 @@ def import_feat(import_file):
 # any of the provided features.
 ######
 class FeatureExtractor:
+    """
+
+    """
     def __init__(self, off_scoring_file_name='offensive_draftday.csv',
                  def_scoring_file_name='defensive_draftday.csv'):
+        """
 
+        :param off_scoring_file_name:
+        :param def_scoring_file_name:
+        """
         # offensive and defensive point breakdowns for each stat
         self.off_dict_p = import_feat(path.join(
             Utilities.point_breakdown_path, off_scoring_file_name))
@@ -41,6 +48,12 @@ class FeatureExtractor:
         self.empty_feature_vector = []
 
     def extract_training_feature(self, position, current_season_id):
+        """
+
+        :param position:
+        :param current_season_id:
+        :return:
+        """
         global positions
         Utilities.log('Entering extract method.', Utilities.extract_log)
 
@@ -107,6 +120,12 @@ class FeatureExtractor:
         return feature_list
 
     def extract_prediction_features(self, position, current_season_id):
+        """
+
+        :param position:
+        :param current_season_id:
+        :return:
+        """
         res = self.__get_data('extract_game_info',
                               [current_season_id,
                                positions[position], False])

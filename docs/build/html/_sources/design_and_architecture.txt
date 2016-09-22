@@ -5,32 +5,31 @@ Below is a breif explination of how the modules interact with eachother.
 
 Utilities
 =========
-This peculiarity and much more is documented extensively in the class documentation for the
-games which can be found :doc:`here </utilities>`.
+This is a group of common classes, functions, and parameters that more than one other class use. 
+This is where all of the logging functions are defined. :doc:`Documentation for Utilities</Utilities>`.
 
-wrapper_classes
+Populate Database
+=================
+A set of functions that are used to populate the database with data pulled from the internet
+using a statisticsProvider. :doc:`Documentation for Populating Database can be found </scripts.populateDataBase>`.
+
+Wrapper Classes
 ===============
-Because our games mirror their theoretical counterparts they do not include 
-the ability to run themselves. As such we have created the notion of a 
-simulator for a game. Each of our game classes have corresponding simulator
-classes which can be used to "run" a game. In general simulator constructors
-take a game and an adversary as parameters. From there you can perform any 
-number of runs of that adversary, all games are built to clean up state between
-runs, and thus to run a game again you just call the ``run`` method on the 
-simulator. Furthermore, all simulators have a method that can approximate the
-advantage that the adversary, which is passed in as a parameter, has against
-that particular instance of the game (this is the ``compute_advantage``
-method).
-:mod:`Database Maintenance <wrapper_classes.DbMaintenance>`,
-:mod:`Statistics Providers <wrapper_classes.StatisticsProvider>`.
+DataBaseMaintenance is a class that abstracts away many of the functions used to create and 
+use connections to the database. It provides an easy way to replace the module used to connect 
+to the database. It also uses prepared statements for all calls to the database without exposing
+any of the setup or teardown. :doc:`Documentation for the Database Maintenance </wrapper_classes.DbMaintenance>`. 
+
+StatisticsProviders is a group of classes that abstract away code that makes api calls to 
+data sources. Currently there is one stats provider that uses two different data sources. 
+This module returns a dictionary representation of the JSON object returned from the data source. :doc:`Documentation for the Statistics Providers </wrapper_classes.StatisticsProvider>`.
 
 
-ml_classes
+Ml Classes
 ==========
-In addition to creating game and simulator classes we have also created an 
-additional set of tools that instructors can use to create assignments. These
-tools allow instructors to simulate ideal versions of several cryptographic
-primitives. We call this set of tools our "Abstract Cryptography Library". 
-Currently we include classes which simulate 
-:mod:`Classifiers <ml_classes.Classifiers>`,
-:mod:`FeatureExtractor <ml_classes..FeatureExtractor>`.
+A group of classifiers with a common interface. This interface will provide methods for labeling and labeling. :doc:`Documentation for the Classifiers</ml_classes.Classifiers>`.
+
+
+Feature Extractor provides feature vectors for training and for labeling data. The training method returns a list 
+of tuples containing (label, featur vecotr). The labeling method return a list of features that require labeling.  :doc:`Documentation for the FeatureExtractor</ml_classes.FeatureExtractor>`.
+

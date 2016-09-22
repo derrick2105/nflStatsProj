@@ -95,28 +95,32 @@
 <li class="toctree-l1"><a class="reference internal" href="../../stored_procedures.html">Stored Procedures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../design_and_architecture.html">Design and Architecture</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#utilities">Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#wrapper-classes">wrapper_classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#ml-classes">ml_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#populate-database">Populate Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#wrapper-classes">Wrapper Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#ml-classes">Ml Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../how_to.html">How To Complete Assignments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Utilities.html">Utilities package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../Utilities.html#module-Utilities">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../wrapper_classes.DbMaintenance.html">wrapper_classes.DbMaintenance package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../scripts.populateDataBase.html">PopulateDataBase package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../scripts.populateDataBase.html#module-scripts.populateDataBase">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../wrapper_classes.DbMaintenance.html">DbMaintenance package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../wrapper_classes.DbMaintenance.html#module-wrapper_classes.DbMaintenance">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../wrapper_classes.StatisticsProvider.html">wrapper_classes.StatisticsProvider package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../wrapper_classes.StatisticsProvider.html">StatisticsProvider package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../wrapper_classes.StatisticsProvider.html#module-wrapper_classes.StatisticsProvider">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../ml_classes.Classifiers.html">ml_classes.Classifiers package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ml_classes.Classifiers.html">Classifiers package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../ml_classes.Classifiers.html#module-ml_classes.Classifiers">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../ml_classes.FeatureExtractor.html">ml_classes.FeatureExtractor package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ml_classes.FeatureExtractor.html">FeatureExtractor package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../ml_classes.FeatureExtractor.html#module-ml_classes.FeatureExtractor">Module contents</a></li>
 </ul>
 </li>
@@ -165,14 +169,28 @@
 
 
 <div class="viewcode-block" id="RandomForest"><a class="viewcode-back" href="../../ml_classes.Classifiers.html#ml_classes.Classifiers.RandomForest">[docs]</a><span class="k">class</span> <span class="nc">RandomForest</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Random Forest Class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">Utils</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#39;Initializing Random Forests.&#39;</span><span class="p">,</span> <span class="n">Utils</span><span class="o">.</span><span class="n">class_log</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
 
 <div class="viewcode-block" id="RandomForest.train"><a class="viewcode-back" href="../../ml_classes.Classifiers.html#ml_classes.Classifiers.RandomForest.train">[docs]</a>    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param features:</span>
+<span class="sd">        :param labels:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="RandomForest.predict_class"><a class="viewcode-back" href="../../ml_classes.Classifiers.html#ml_classes.Classifiers.RandomForest.predict_class">[docs]</a>    <span class="k">def</span> <span class="nf">predict_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param feature:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>
 </div>
     <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -181,14 +199,28 @@
 
 </div>
 <div class="viewcode-block" id="Neighbors"><a class="viewcode-back" href="../../ml_classes.Classifiers.html#ml_classes.Classifiers.Neighbors">[docs]</a><span class="k">class</span> <span class="nc">Neighbors</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       Nearest Neighbors class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">Utils</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#39;Initializing K nearest neighbors.&#39;</span><span class="p">,</span> <span class="n">Utils</span><span class="o">.</span><span class="n">class_log</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clf</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Neighbors.train"><a class="viewcode-back" href="../../ml_classes.Classifiers.html#ml_classes.Classifiers.Neighbors.train">[docs]</a>    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param features:</span>
+<span class="sd">        :param labels:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Neighbors.predict_class"><a class="viewcode-back" href="../../ml_classes.Classifiers.html#ml_classes.Classifiers.Neighbors.predict_class">[docs]</a>    <span class="k">def</span> <span class="nf">predict_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param feature:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>
 </div>
     <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

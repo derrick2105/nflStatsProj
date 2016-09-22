@@ -1,5 +1,5 @@
-ml_classes.Classifiers package
-==============================
+Classifiers package
+===================
 
 Module contents
 ---------------

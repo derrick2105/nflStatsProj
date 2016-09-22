@@ -14,6 +14,20 @@ from wrapper_classes.StatisticsProvider import NFLStatsProvider as Provider
 ####
 
 class PopulateNFLDB:
+    """
+    This is a collection of the methods needed to populate all of the tables in
+    the database. If you run this script as a python script, it will call the
+    populate_all method and return after completion.
+
+    Example Usage:
+
+    .. testcode::
+
+        from scripts import PopulateNFLDB
+        populator = PopulateNFLDB()
+        populator.populate_all()
+
+    """
     def __init__(self):
         self.DB = DbMaintenance()
         self.provider = Provider()
@@ -24,6 +38,12 @@ class PopulateNFLDB:
         del self.provider
 
     def populate_all(self):
+        """
+        This is a method that runs all of the below methods with their default
+        parameters. Use this method to populate an empty database will all of
+        data from season i s.t. i in [2010, 2016).
+
+        """
         # Add all of the non player specific information.
         self.populate_seasons()
         self.populate_new_season(Utilities.current_season)
@@ -42,6 +62,15 @@ class PopulateNFLDB:
         self.populate_injury_report()
 
     def populate_players(self):
+        """
+        This is a method to populate the Players table in the database. It
+        uses a statisticsProvider object to download player information from
+        the NFL.com API
+
+        :return True: If the player table is successfully populated.
+        :return False: Otherwise.
+
+        """
         statement1 = "Insert Ignore into Players (playerId, firstName, " \
                      "lastName, position) values (%s, %s, %s, %s);"
 
@@ -88,6 +117,15 @@ class PopulateNFLDB:
         return True
 
     def populate_stats(self):
+        """
+        his is a method to populate the PlayStatistics table in the
+        database. It uses a statisticsProvider object to download list of
+        Statistical information from the NFL.com API
+
+        :return True: if the statistics table is successfully populated.
+        :return False: otherwise
+
+        """
         result = self.provider.get_data(
             Utilities.StatType.statistics)['stats']
 
@@ -113,6 +151,16 @@ class PopulateNFLDB:
         return True
 
     def populate_new_season_games(self):
+        """
+        This is a method to populate the Games table in the
+        database with a new season of games. It uses a statisticsProvider
+        object to download list of Games from the NFL.com API
+
+        :return True: if the Games table is successfully populated.
+        :return False: Otherwise.
+
+        """
+
         get_statement1 = "Select MAX(seasonId) from Season;"
         get_statement2 = "Select MAX(seasonId) from Games;"
         put_statement1 = "Insert Ignore into Games (seasonID, homeTeam, " \
@@ -196,7 +244,23 @@ class PopulateNFLDB:
         return True
 
     @staticmethod
-    def populate_games_from_data(data_path=Utilities.schedule_data_path):
+    def populate_games_from_data(data_path=None):
+        """
+        This is a method to populate the Games table in the database with
+        old games. It reads in the .csv files located at data_path and
+        inserts each game into the database.
+
+        :param data_path: A string that denotes the path to a directory \
+        containing game information from 2010 - 2016. Default value of \
+        'nflStatsProj/data/schedules/'
+
+        :return True: If the Games table is successfully populated.
+        :return False: Otherwise.
+
+        """
+
+        if not data_path:
+            data_path = Utilities.schedule_data_path
         start_year = Utilities.starting_year
         put_statement1 = "Insert ignore into Games (seasonId, homeTeam, " \
                          "awayTeam) values (%s, %s, %s);"
@@ -265,15 +329,41 @@ class PopulateNFLDB:
         return True
 
     def populate_new_season(self, year=None):
+        """
+        This is a method to populate the Season table in the database with
+        a new season.
+
+        :param year: an int that represents a season year to insert into the \
+        database. Defaults to 2016.
+
+        :return True: If  year == current_season + 1 and the new season is \
+        successfully inserted into the database.
+        :return False: Otherwise.
+
+        """
+
         if not year:
-            Utilities.update_season(
-                Utilities.get_current_season() + 1)
-        else:
+            year = Utilities.get_current_season() + 1
+
+        if year - Utilities.get_current_season() == 1:
             Utilities.update_season(year)
+        else:
+            Utilities.log('New season year is too far in the future.',
+                          Utilities.populate_log)
+            return False
+
         Utilities.update_week(1)
         return self.populate_seasons(year, year + 1)
 
     def populate_injury_report(self):
+        """
+        This is a method to populate the InjuryReport table in the database.
+
+        :return True: if the InjuryReport table is successfully populated.
+        :return False: Otherwise.
+
+        """
+
         get_statement = 'select playerId from Players;'
         insert_statement = 'REPLACE into InjuryReport (playerId, ' \
                            'injurySeverity) values (%s, %s);'
@@ -307,6 +397,25 @@ class PopulateNFLDB:
         return True
 
     def populate_player_stats(self, week=None, year=None):
+        """
+        This is a method to populate the player_stats table in the database
+        with the stats from week, year or all weeks from years 2010 - 2015. It
+        uses a StatsProvider object to download the player_stats information
+        from the NFL.com API.
+
+        :param week: an int that represents the week in which you want to \
+        download. 1 <= week <= 17. If week is None, insert all the stats \
+        from 1 week to week 17.
+
+        :param year: an int that represents the year in which you want to \
+        download the stats. 2010 <= year <= Utilities.current_season. \
+        If year is None, then insert all stats from 2010 - 2015.
+
+        :return True: If  the player_stats table is successfully populated.
+        :return False: Otherwise
+
+        """
+
         start_week, end_week, start_year, end_year = \
             self._validate_week_and_year(week, year)
 
@@ -352,6 +461,16 @@ class PopulateNFLDB:
         return True
 
     def populate_teams(self):
+        """
+        This is a method to populate the Teams table in the database with a
+        range of seasons. It uses a StatsProvider object to download the
+        playerTeams information from the NFL.com API.
+
+        :return True: If  the Teams table is successfully populated.
+        :return False: Otherwise.
+
+        """
+
         statement = "Insert IGNORE into Teams (teamID, name, teamNumber) " \
                     "values (%s, %s, %s);"
 
@@ -392,10 +511,30 @@ class PopulateNFLDB:
 
     @staticmethod
     def populate_seasons(start=2010, end=2016):
+        """
+        This is a method to populate the Season table in the database with a
+        range of seasons.
+
+        :param start: an int that represents a start year to insert into the \
+        database.
+
+        :param end: an int that represents an end year to insert into the \
+        database.
+
+        :return True: If  start == current_season + 1 and start <= end and \
+        the new seasons are successfully inserted into the database
+        :return False: Otherwise
+
+        """
+
         Utilities.log('Entering populate_seasons', Utilities.populate_log)
         season_id = Utilities.pull_from_db("select max(seasonId) from Season;",
                                            Utilities.populate_log)
 
+        if start > end or start > Utilities.get_current_season() + 1:
+            Utilities.log('Starting and end index is out of range.',
+                          Utilities.populate_log)
+            return False
         if season_id is None or season_id[0][0] is None:
             season_id = 0
         else:
@@ -425,6 +564,17 @@ class PopulateNFLDB:
         return True
 
     def populate_weather(self):
+        """
+        This is a method to populate the game_conditions table in the
+        database. It uses a statisticsProvider object to download the
+        current week of weather predictions and game conditions (like
+        whether or not a game is being played in a dome.
+
+        :return True: If the game_conditions are successfully inserted \
+        into the database.
+        :return False: Otherwise
+
+        """
         Utilities.log('Populating the weather and game conditions.',
                       Utilities.populate_log)
 
@@ -507,6 +657,19 @@ class PopulateNFLDB:
 
     @staticmethod
     def populate_locations():
+        """
+        This is a method to populate the TeamLocations and TurfType tabled
+        in the database. It uses the default stadium data directory (
+        'nflStatsProj/data/stadiums') to populate the teams stadium, and the
+        turfTypes table with the different types of turf that players will
+        play on.
+
+        :return True: If the TeamLocations and TurfTypes tables are \
+        successfully updated.
+        :return False: Otherwise.
+
+        """
+
         get_statement = "select teamId, name from Teams;"
         put_statement1 = "Insert ignore into TeamLocations (locationId, " \
                          "teamId, " \
@@ -623,4 +786,4 @@ class PopulateNFLDB:
 
 if __name__ == '__main__':
     populator = PopulateNFLDB()
-    populator.populate_all()
+    populator.populate_player_stats(1, 2016)

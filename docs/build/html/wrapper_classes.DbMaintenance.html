@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>wrapper_classes.DbMaintenance package &mdash; NFLStats Project 0.1 documentation</title>
+  <title>DbMaintenance package &mdash; NFLStats Project 0.1 documentation</title>
   
 
   
@@ -31,8 +31,8 @@
 
   
     <link rel="top" title="NFLStats Project 0.1 documentation" href="index.html"/>
-        <link rel="next" title="wrapper_classes.StatisticsProvider package" href="wrapper_classes.StatisticsProvider.html"/>
-        <link rel="prev" title="wrapper_classes.DbMaintenance package" href="Utilities.html"/> 
+        <link rel="next" title="StatisticsProvider package" href="wrapper_classes.StatisticsProvider.html"/>
+        <link rel="prev" title="PopulateDataBase package" href="scripts.populateDataBase.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -80,7 +80,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="quick_start.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="quick_start.html#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quick_start.html#clone-and-install-project-module">Clone and install project Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#clone-and-install-the-project-module">Clone and install the project Module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quick_start.html#run-the-populatedatabase-script">Run the populateDataBase script</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="quick_start.html#from-the-terminal">From the terminal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="quick_start.html#from-pycharm">From  Pycharm</a></li>
@@ -93,31 +93,35 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="conventions.html">Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stored_procedures.html">Stored Procedures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="design_and_architecture.html">Design and Architecture</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="design_and_architecture.html#utilities">Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design_and_architecture.html#wrapper-classes">wrapper_classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="design_and_architecture.html#ml-classes">ml_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design_and_architecture.html#populate-database">Populate Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design_and_architecture.html#wrapper-classes">Wrapper Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design_and_architecture.html#ml-classes">Ml Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="how_to.html">How To Complete Assignments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Utilities.html">wrapper_classes.DbMaintenance package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Utilities.html#module-contents">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Utilities.html">Utilities package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Utilities.html#module-Utilities">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">wrapper_classes.DbMaintenance package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="scripts.populateDataBase.html">PopulateDataBase package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scripts.populateDataBase.html#module-scripts.populateDataBase">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">DbMaintenance package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-wrapper_classes.DbMaintenance">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="wrapper_classes.StatisticsProvider.html">wrapper_classes.StatisticsProvider package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="wrapper_classes.StatisticsProvider.html">StatisticsProvider package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="wrapper_classes.StatisticsProvider.html#module-wrapper_classes.StatisticsProvider">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ml_classes.Classifiers.html">ml_classes.Classifiers package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="ml_classes.Classifiers.html">Classifiers package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ml_classes.Classifiers.html#module-ml_classes.Classifiers">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ml_classes.FeatureExtractor.html">ml_classes.FeatureExtractor package</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="ml_classes.FeatureExtractor.html">FeatureExtractor package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ml_classes.FeatureExtractor.html#module-ml_classes.FeatureExtractor">Module contents</a></li>
 </ul>
 </li>
@@ -145,7 +149,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>wrapper_classes.DbMaintenance package</li>
+    <li>DbMaintenance package</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -158,62 +162,175 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="wrapper-classes-dbmaintenance-package">
-<h1>wrapper_classes.DbMaintenance package<a class="headerlink" href="#wrapper-classes-dbmaintenance-package" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="dbmaintenance-package">
+<h1>DbMaintenance package<a class="headerlink" href="#dbmaintenance-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-wrapper_classes.DbMaintenance">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-wrapper_classes.DbMaintenance" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="wrapper_classes.DbMaintenance.DbMaintenance">
 <em class="property">class </em><code class="descclassname">wrapper_classes.DbMaintenance.</code><code class="descname">DbMaintenance</code><a class="reference internal" href="_modules/wrapper_classes/DbMaintenance.html#DbMaintenance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wrapper_classes.DbMaintenance.DbMaintenance" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>Database Maintenance class.</p>
+<dl class="method">
 <dt id="wrapper_classes.DbMaintenance.DbMaintenance.close_connection">
 <code class="descname">close_connection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wrapper_classes/DbMaintenance.html#DbMaintenance.close_connection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wrapper_classes.DbMaintenance.DbMaintenance.close_connection" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="wrapper_classes.DbMaintenance.DbMaintenance.commit">
 <code class="descname">commit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wrapper_classes/DbMaintenance.html#DbMaintenance.commit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wrapper_classes.DbMaintenance.DbMaintenance.commit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="wrapper_classes.DbMaintenance.DbMaintenance.execute_statement">
 <code class="descname">execute_statement</code><span class="sig-paren">(</span><em>statement=None</em>, <em>values=None</em>, <em>commit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wrapper_classes/DbMaintenance.html#DbMaintenance.execute_statement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wrapper_classes.DbMaintenance.DbMaintenance.execute_statement" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>statement</strong> &#8211; </li>
+<li><strong>values</strong> &#8211; </li>
+<li><strong>commit</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="wrapper_classes.DbMaintenance.DbMaintenance.execute_stored_procedure">
 <code class="descname">execute_stored_procedure</code><span class="sig-paren">(</span><em>procedure</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wrapper_classes/DbMaintenance.html#DbMaintenance.execute_stored_procedure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wrapper_classes.DbMaintenance.DbMaintenance.execute_stored_procedure" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>procedure</strong> &#8211; </li>
+<li><strong>args</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="wrapper_classes.DbMaintenance.DbMaintenance.get_cursor">
 <code class="descname">get_cursor</code><span class="sig-paren">(</span><em>stored=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wrapper_classes/DbMaintenance.html#DbMaintenance.get_cursor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wrapper_classes.DbMaintenance.DbMaintenance.get_cursor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stored</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="wrapper_classes.DbMaintenance.DbMaintenance.get_results">
 <code class="descname">get_results</code><span class="sig-paren">(</span><em>stored=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wrapper_classes/DbMaintenance.html#DbMaintenance.get_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wrapper_classes.DbMaintenance.DbMaintenance.get_results" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stored</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="wrapper_classes.DbMaintenance.DbMaintenance.import_db_config">
 <code class="descname">import_db_config</code><span class="sig-paren">(</span><em>config_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wrapper_classes/DbMaintenance.html#DbMaintenance.import_db_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wrapper_classes.DbMaintenance.DbMaintenance.import_db_config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config_file</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="wrapper_classes.DbMaintenance.DbMaintenance.open_connection">
 <code class="descname">open_connection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wrapper_classes/DbMaintenance.html#DbMaintenance.open_connection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wrapper_classes.DbMaintenance.DbMaintenance.open_connection" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="wrapper_classes.DbMaintenance.DbMaintenance.prepare_statement">
 <code class="descname">prepare_statement</code><span class="sig-paren">(</span><em>statement</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wrapper_classes/DbMaintenance.html#DbMaintenance.prepare_statement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wrapper_classes.DbMaintenance.DbMaintenance.prepare_statement" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>statement</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="wrapper_classes.DbMaintenance.DbMaintenance.set_db_config">
 <code class="descname">set_db_config</code><span class="sig-paren">(</span><em>username</em>, <em>password</em>, <em>ip</em>, <em>database</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wrapper_classes/DbMaintenance.html#DbMaintenance.set_db_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wrapper_classes.DbMaintenance.DbMaintenance.set_db_config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>username</strong> &#8211; </li>
+<li><strong>password</strong> &#8211; </li>
+<li><strong>ip</strong> &#8211; </li>
+<li><strong>database</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -226,10 +343,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="wrapper_classes.StatisticsProvider.html" class="btn btn-neutral float-right" title="wrapper_classes.StatisticsProvider package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="wrapper_classes.StatisticsProvider.html" class="btn btn-neutral float-right" title="StatisticsProvider package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Utilities.html" class="btn btn-neutral" title="wrapper_classes.DbMaintenance package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="scripts.populateDataBase.html" class="btn btn-neutral" title="PopulateDataBase package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

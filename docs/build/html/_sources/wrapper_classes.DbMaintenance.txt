@@ -1,5 +1,5 @@
-wrapper_classes.DbMaintenance package
-=====================================
+DbMaintenance package
+=====================
 
 Module contents
 ---------------
