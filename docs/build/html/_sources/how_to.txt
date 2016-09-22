@@ -1,0 +1,65 @@
+How To Complete Assignments
+***************************
+
+To complete an assignment, you must fill in all of the required functions.
+For most assignments that means only filling in the adversary, but some
+assignments have more than one function to implement. Below is a step by step
+example of how to implement an adversary for a kr game with the following fn
+oracle::
+
+    def Fn(k, x):
+        k1, k2 = split(k)
+        x1, x2 = split(x)
+
+        y1 = AES(x1, k1)
+        y2 = AES(k1, xor_strings(x2, k2))
+
+        return y1 + y2
+
+First, read and understand the given parameters and what to return::
+
+    def A(fn):
+        You must fill in this method. This is the adversary that the problem is
+        asking for.
+
+        :param fn: This is the oracle supplied by GameKR, you can call this
+        oracle to get an "encryption" of the data you pass into it.
+        :return: return the a string that represents a key guess.
+
+Notice that this game has an fn oracle and returns a candidate key, just like
+the game described in lecture.
+
+Next build the messages this attack uses. In this case the attack uses the
+split method to parse the messages that we are using in this attack. Refer to
+the conventions section to get a pseudocode definition of split::
+
+     x1, x2 = split('\x00' * (256 / 8))
+     y1, y2 = split(fn(x1 + x2))
+
+Notice that in building the message y1 and y2 we use the fn oracle to
+encrypt the data under the target key. It is important to remember that the
+attacker does not know the key.
+
+After building the messages this attack uses AES inverse to build the guess
+for the key. This is fine because the attack does not attempt to use the
+target key::
+
+    k1 = AES_I(x1, y1)
+    k2 = xor_strings(AES_I(k1, y2), x2)
+
+Finally, return the target key::
+
+    return k1 + k2
+
+When put together the attack looks like this::
+
+    def A(fn):
+        x1, x2 = split('\x00' * (256 / 8))
+        y1, y2 = split(fn(x1 + x2))
+
+        k1 = AES_I(x1, y1)
+        k2 = xor_strings(AES_I(k1, y2), x2)
+    return k1 + k2
+
+You can use the :doc:`conventions page </conventions>`  as a reference for how 
+to do common pseudo-code operations in Python.

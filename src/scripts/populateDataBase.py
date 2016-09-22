@@ -321,10 +321,10 @@ class PopulateNFLDB:
         statement = "Insert IGNORE into PlayerStats (playerId, statId, " \
                     "Seasonid, statValue) values (%s, %s, %s, %s);"
 
+        insert_tuples = []
         for year in xrange(start_year, end_year):
             message = "Downloading player stats from " + str(year)
             Utilities.log(message, Utilities.populate_log)
-            insert_tuples = []
             for week in xrange(start_week, end_week):
                 new_tuples = self._pull_player_stats_weekly(year, week,
                                                             season_id)
@@ -341,16 +341,14 @@ class PopulateNFLDB:
 
                 season_id += 1
 
-            message = "Inserting values for year " + str(year) + " into the " \
-                                                                 "database."
+        message = 'Inserting player stats into db.'
+        Utilities.log(message, Utilities.populate_log)
+        if not Utilities.populate_db(statement, Utilities.populate_log,
+                                     insert_tuples):
+            Utilities.log("Problem executing statement in the database. "
+                          "Aborting.", Utilities.populate_log)
 
-            Utilities.log(message, Utilities.populate_log)
-            if not Utilities.populate_db(statement, Utilities.populate_log,
-                                         insert_tuples):
-                Utilities.log("Problem executing statement in the database. "
-                              "Aborting.", Utilities.populate_log)
-
-                return False
+            return False
         return True
 
     def populate_teams(self):

@@ -1,0 +1,259 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Stored Procedures &mdash; NFLStats Project 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="NFLStats Project 0.1 documentation" href="index.html"/>
+        <link rel="next" title="Design and Architecture" href="design_and_architecture.html"/>
+        <link rel="prev" title="Getting Started" href="quick_start.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> NFLStats Project
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Intro</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#what-is-this">What is this?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#why-did-i-create-this">Why did I create this?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#goals">Goals</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#clone-and-install-the-project-module">Clone and install the project Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#run-the-populatedatabase-script">Run the populateDataBase script</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quick_start.html#from-the-terminal">From the terminal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quick_start.html#from-pycharm">From  Pycharm</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#run-the-driver-script">Run the Driver script</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quick_start.html#id1">From the terminal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quick_start.html#id2">From  Pycharm</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Stored Procedures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design_and_architecture.html">Design and Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="design_and_architecture.html#utilities">Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design_and_architecture.html#wrapper-classes">wrapper_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design_and_architecture.html#ml-classes">ml_classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="how_to.html">How To Complete Assignments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Utilities.html">Utilities package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Utilities.html#module-Utilities">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wrapper_classes.DbMaintenance.html">wrapper_classes.DbMaintenance package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wrapper_classes.DbMaintenance.html#module-wrapper_classes.DbMaintenance">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wrapper_classes.StatisticsProvider.html">wrapper_classes.StatisticsProvider package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wrapper_classes.StatisticsProvider.html#module-wrapper_classes.StatisticsProvider">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ml_classes.Classifiers.html">ml_classes.Classifiers package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ml_classes.Classifiers.html#module-ml_classes.Classifiers">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ml_classes.FeatureExtractor.html">ml_classes.FeatureExtractor package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ml_classes.FeatureExtractor.html#module-ml_classes.FeatureExtractor">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">NFLStats Project</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Stored Procedures</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/stored_procedures.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="stored-procedures">
+<h1>Stored Procedures<a class="headerlink" href="#stored-procedures" title="Permalink to this headline">¶</a></h1>
+<p>In our code we use strings to represent cipher and plain text messages.
+This means that we need several custom functions
+in order to perform common pseduocode tasks such as XORing two messages
+together.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="57%" />
+<col width="17%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">procedure Name</th>
+<th class="head">Parameters</th>
+<th class="head">Required</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>extract_game_info</td>
+<td>int seasonId, str position, int playerId</td>
+<td>No, No, No</td>
+</tr>
+<tr class="row-odd"><td>extract_statistics</td>
+<td>str position, int seasonId, Bool byeFlag</td>
+<td>Yes, Yes, No</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="design_and_architecture.html" class="btn btn-neutral float-right" title="Design and Architecture" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="quick_start.html" class="btn btn-neutral" title="Getting Started" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Derrick Smith.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

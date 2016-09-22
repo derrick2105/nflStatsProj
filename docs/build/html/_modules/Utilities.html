@@ -1,0 +1,398 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Utilities &mdash; NFLStats Project 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="NFLStats Project 0.1 documentation" href="../index.html"/>
+        <link rel="up" title="Module code" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../index.html" class="icon icon-home"> NFLStats Project
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Intro</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#what-is-this">What is this?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#why-did-i-create-this">Why did I create this?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#goals">Goals</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quick_start.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quick_start.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quick_start.html#clone-and-install-the-project-module">Clone and install the project Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quick_start.html#run-the-populatedatabase-script">Run the populateDataBase script</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quick_start.html#from-the-terminal">From the terminal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quick_start.html#from-pycharm">From  Pycharm</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quick_start.html#run-the-driver-script">Run the Driver script</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quick_start.html#id1">From the terminal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quick_start.html#id2">From  Pycharm</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../stored_procedures.html">Stored Procedures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design_and_architecture.html">Design and Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../design_and_architecture.html#utilities">Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../design_and_architecture.html#wrapper-classes">wrapper_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../design_and_architecture.html#ml-classes">ml_classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to.html">How To Complete Assignments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Utilities.html">Utilities package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Utilities.html#module-Utilities">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../wrapper_classes.DbMaintenance.html">wrapper_classes.DbMaintenance package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../wrapper_classes.DbMaintenance.html#module-wrapper_classes.DbMaintenance">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../wrapper_classes.StatisticsProvider.html">wrapper_classes.StatisticsProvider package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../wrapper_classes.StatisticsProvider.html#module-wrapper_classes.StatisticsProvider">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ml_classes.Classifiers.html">ml_classes.Classifiers package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ml_classes.Classifiers.html#module-ml_classes.Classifiers">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ml_classes.FeatureExtractor.html">ml_classes.FeatureExtractor package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ml_classes.FeatureExtractor.html#module-ml_classes.FeatureExtractor">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">NFLStats Project</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Module code</a> &raquo;</li>
+      
+    <li>Utilities</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for Utilities</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">os.path</span>
+
+<span class="kn">from</span> <span class="nn">wrapper_classes</span> <span class="kn">import</span> <span class="n">DbMaintenance</span>
+
+
+<span class="c"># ----------------------- start default config and data paths ---------------- #</span>
+<span class="n">base_dir</span> <span class="o">=</span> <span class="s">&#39;/home/derrick/Documents/customModules/nflStatsProj/&#39;</span>
+<span class="n">config_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_dir</span><span class="p">,</span> <span class="s">&#39;config_files/&#39;</span><span class="p">)</span>
+
+<span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_dir</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">)</span>
+<span class="n">schedule_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s">&#39;schedules&#39;</span><span class="p">)</span>
+<span class="n">point_breakdown_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s">&#39;point_breakdowns&#39;</span><span class="p">)</span>
+<span class="n">stadium_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s">&#39;stadiums/stadiums.csv&#39;</span><span class="p">)</span>
+<span class="c"># ----------------------- end default config and data paths ------------------ #</span>
+
+
+<span class="c"># --------------------------- start logging utilities ------------------------ #</span>
+<span class="n">log_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_dir</span><span class="p">,</span> <span class="s">&#39;logs/&#39;</span><span class="p">)</span>
+<span class="n">db_log_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_path</span><span class="p">,</span> <span class="s">&#39;dbMaintenanceLog.txt&#39;</span><span class="p">)</span>
+<span class="n">populate_log</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_path</span><span class="p">,</span> <span class="s">&#39;populateDBLog.txt&#39;</span><span class="p">)</span>
+<span class="n">stat_provider_log</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_path</span><span class="p">,</span> <span class="s">&#39;StatisticsProviderLog.txt&#39;</span><span class="p">)</span>
+<span class="n">extract_log</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_path</span><span class="p">,</span> <span class="s">&#39;extractLog.txt&#39;</span><span class="p">)</span>
+<span class="n">driver_log</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_path</span><span class="p">,</span> <span class="s">&#39;driverLog.txt&#39;</span><span class="p">)</span>
+<span class="n">class_log</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_path</span><span class="p">,</span> <span class="s">&#39;classifierLog.txt&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="log"><a class="viewcode-back" href="../Utilities.html#Utilities.log">[docs]</a><span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s">&#39;./log.txt&#39;</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span> <span class="o">+</span> <span class="s">&#39;: &#39;</span> <span class="o">+</span> <span class="n">message</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\r\n</span><span class="s">&#39;</span><span class="p">)</span> <span class="o">+</span>
+                <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+
+
+<span class="c"># A simple extension to uniformly log exceptions</span></div>
+<div class="viewcode-block" id="log_exception"><a class="viewcode-back" href="../Utilities.html#Utilities.log_exception">[docs]</a><span class="k">def</span> <span class="nf">log_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">log_file</span><span class="p">):</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="s">&quot;Exception: {0}. Arguments: {1!r}&quot;</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">log</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
+    <span class="n">log</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">log_file</span><span class="p">)</span>
+<span class="c"># -------------------------- end logging urilities --------------------------- #</span>
+
+
+<span class="c"># ------------------- start time conversion helper methods ------------------- #</span></div>
+<div class="viewcode-block" id="convert_to_24"><a class="viewcode-back" href="../Utilities.html#Utilities.convert_to_24">[docs]</a><span class="k">def</span> <span class="nf">convert_to_24</span><span class="p">(</span><span class="n">time</span><span class="p">):</span>
+    <span class="n">time</span><span class="p">,</span> <span class="n">meridiem</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">)</span>
+
+    <span class="n">time_list</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">time_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">hours</span><span class="p">,</span> <span class="n">minutes</span> <span class="o">=</span> <span class="n">time_list</span>
+        <span class="n">seconds</span> <span class="o">=</span> <span class="s">&#39;00&#39;</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">time_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">hours</span><span class="p">,</span> <span class="n">minutes</span><span class="p">,</span> <span class="n">seconds</span> <span class="o">=</span> <span class="n">time_list</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">if</span> <span class="n">meridiem</span> <span class="o">==</span> <span class="s">&#39;PM&#39;</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">hours</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">12</span><span class="p">:</span>
+        <span class="n">hours</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">hours</span><span class="p">)</span> <span class="o">+</span> <span class="mi">12</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">meridiem</span> <span class="o">==</span> <span class="s">&#39;AM&#39;</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">hours</span><span class="p">)</span> <span class="o">==</span> <span class="mi">12</span><span class="p">:</span>
+        <span class="n">hours</span> <span class="o">=</span> <span class="s">&#39;00&#39;</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="s">&quot;:&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">hours</span><span class="p">,</span> <span class="n">minutes</span><span class="p">,</span> <span class="n">seconds</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">time</span>
+<span class="c"># ------------------- end time conversion helper methods --------------------- #</span>
+
+
+<span class="c"># ------------------- start season and week helper methods ------------------- #</span></div>
+<span class="n">current_season</span> <span class="o">=</span> <span class="mi">2016</span>
+<span class="n">current_week</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">starting_year</span> <span class="o">=</span> <span class="mi">2010</span>
+
+
+<div class="viewcode-block" id="update_week"><a class="viewcode-back" href="../Utilities.html#Utilities.update_week">[docs]</a><span class="k">def</span> <span class="nf">update_week</span><span class="p">(</span><span class="n">new_week</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">current_week</span>
+    <span class="n">current_week</span> <span class="o">=</span> <span class="n">new_week</span>
+    <span class="k">return</span> <span class="n">current_week</span>
+
+</div>
+<div class="viewcode-block" id="update_season"><a class="viewcode-back" href="../Utilities.html#Utilities.update_season">[docs]</a><span class="k">def</span> <span class="nf">update_season</span><span class="p">(</span><span class="n">new_season</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">current_season</span>
+    <span class="n">current_season</span> <span class="o">=</span> <span class="n">new_season</span>
+    <span class="k">return</span> <span class="n">current_season</span>
+
+</div>
+<div class="viewcode-block" id="get_current_season"><a class="viewcode-back" href="../Utilities.html#Utilities.get_current_season">[docs]</a><span class="k">def</span> <span class="nf">get_current_season</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">current_season</span>
+    <span class="k">return</span> <span class="n">current_season</span>
+<span class="c"># -------------------- end season and week helper methods -------------------- #</span>
+
+
+<span class="c"># -------------------------- start Common db calls --------------------------- #</span></div>
+<span class="n">db_config</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s">&#39;config.yml&#39;</span><span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">DbMaintenance</span><span class="o">.</span><span class="n">DbMaintenance</span><span class="p">()</span>
+<span class="n">db</span><span class="o">.</span><span class="n">import_db_config</span><span class="p">(</span><span class="n">db_config</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="import_db_config"><a class="viewcode-back" href="../Utilities.html#Utilities.import_db_config">[docs]</a><span class="k">def</span> <span class="nf">import_db_config</span><span class="p">(</span><span class="n">config_file</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">db</span><span class="o">.</span><span class="n">import_db_config</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="execute_procedure"><a class="viewcode-back" href="../Utilities.html#Utilities.execute_procedure">[docs]</a><span class="k">def</span> <span class="nf">execute_procedure</span><span class="p">(</span><span class="n">procedure_name</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">log_file</span><span class="p">):</span>
+    <span class="n">log</span><span class="p">(</span><span class="s">&#39;Entering execute_procedure.&#39;</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">db</span>
+    <span class="k">if</span> <span class="n">db</span><span class="o">.</span><span class="n">execute_stored_procedure</span><span class="p">(</span><span class="n">procedure_name</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_results</span><span class="p">(</span><span class="n">stored</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">log</span><span class="p">(</span><span class="s">&#39;Could not execute the stored procedure.&#39;</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">close_connection</span><span class="p">()</span>
+    <span class="n">log</span><span class="p">(</span><span class="s">&#39;Entering execute_procedure.&#39;</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+</div>
+<div class="viewcode-block" id="populate_db"><a class="viewcode-back" href="../Utilities.html#Utilities.populate_db">[docs]</a><span class="k">def</span> <span class="nf">populate_db</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="n">log_file</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="n">log</span><span class="p">(</span><span class="s">&#39;Entering populate_db.&#39;</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">db</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">db</span><span class="o">.</span><span class="n">prepare_statement</span><span class="p">(</span><span class="n">statement</span><span class="p">):</span>
+        <span class="n">log</span><span class="p">(</span><span class="s">&quot;Could not prepare statement.&quot;</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">db</span><span class="o">.</span><span class="n">execute_statement</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">commit</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="n">log</span><span class="p">(</span><span class="s">&quot;Could not execute statement.&quot;</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="n">db</span><span class="o">.</span><span class="n">close_connection</span><span class="p">()</span>
+
+    <span class="n">log</span><span class="p">(</span><span class="s">&#39;Exiting populate_db.&#39;</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">True</span>
+
+</div>
+<div class="viewcode-block" id="pull_from_db"><a class="viewcode-back" href="../Utilities.html#Utilities.pull_from_db">[docs]</a><span class="k">def</span> <span class="nf">pull_from_db</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="n">log_file</span><span class="p">,</span> <span class="n">values_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">log</span><span class="p">(</span><span class="s">&#39;Entering pull_from_db.&#39;</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">db</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">if</span> <span class="n">values_list</span><span class="p">:</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">prepare_statement</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">db</span> <span class="o">.</span><span class="n">execute_statement</span><span class="p">(</span><span class="n">statement</span><span class="o">=</span><span class="n">statement</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">values_list</span><span class="p">):</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">log</span><span class="p">(</span><span class="s">&quot;Could not execute statement.&quot;</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
+
+    <span class="n">db</span><span class="o">.</span><span class="n">close_connection</span><span class="p">()</span>
+
+    <span class="n">log</span><span class="p">(</span><span class="s">&#39;Exiting pull_from_db.&#39;</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">results</span>
+<span class="c"># --------------------------- end Common db calls ---------------------------- #</span>
+
+
+<span class="c"># -------------------------- start statType enum class ----------------------- #</span></div>
+<div class="viewcode-block" id="StatType"><a class="viewcode-back" href="../Utilities.html#Utilities.StatType">[docs]</a><span class="k">class</span> <span class="nc">StatType</span><span class="p">:</span>
+    <span class="n">playerInfo</span><span class="p">,</span> <span class="n">statistics</span><span class="p">,</span> <span class="n">playerWeekly</span><span class="p">,</span> <span class="n">weather</span><span class="p">,</span> <span class="n">injury</span><span class="p">,</span> <span class="n">games</span><span class="p">,</span> <span class="n">teams</span><span class="p">,</span> <span class="n">byes</span> <span class="o">=</span>\
+        <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+<span class="c"># ----------------------- end statType enum class ---------------------------- #</span>
+
+
+<span class="c"># ----------------------- start position enum class -------------------------- #</span></div>
+<div class="viewcode-block" id="Positions"><a class="viewcode-back" href="../Utilities.html#Utilities.Positions">[docs]</a><span class="k">class</span> <span class="nc">Positions</span><span class="p">:</span>
+    <span class="n">quarterback</span><span class="p">,</span> <span class="n">running_back</span><span class="p">,</span> <span class="n">kicker</span><span class="p">,</span> <span class="n">defense</span><span class="p">,</span> <span class="n">wide_receiver</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">tight_end</span> <span class="o">=</span> <span class="n">wide_receiver</span>
+
+    <span class="n">positions_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">quarterback</span><span class="p">:</span> <span class="s">&#39;QB&#39;</span><span class="p">,</span>
+                      <span class="n">running_back</span><span class="p">:</span> <span class="s">&#39;RB&#39;</span><span class="p">,</span>
+                      <span class="n">kicker</span><span class="p">:</span> <span class="s">&#39;K&#39;</span><span class="p">,</span>
+                      <span class="n">defense</span><span class="p">:</span> <span class="s">&#39;DEF&#39;</span><span class="p">,</span>
+                      <span class="n">wide_receiver</span><span class="p">:</span> <span class="s">&#39;WR&#39;</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Positions.get_positions"><a class="viewcode-back" href="../Utilities.html#Utilities.Positions.get_positions">[docs]</a>    <span class="k">def</span> <span class="nf">get_positions</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">Positions</span><span class="o">.</span><span class="n">positions_dict</span>
+
+<span class="c"># ------------------------ end position enum class --------------------------- #</span></div></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Derrick Smith.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

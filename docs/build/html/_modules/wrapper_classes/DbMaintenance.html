@@ -1,0 +1,429 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>wrapper_classes.DbMaintenance &mdash; NFLStats Project 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="NFLStats Project 0.1 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../index.html" class="icon icon-home"> NFLStats Project
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Intro</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../intro.html#what-is-this">What is this?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro.html#why-did-i-create-this">Why did I create this?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro.html#goals">Goals</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick_start.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../quick_start.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quick_start.html#clone-and-install-the-project-module">Clone and install the project Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quick_start.html#run-the-populatedatabase-script">Run the populateDataBase script</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../quick_start.html#from-the-terminal">From the terminal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quick_start.html#from-pycharm">From  Pycharm</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../quick_start.html#run-the-driver-script">Run the Driver script</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../quick_start.html#id1">From the terminal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quick_start.html#id2">From  Pycharm</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../stored_procedures.html">Stored Procedures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../design_and_architecture.html">Design and Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#utilities">Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#wrapper-classes">wrapper_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../design_and_architecture.html#ml-classes">ml_classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to.html">How To Complete Assignments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Utilities.html">Utilities package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Utilities.html#module-Utilities">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../wrapper_classes.DbMaintenance.html">wrapper_classes.DbMaintenance package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../wrapper_classes.DbMaintenance.html#module-wrapper_classes.DbMaintenance">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../wrapper_classes.StatisticsProvider.html">wrapper_classes.StatisticsProvider package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../wrapper_classes.StatisticsProvider.html#module-wrapper_classes.StatisticsProvider">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ml_classes.Classifiers.html">ml_classes.Classifiers package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ml_classes.Classifiers.html#module-ml_classes.Classifiers">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ml_classes.FeatureExtractor.html">ml_classes.FeatureExtractor package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ml_classes.FeatureExtractor.html#module-ml_classes.FeatureExtractor">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">NFLStats Project</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>wrapper_classes.DbMaintenance</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for wrapper_classes.DbMaintenance</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="kn">import</span> <span class="nn">mysql.connector</span> <span class="kn">as</span> <span class="nn">sql_module</span>
+<span class="kn">import</span> <span class="nn">Utilities</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+
+<span class="c">######</span>
+<span class="c"># This is a wrapper class that is designed to abstract away Database specifics.</span>
+<span class="c"># In order to avoid a major refactor, please use the existing method</span>
+<span class="c"># signatures.</span>
+<span class="c">######</span>
+
+
+<div class="viewcode-block" id="DbMaintenance"><a class="viewcode-back" href="../../wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance">[docs]</a><span class="k">class</span> <span class="nc">DbMaintenance</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">statement</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results_tup</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="c"># CHANGE THESE FROM THERE DEFAULT VALUES!!!!!!</span>
+        <span class="c">################################</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="s">&#39;localhost&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="s">&#39;username&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="s">&#39;password&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">database</span> <span class="o">=</span> <span class="s">&#39;database&#39;</span>
+        <span class="c">################################</span>
+
+    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_connection</span><span class="p">()</span>
+
+<div class="viewcode-block" id="DbMaintenance.import_db_config"><a class="viewcode-back" href="../../wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.import_db_config">[docs]</a>    <span class="k">def</span> <span class="nf">import_db_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_file</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_file</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IOError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">Utilities</span><span class="o">.</span><span class="n">log_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">db_log_file</span><span class="p">)</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="k">if</span> <span class="n">config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s">&#39;db&#39;</span><span class="p">][</span><span class="s">&#39;ip&#39;</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s">&#39;db&#39;</span><span class="p">][</span><span class="s">&#39;username&#39;</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s">&#39;db&#39;</span><span class="p">][</span><span class="s">&#39;password&#39;</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">database</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s">&#39;db&#39;</span><span class="p">][</span><span class="s">&#39;database&#39;</span><span class="p">]</span>
+                <span class="k">return</span> <span class="bp">True</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;Improperly formatted config file. Expected format:</span>
+
+<span class="s">                             db:</span>
+<span class="s">                                ip: localhost</span>
+<span class="s">                                username: username</span>
+<span class="s">                                password: password</span>
+<span class="s">                                database: database</span>
+
+<span class="s">                    &quot;&quot;&quot;</span>
+                <span class="n">Utilities</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">db_log_file</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">False</span>
+</div>
+<div class="viewcode-block" id="DbMaintenance.set_db_config"><a class="viewcode-back" href="../../wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.set_db_config">[docs]</a>    <span class="k">def</span> <span class="nf">set_db_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">ip</span><span class="p">,</span> <span class="n">database</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="n">ip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">username</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">password</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">database</span> <span class="o">=</span> <span class="n">database</span>
+
+    <span class="c"># Add a config file for this.</span></div>
+<div class="viewcode-block" id="DbMaintenance.open_connection"><a class="viewcode-back" href="../../wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.open_connection">[docs]</a>    <span class="k">def</span> <span class="nf">open_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">close_connection</span><span class="p">():</span>
+                <span class="n">Utilities</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s">&quot;Cannot Connect to the database. Check the &quot;</span>
+                              <span class="s">&quot;login credentials.&quot;</span><span class="p">,</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">db_log_file</span><span class="p">)</span>
+                <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="o">=</span> <span class="n">sql_module</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+                                           <span class="n">password</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">,</span>
+                                           <span class="n">database</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="bp">True</span>
+
+        <span class="k">except</span> <span class="n">sql_module</span><span class="o">.</span><span class="n">Error</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">Utilities</span><span class="o">.</span><span class="n">log_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">db_log_file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="k">return</span> <span class="bp">False</span>
+</div>
+<div class="viewcode-block" id="DbMaintenance.close_connection"><a class="viewcode-back" href="../../wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.close_connection">[docs]</a>    <span class="k">def</span> <span class="nf">close_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="DbMaintenance.get_cursor"><a class="viewcode-back" href="../../wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.get_cursor">[docs]</a>    <span class="k">def</span> <span class="nf">get_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stored</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="c"># Open a connection if the dataBase is closed.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_connection</span><span class="p">():</span>
+                <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">stored</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">prepared</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">buffered</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">True</span>
+
+        <span class="k">except</span> <span class="n">sql_module</span><span class="o">.</span><span class="n">Error</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">Utilities</span><span class="o">.</span><span class="n">log_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">db_log_file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">close_connection</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">False</span>
+</div>
+<div class="viewcode-block" id="DbMaintenance.prepare_statement"><a class="viewcode-back" href="../../wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.prepare_statement">[docs]</a>    <span class="k">def</span> <span class="nf">prepare_statement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">statement</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cursor</span><span class="p">():</span>
+                <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c"># Clear the cursor before running another statement</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">statement</span> <span class="o">=</span> <span class="n">statement</span>
+            <span class="k">return</span> <span class="bp">True</span>
+
+        <span class="k">except</span> <span class="n">sql_module</span><span class="o">.</span><span class="n">Error</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">Utilities</span><span class="o">.</span><span class="n">log_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">db_log_file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">close_connection</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="c"># Only commit if it is an update</span></div>
+<div class="viewcode-block" id="DbMaintenance.execute_statement"><a class="viewcode-back" href="../../wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.execute_statement">[docs]</a>    <span class="k">def</span> <span class="nf">execute_statement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">statement</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="n">execute_many</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="n">execute_many</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cursor</span><span class="p">():</span>
+                <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">if</span> <span class="n">statement</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">statement</span> <span class="o">=</span> <span class="n">statement</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c"># Clear the cursor before running another statement</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">statement</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">execute_many</span><span class="p">:</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">statement</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">statement</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">commit</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">True</span>
+
+        <span class="k">except</span> <span class="n">sql_module</span><span class="o">.</span><span class="n">Error</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">Utilities</span><span class="o">.</span><span class="n">log_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">db_log_file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">close_connection</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">False</span>
+</div>
+<div class="viewcode-block" id="DbMaintenance.commit"><a class="viewcode-back" href="../../wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.commit">[docs]</a>    <span class="k">def</span> <span class="nf">commit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;There currently is not a connection to the database&quot;</span>
+            <span class="n">Utilities</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">db_log_file</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">except</span> <span class="n">sql_module</span><span class="o">.</span><span class="n">Error</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">Utilities</span><span class="o">.</span><span class="n">log_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">db_log_file</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">False</span>
+</div>
+<div class="viewcode-block" id="DbMaintenance.execute_stored_procedure"><a class="viewcode-back" href="../../wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.execute_stored_procedure">[docs]</a>    <span class="k">def</span> <span class="nf">execute_stored_procedure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">procedure</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results_tup</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cursor</span><span class="p">(</span><span class="n">stored</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">callproc</span><span class="p">(</span><span class="n">procedure</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">list</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">!=</span> <span class="n">args</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">results_tup</span> <span class="o">=</span> <span class="n">res</span>
+
+        <span class="k">except</span> <span class="n">sql_module</span><span class="o">.</span><span class="n">Error</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">Utilities</span><span class="o">.</span><span class="n">log_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">db_log_file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">close_connection</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">return</span> <span class="bp">True</span>
+</div>
+<div class="viewcode-block" id="DbMaintenance.get_results"><a class="viewcode-back" href="../../wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.get_results">[docs]</a>    <span class="k">def</span> <span class="nf">get_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stored</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">stored</span><span class="p">:</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+            <span class="k">while</span> <span class="n">row</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+                <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_tup</span><span class="p">:</span>
+                <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results_tup</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">stored_results</span><span class="p">():</span>
+                    <span class="n">ret</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">ret</span></div></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Derrick Smith.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

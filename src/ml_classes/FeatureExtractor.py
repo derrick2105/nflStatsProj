@@ -60,6 +60,7 @@ class FeatureExtractor:
 
         if not results or not res:
             Utilities.log('Empty result set.', Utilities.extract_log)
+            return []
 
         player_game_info = {}
         for item in res:

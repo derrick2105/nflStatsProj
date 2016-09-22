@@ -1,0 +1,36 @@
+Design and Architecture
+***********************
+
+Below is a breif explination of how the modules interact with eachother.
+
+Utilities
+=========
+This peculiarity and much more is documented extensively in the class documentation for the
+games which can be found :doc:`here </utilities>`.
+
+wrapper_classes
+===============
+Because our games mirror their theoretical counterparts they do not include 
+the ability to run themselves. As such we have created the notion of a 
+simulator for a game. Each of our game classes have corresponding simulator
+classes which can be used to "run" a game. In general simulator constructors
+take a game and an adversary as parameters. From there you can perform any 
+number of runs of that adversary, all games are built to clean up state between
+runs, and thus to run a game again you just call the ``run`` method on the 
+simulator. Furthermore, all simulators have a method that can approximate the
+advantage that the adversary, which is passed in as a parameter, has against
+that particular instance of the game (this is the ``compute_advantage``
+method).
+:mod:`Database Maintenance <wrapper_classes.DbMaintenance>`,
+:mod:`Statistics Providers <wrapper_classes.StatisticsProvider>`.
+
+
+ml_classes
+==========
+In addition to creating game and simulator classes we have also created an 
+additional set of tools that instructors can use to create assignments. These
+tools allow instructors to simulate ideal versions of several cryptographic
+primitives. We call this set of tools our "Abstract Cryptography Library". 
+Currently we include classes which simulate 
+:mod:`Classifiers <ml_classes.Classifiers>`,
+:mod:`FeatureExtractor <ml_classes..FeatureExtractor>`.

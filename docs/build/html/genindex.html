@@ -1,0 +1,618 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Index &mdash; NFLStats Project 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="NFLStats Project 0.1 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> NFLStats Project
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Intro</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#what-is-this">What is this?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#why-did-i-create-this">Why did I create this?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#goals">Goals</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#clone-and-install-the-project-module">Clone and install the project Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#run-the-populatedatabase-script">Run the populateDataBase script</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quick_start.html#from-the-terminal">From the terminal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quick_start.html#from-pycharm">From  Pycharm</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#run-the-driver-script">Run the Driver script</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quick_start.html#id1">From the terminal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quick_start.html#id2">From  Pycharm</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stored_procedures.html">Stored Procedures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design_and_architecture.html">Design and Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="design_and_architecture.html#utilities">Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design_and_architecture.html#wrapper-classes">wrapper_classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design_and_architecture.html#ml-classes">ml_classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="how_to.html">How To Complete Assignments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Utilities.html">Utilities package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Utilities.html#module-Utilities">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wrapper_classes.DbMaintenance.html">wrapper_classes.DbMaintenance package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wrapper_classes.DbMaintenance.html#module-wrapper_classes.DbMaintenance">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wrapper_classes.StatisticsProvider.html">wrapper_classes.StatisticsProvider package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wrapper_classes.StatisticsProvider.html#module-wrapper_classes.StatisticsProvider">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ml_classes.Classifiers.html">ml_classes.Classifiers package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ml_classes.Classifiers.html#module-ml_classes.Classifiers">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ml_classes.FeatureExtractor.html">ml_classes.FeatureExtractor package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ml_classes.FeatureExtractor.html#module-ml_classes.FeatureExtractor">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">NFLStats Project</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li></li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#K"><strong>K</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#Q"><strong>Q</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
+ | <a href="#W"><strong>W</strong></a>
+ 
+</div>
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="Utilities.html#Utilities.StatType.byes">byes (Utilities.StatType attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.close_connection">close_connection() (wrapper_classes.DbMaintenance.DbMaintenance method)</a>
+  </dt>
+
+      
+  <dt><a href="wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.commit">commit() (wrapper_classes.DbMaintenance.DbMaintenance method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="Utilities.html#Utilities.convert_to_24">convert_to_24() (in module Utilities)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance">DbMaintenance (class in wrapper_classes.DbMaintenance)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="Utilities.html#Utilities.Positions.defense">defense (Utilities.Positions attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="Utilities.html#Utilities.execute_procedure">execute_procedure() (in module Utilities)</a>
+  </dt>
+
+      
+  <dt><a href="wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.execute_statement">execute_statement() (wrapper_classes.DbMaintenance.DbMaintenance method)</a>
+  </dt>
+
+      
+  <dt><a href="wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.execute_stored_procedure">execute_stored_procedure() (wrapper_classes.DbMaintenance.DbMaintenance method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="ml_classes.FeatureExtractor.html#ml_classes.FeatureExtractor.FeatureExtractor.extract_prediction_features">extract_prediction_features() (ml_classes.FeatureExtractor.FeatureExtractor method)</a>
+  </dt>
+
+      
+  <dt><a href="ml_classes.FeatureExtractor.html#ml_classes.FeatureExtractor.FeatureExtractor.extract_training_feature">extract_training_feature() (ml_classes.FeatureExtractor.FeatureExtractor method)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="ml_classes.FeatureExtractor.html#ml_classes.FeatureExtractor.FeatureExtractor">FeatureExtractor (class in ml_classes.FeatureExtractor)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="Utilities.html#Utilities.StatType.games">games (Utilities.StatType attribute)</a>
+  </dt>
+
+      
+  <dt><a href="Utilities.html#Utilities.get_current_season">get_current_season() (in module Utilities)</a>
+  </dt>
+
+      
+  <dt><a href="wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.get_cursor">get_cursor() (wrapper_classes.DbMaintenance.DbMaintenance method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="wrapper_classes.StatisticsProvider.html#wrapper_classes.StatisticsProvider.NFLStatsProvider.get_data">get_data() (wrapper_classes.StatisticsProvider.NFLStatsProvider method)</a>
+  </dt>
+
+      
+  <dt><a href="Utilities.html#Utilities.Positions.get_positions">get_positions() (Utilities.Positions static method)</a>
+  </dt>
+
+      
+  <dt><a href="wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.get_results">get_results() (wrapper_classes.DbMaintenance.DbMaintenance method)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="Utilities.html#Utilities.import_db_config">import_db_config() (in module Utilities)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.import_db_config">(wrapper_classes.DbMaintenance.DbMaintenance method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="ml_classes.FeatureExtractor.html#ml_classes.FeatureExtractor.import_feat">import_feat() (in module ml_classes.FeatureExtractor)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="Utilities.html#Utilities.StatType.injury">injury (Utilities.StatType attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="K">K</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="Utilities.html#Utilities.Positions.kicker">kicker (Utilities.Positions attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="Utilities.html#Utilities.log">log() (in module Utilities)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="Utilities.html#Utilities.log_exception">log_exception() (in module Utilities)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="ml_classes.Classifiers.html#module-ml_classes.Classifiers">ml_classes.Classifiers (module)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="ml_classes.FeatureExtractor.html#module-ml_classes.FeatureExtractor">ml_classes.FeatureExtractor (module)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="ml_classes.Classifiers.html#ml_classes.Classifiers.Neighbors">Neighbors (class in ml_classes.Classifiers)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="wrapper_classes.StatisticsProvider.html#wrapper_classes.StatisticsProvider.NFLStatsProvider">NFLStatsProvider (class in wrapper_classes.StatisticsProvider)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.open_connection">open_connection() (wrapper_classes.DbMaintenance.DbMaintenance method)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="Utilities.html#Utilities.StatType.playerInfo">playerInfo (Utilities.StatType attribute)</a>
+  </dt>
+
+      
+  <dt><a href="Utilities.html#Utilities.StatType.playerWeekly">playerWeekly (Utilities.StatType attribute)</a>
+  </dt>
+
+      
+  <dt><a href="Utilities.html#Utilities.populate_db">populate_db() (in module Utilities)</a>
+  </dt>
+
+      
+  <dt><a href="Utilities.html#Utilities.Positions">Positions (class in Utilities)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="Utilities.html#Utilities.Positions.positions_dict">positions_dict (Utilities.Positions attribute)</a>
+  </dt>
+
+      
+  <dt><a href="ml_classes.Classifiers.html#ml_classes.Classifiers.Neighbors.predict_class">predict_class() (ml_classes.Classifiers.Neighbors method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="ml_classes.Classifiers.html#ml_classes.Classifiers.RandomForest.predict_class">(ml_classes.Classifiers.RandomForest method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.prepare_statement">prepare_statement() (wrapper_classes.DbMaintenance.DbMaintenance method)</a>
+  </dt>
+
+      
+  <dt><a href="Utilities.html#Utilities.pull_from_db">pull_from_db() (in module Utilities)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="Q">Q</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="Utilities.html#Utilities.Positions.quarterback">quarterback (Utilities.Positions attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="ml_classes.Classifiers.html#ml_classes.Classifiers.RandomForest">RandomForest (class in ml_classes.Classifiers)</a>
+  </dt>
+
+      
+  <dt><a href="wrapper_classes.StatisticsProvider.html#wrapper_classes.StatisticsProvider.NFLStatsProvider.request">request() (wrapper_classes.StatisticsProvider.NFLStatsProvider static method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="Utilities.html#Utilities.Positions.running_back">running_back (Utilities.Positions attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="wrapper_classes.DbMaintenance.html#wrapper_classes.DbMaintenance.DbMaintenance.set_db_config">set_db_config() (wrapper_classes.DbMaintenance.DbMaintenance method)</a>
+  </dt>
+
+      
+  <dt><a href="Utilities.html#Utilities.StatType.statistics">statistics (Utilities.StatType attribute)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="Utilities.html#Utilities.StatType">StatType (class in Utilities)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="Utilities.html#Utilities.StatType.teams">teams (Utilities.StatType attribute)</a>
+  </dt>
+
+      
+  <dt><a href="Utilities.html#Utilities.Positions.tight_end">tight_end (Utilities.Positions attribute)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="ml_classes.Classifiers.html#ml_classes.Classifiers.Neighbors.train">train() (ml_classes.Classifiers.Neighbors method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="ml_classes.Classifiers.html#ml_classes.Classifiers.RandomForest.train">(ml_classes.Classifiers.RandomForest method)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="Utilities.html#Utilities.update_season">update_season() (in module Utilities)</a>
+  </dt>
+
+      
+  <dt><a href="Utilities.html#Utilities.update_week">update_week() (in module Utilities)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="Utilities.html#module-Utilities">Utilities (module)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="Utilities.html#Utilities.StatType.weather">weather (Utilities.StatType attribute)</a>
+  </dt>
+
+      
+  <dt><a href="Utilities.html#Utilities.Positions.wide_receiver">wide_receiver (Utilities.Positions attribute)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="wrapper_classes.DbMaintenance.html#module-wrapper_classes.DbMaintenance">wrapper_classes.DbMaintenance (module)</a>
+  </dt>
+
+      
+  <dt><a href="wrapper_classes.StatisticsProvider.html#module-wrapper_classes.StatisticsProvider">wrapper_classes.StatisticsProvider (module)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Derrick Smith.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
