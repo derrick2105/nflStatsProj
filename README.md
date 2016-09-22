@@ -13,9 +13,9 @@ Linux:
   
   To achieve this, clone this repo in your home folder. Then add the absolute path to your python path by adding the following line to your .profile:
   
-  export PYTHONPATH=$HOME/nflStatsProj/src
+  `export PYTHONPATH=$HOME/nflStatsProj/src`
   
-  Finally, you need to add a config.yaml file to nflStats/Proj/config to point to your database. 
+  Finally, you need to add a config.yaml file to `nflStats/Proj/config` to point to your database. 
   
   Ex. 
   db:
@@ -29,8 +29,8 @@ Documentation
 -------------
   All documentation is generated using Sphinx.
   
-  If you would like to generate documentation cd into docs and type make html. This builds all of the html files and drops
-them in ./build/html.
+  If you would like to generate documentation `cd` into docs and `type make html`. This builds all of the html files and drops
+them in `./build/html`.
   
 Bug Report/Contact
 ------------------
