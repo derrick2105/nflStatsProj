@@ -64,6 +64,14 @@ for position in Utils.Positions.get_positions():
 Utils.log('Finished extracting features.', Utils.driver_log)
 
 Utils.log('labeling players', Utils.driver_log)
+
+# for each position take the training data and the data to be labeled and put
+# it in a single list.
+# walk through the list to label each player.
+# output the list of players and there labels for each position
+# later we can test this by comparing player rankings to the actual player
+# rankings
+
 for key, item in position_x_y_dicts.iteritems():
     for k, v in item.iteritems():
         print key, k, v

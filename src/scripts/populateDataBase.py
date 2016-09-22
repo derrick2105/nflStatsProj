@@ -7,10 +7,7 @@ from wrapper_classes.StatisticsProvider import NFLStatsProvider as Provider
 
 
 ####
-# TODO:
-#   1. Refactor populate_player_stats to pull out individual weekly stats pulls
-#   2. Add a weekly player stats update
-#
+#   Current issues
 #   Issue where LP Field is used instead of Nissan Stadium
 #   Current implementation will improperly assign locationId for
 #   international games
@@ -34,6 +31,7 @@ class PopulateNFLDB:
         self.populate_games_from_data(Utilities.schedule_data_path)
         self.populate_new_season_games()
         self.populate_stats()
+
         self.populate_locations()
         self.populate_weather()
 
@@ -124,10 +122,20 @@ class PopulateNFLDB:
                          "values (%s, %s);"
 
         max_season_id = Utilities.pull_from_db(get_statement1,
-                                               Utilities.populate_log)[0][0]
+                                               Utilities.populate_log)
+
+        if max_season_id:
+            max_season_id = max_season_id[0][0]
+        else:
+            max_season_id = 0
 
         games_max_id = Utilities.pull_from_db(get_statement2,
-                                              Utilities.populate_log)[0][0]
+                                              Utilities.populate_log)
+
+        if games_max_id:
+            games_max_id = games_max_id[0][0]
+        else:
+            games_max_id = 0
 
         if max_season_id != games_max_id:
             # Possibly refactor this line. It can cause the db to become
@@ -163,7 +171,6 @@ class PopulateNFLDB:
 
                         insert_tuples2.append(tup)
 
-                print "Inserting into the Database"
                 if not Utilities.populate_db(put_statement1,
                                              Utilities.populate_log,
                                              insert_tuples1):
@@ -243,7 +250,6 @@ class PopulateNFLDB:
                         Utilities.log_exception(e, Utilities.populate_log)
                         return False
 
-        print "inserting games into the Database."
         if not Utilities.populate_db(put_statement1, Utilities.populate_log,
                                      insert_tuples1):
             Utilities.log("Couldn't insert games int the database.",
@@ -273,16 +279,10 @@ class PopulateNFLDB:
                            'injurySeverity) values (%s, %s);'
 
         insert_tuples = []
-        print "Retrieving injury reports."
-        count = 0
         id_tuples = Utilities.pull_from_db(get_statement,
                                            Utilities.populate_log)
-        tuple_count = float(len(id_tuples))
+
         for id_tup in id_tuples:
-            count += 1
-            if count % 100 == 0:
-                print "Percentage of reports gathered so far: ", \
-                    round(count * 100 / tuple_count, 2)
 
             try:
                 stats = self.provider.get_data(
@@ -297,7 +297,6 @@ class PopulateNFLDB:
 
         message = "Inserting player Injury Statuses into the database."
 
-        print message
         Utilities.log(message, Utilities.populate_log)
         if not Utilities.populate_db(insert_statement, Utilities.populate_log,
                                      insert_tuples):
@@ -307,37 +306,40 @@ class PopulateNFLDB:
             return False
         return True
 
-    def populate_player_stats(self):
-        season_id = 1
+    def populate_player_stats(self, week=None, year=None):
+        start_week, end_week, start_year, end_year = \
+            self._validate_week_and_year(week, year)
+
+        if start_week == 0:
+            return False
+
+        if start_year == 2010 and start_week == 1:
+            season_id = 1
+        else:
+            season_id = self._get_season_id(week, year)
+
         statement = "Insert IGNORE into PlayerStats (playerId, statId, " \
                     "Seasonid, statValue) values (%s, %s, %s, %s);"
 
-        for year in range(2011, 2016):
+        for year in xrange(start_year, end_year):
             message = "Downloading player stats from " + str(year)
             Utilities.log(message, Utilities.populate_log)
             insert_tuples = []
-            for week in range(1, 18):
-                try:
-                    results = self.provider.get_data(
-                        Utilities.StatType.playerWeekly, week, year)[
-                        'players']
-                    if results is None:
-                        message = "Could not download teams."
-                        Utilities.log(message, Utilities.populate_log)
-                        return False
+            for week in xrange(start_week, end_week):
+                new_tuples = self._pull_player_stats_weekly(year, week,
+                                                            season_id)
 
-                    for value in results:
-                        for stat, v in value['stats'].iteritems():
-                            tup = (int(value['id']), float(stat),
-                                   int(season_id), float(v))
+                if not new_tuples:
+                    message = "Couldn't download players for week: " + str(week)
+                    message += " year: " + str(year)
 
-                            if tup not in insert_tuples:
-                                insert_tuples.append(tup)
-                    season_id += 1
-
-                except KeyError or TypeError, e:
-                    Utilities.log_exception(e, Utilities.populate_log)
+                    Utilities.log(message, Utilities.populate_log)
                     return False
+
+                else:
+                    insert_tuples.extend(new_tuples)
+
+                season_id += 1
 
             message = "Inserting values for year " + str(year) + " into the " \
                                                                  "database."
@@ -345,9 +347,8 @@ class PopulateNFLDB:
             Utilities.log(message, Utilities.populate_log)
             if not Utilities.populate_db(statement, Utilities.populate_log,
                                          insert_tuples):
-                Utilities.log(
-                    "Problem executing statement in the database. "
-                    "Aborting.", Utilities.populate_log)
+                Utilities.log("Problem executing statement in the database. "
+                              "Aborting.", Utilities.populate_log)
 
                 return False
         return True
@@ -393,6 +394,7 @@ class PopulateNFLDB:
 
     @staticmethod
     def populate_seasons(start=2010, end=2016):
+        Utilities.log('Entering populate_seasons', Utilities.populate_log)
         season_id = Utilities.pull_from_db("select max(seasonId) from Season;",
                                            Utilities.populate_log)
 
@@ -406,7 +408,7 @@ class PopulateNFLDB:
                 return False
 
         statement = 'insert IGNORE into Season (SeasonId, week, seasonYear) ' \
-                    'values ( %s, %s, %s)'
+                    'values ( %s, %s, %s);'
 
         insert_tuples = []
         for i in range(start, end):
@@ -419,7 +421,9 @@ class PopulateNFLDB:
             Utilities.log('Problem executing statement in the database. '
                           'Aborting.', Utilities.populate_log)
 
+            Utilities.log('Exiting populate_seasons', Utilities.populate_log)
             return False
+        Utilities.log('Exiting populate_seasons', Utilities.populate_log)
         return True
 
     def populate_weather(self):
@@ -554,6 +558,70 @@ class PopulateNFLDB:
             Utilities.log_exception(e, Utilities.populate_log)
             return False
 
+    def _pull_player_stats_weekly(self, year, week, season_id):
+        insert_tuples = []
+        try:
+            results = self.provider.get_data(
+                Utilities.StatType.playerWeekly, week, year)[
+                'players']
+            if results is None:
+                error_message = "Could not download players."
+                Utilities.log(error_message, Utilities.populate_log)
+                return []
+
+            for value in results:
+                for stat, v in value['stats'].iteritems():
+                    tup = (int(value['id']), float(stat),
+                           int(season_id), float(v))
+
+                    if tup not in insert_tuples:
+                        insert_tuples.append(tup)
+
+        except KeyError or TypeError, e:
+            Utilities.log_exception(e, Utilities.populate_log)
+            return []
+
+        return insert_tuples
+
+    @staticmethod
+    def _get_season_id(week, year):
+        statement = "select seasonId from Season where week = %s and " \
+                    "seasonYear = %s;"
+        res = Utilities.pull_from_db(statement, Utilities.populate_log,
+                                     (week, year))
+        if not res:
+            Utilities.log("Couldn't set the correct seasonId",
+                          Utilities.populate_log)
+            return None
+        else:
+            return res[0][0]
+
+    @staticmethod
+    def _validate_week_and_year(week, year):
+        if not week:
+            start_week, end_week = 1, 18
+        else:
+            if type(week) is not int or week < 1 or week >= 18:
+                Utilities.log("Week must be an integer such that 1 <= week <= "
+                              "17", Utilities.populate_log)
+                return 0, 0, 0, 0
+            start_week, end_week = week, week + 1
+
+        if not year:
+            start_year, end_year = Utilities.starting_year, Utilities. \
+                current_season
+        else:
+            if type(year) is not int or year < Utilities.starting_year or \
+                            year > Utilities.current_season:
+                error_message = "Year must be an integer such that " + \
+                                Utilities.starting_year + " <= year <= " + \
+                                str(Utilities.current_season)
+
+                Utilities.log(error_message, Utilities.populate_log)
+                return 0, 0, 0, 0
+
+            start_year, end_year = year, year + 1
+        return start_week, end_week, start_year, end_year
 
 if __name__ == '__main__':
     populator = PopulateNFLDB()
