@@ -17,7 +17,11 @@ import json
 
 class NFLStatsProvider:
     """
-       NFL Stats Provider wrapper class.
+       NFL Stats Provider wrapper class. Replace data sources as needed. \
+       Currently pulls data from www.fantasyfootballnerd.com and \
+       api.fantasy.nfl.com.
+
+       Note: fantasyfootballnerd.com requires an api key.
     """
     def __init__(self):
         self.url = None
@@ -25,13 +29,23 @@ class NFLStatsProvider:
     def get_data(self, data_type=Utilities.StatType.playerInfo, week=1,
                  season=2015, player_id=0):
         """
+        A method to pull data from one of multiple locations with relevant \
+        statistical information.
 
-        :param data_type:
-        :param week:
-        :param season:
-        :param player_id:
-        :return:
+        :param data_type: The time of data to be pulled from the web. See \
+        Utilities.StatType.
+        :param week: A string or and int representing the week of the season \
+        to pull. 1 <= week <= 17
+        :param season: A string or an int representing the season year to pull.
+
+        :param player_id: an int or a string representing the player who's \
+        information is to be pulled.
+        :return dict: A dictionary representation of the json data returned \
+        from the pull request.
+        :return {}: If nothing is returned or a connection can not be \
+        established.
         """
+
         week = str(week)
         season = str(season)
 

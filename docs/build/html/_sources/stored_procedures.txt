@@ -1,17 +1,13 @@
 Stored Procedures
 *****************
-
-In our code we use strings to represent cipher and plain text messages. 
-This means that we need several custom functions 
-in order to perform common pseduocode tasks such as XORing two messages 
-together.
+There are stored procedures available in the the database
 
 .. highlight:: py
 
-================== ======================================== ============
-procedure Name     Parameters                               Required
-================== ======================================== ============
-extract_game_info  int seasonId, str position, int playerId No, No, No
-extract_statistics str position, int seasonId, Bool byeFlag Yes, Yes, No
-================== ======================================== ============
-
+================== ======================================== ============ =============================================================
+procedure Name     Parameters                               Required     returns
+================== ======================================== ============ =============================================================
+extract_game_info  int seasonId, str position, int playerId No, No, No   int playerId, int locationId, int turfId, int opp
+------------------ ---------------------------------------- ------------ -------------------------------------------------------------
+extract_statistics str position, int seasonId, Bool byeFlag Yes, Yes, No int playerId, int year, int week, str statName, int statValue
+================== ======================================== ============ =============================================================

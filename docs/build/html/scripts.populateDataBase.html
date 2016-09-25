@@ -1,0 +1,458 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PopulateDataBase package &mdash; NFLStats Project 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="NFLStats Project 0.1 documentation" href="index.html"/>
+        <link rel="next" title="DbMaintenance package" href="wrapper_classes.DbMaintenance.html"/>
+        <link rel="prev" title="Utilities package" href="Utilities.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> NFLStats Project
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Intro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stored_procedures.html">Stored Procedures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design_and_architecture.html">Design and Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Utilities.html">Utilities package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">PopulateDataBase package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-scripts.populateDataBase">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wrapper_classes.DbMaintenance.html">DbMaintenance package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wrapper_classes.StatisticsProvider.html">StatisticsProvider package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ml_classes.Classifiers.html">Classifiers package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ml_classes.FeatureExtractor.html">FeatureExtractor package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">NFLStats Project</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>PopulateDataBase package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/scripts.populateDataBase.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="populatedatabase-package">
+<h1>PopulateDataBase package<a class="headerlink" href="#populatedatabase-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-scripts.populateDataBase">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-scripts.populateDataBase" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="scripts.populateDataBase.PopulateNFLDB">
+<em class="property">class </em><code class="descclassname">scripts.populateDataBase.</code><code class="descname">PopulateNFLDB</code><a class="reference internal" href="_modules/scripts/populateDataBase.html#PopulateNFLDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.populateDataBase.PopulateNFLDB" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a collection of the methods needed to populate all of the tables in
+the database. If you run this script as a python script, it will call the
+populate_all method and return after completion.</p>
+<p>Example Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">scripts</span> <span class="kn">import</span> <span class="n">PopulateNFLDB</span>
+<span class="n">populator</span> <span class="o">=</span> <span class="n">PopulateNFLDB</span><span class="p">()</span>
+<span class="n">populator</span><span class="o">.</span><span class="n">populate_all</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="scripts.populateDataBase.PopulateNFLDB.populate_all">
+<code class="descname">populate_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/populateDataBase.html#PopulateNFLDB.populate_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.populateDataBase.PopulateNFLDB.populate_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a method that runs all of the below methods with their default
+parameters. Use this method to populate an empty database will all of
+data from season i s.t. i in [2010, 2016).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scripts.populateDataBase.PopulateNFLDB.populate_games_from_data">
+<code class="descname">populate_games_from_data</code><span class="sig-paren">(</span><em>data_path=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/populateDataBase.html#PopulateNFLDB.populate_games_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.populateDataBase.PopulateNFLDB.populate_games_from_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a method to populate the Games table in the database with
+old games. It reads in the .csv files located at data_path and
+inserts each game into the database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data_path</strong> &#8211; A string that denotes the path to a directory         containing game information from 2010 - 2016. Default value of         &#8216;nflStatsProj/data/schedules/&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return True:</th><td class="field-body">If the Games table is successfully populated.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return False:</th><td class="field-body">Otherwise.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="scripts.populateDataBase.PopulateNFLDB.populate_injury_report">
+<code class="descname">populate_injury_report</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/populateDataBase.html#PopulateNFLDB.populate_injury_report"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.populateDataBase.PopulateNFLDB.populate_injury_report" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a method to populate the InjuryReport table in the database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return True:</th><td class="field-body">if the InjuryReport table is successfully populated.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return False:</th><td class="field-body">Otherwise.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="scripts.populateDataBase.PopulateNFLDB.populate_locations">
+<code class="descname">populate_locations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/populateDataBase.html#PopulateNFLDB.populate_locations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.populateDataBase.PopulateNFLDB.populate_locations" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a method to populate the TeamLocations and TurfType tabled
+in the database. It uses the default stadium data directory (
+&#8216;nflStatsProj/data/stadiums&#8217;) to populate the teams stadium, and the
+turfTypes table with the different types of turf that players will
+play on.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return True:</th><td class="field-body">If the TeamLocations and TurfTypes tables are         successfully updated.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return False:</th><td class="field-body">Otherwise.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="scripts.populateDataBase.PopulateNFLDB.populate_new_season">
+<code class="descname">populate_new_season</code><span class="sig-paren">(</span><em>year=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/populateDataBase.html#PopulateNFLDB.populate_new_season"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.populateDataBase.PopulateNFLDB.populate_new_season" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a method to populate the Season table in the database with
+a new season.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>year</strong> &#8211; an int that represents a season year to insert into the         database. Defaults to 2016.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return True:</th><td class="field-body">If  year == current_season + 1 and the new season is         successfully inserted into the database.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return False:</th><td class="field-body">Otherwise.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="scripts.populateDataBase.PopulateNFLDB.populate_new_season_games">
+<code class="descname">populate_new_season_games</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/populateDataBase.html#PopulateNFLDB.populate_new_season_games"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.populateDataBase.PopulateNFLDB.populate_new_season_games" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a method to populate the Games table in the
+database with a new season of games. It uses a statisticsProvider
+object to download list of Games from the NFL.com API</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return True:</th><td class="field-body">if the Games table is successfully populated.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return False:</th><td class="field-body">Otherwise.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="scripts.populateDataBase.PopulateNFLDB.populate_player_stats">
+<code class="descname">populate_player_stats</code><span class="sig-paren">(</span><em>week=None</em>, <em>year=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/populateDataBase.html#PopulateNFLDB.populate_player_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.populateDataBase.PopulateNFLDB.populate_player_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a method to populate the player_stats table in the database
+with the stats from week, year or all weeks from years 2010 - 2015. It
+uses a StatsProvider object to download the player_stats information
+from the NFL.com API.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>week</strong> &#8211; an int that represents the week in which you want to         download. 1 &lt;= week &lt;= 17. If week is None, insert all the stats         from 1 week to week 17.</li>
+<li><strong>year</strong> &#8211; an int that represents the year in which you want to         download the stats. 2010 &lt;= year &lt;= Utilities.current_season.         If year is None, then insert all stats from 2010 - 2015.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return True:</th><td class="field-body"><p class="first">If  the player_stats table is successfully populated.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return False:</th><td class="field-body"><p class="first last">Otherwise</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="scripts.populateDataBase.PopulateNFLDB.populate_players">
+<code class="descname">populate_players</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/populateDataBase.html#PopulateNFLDB.populate_players"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.populateDataBase.PopulateNFLDB.populate_players" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a method to populate the Players table in the database. It
+uses a statisticsProvider object to download player information from
+the NFL.com API</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return True:</th><td class="field-body">If the player table is successfully populated.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return False:</th><td class="field-body">Otherwise.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="scripts.populateDataBase.PopulateNFLDB.populate_seasons">
+<code class="descname">populate_seasons</code><span class="sig-paren">(</span><em>start=2010</em>, <em>end=2016</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/populateDataBase.html#PopulateNFLDB.populate_seasons"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.populateDataBase.PopulateNFLDB.populate_seasons" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a method to populate the Season table in the database with a
+range of seasons.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>start</strong> &#8211; an int that represents a start year to insert into the         database.</li>
+<li><strong>end</strong> &#8211; an int that represents an end year to insert into the         database.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return True:</th><td class="field-body"><p class="first">If  start == current_season + 1 and start &lt;= end and         the new seasons are successfully inserted into the database</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return False:</th><td class="field-body"><p class="first last">Otherwise</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="scripts.populateDataBase.PopulateNFLDB.populate_stats">
+<code class="descname">populate_stats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/populateDataBase.html#PopulateNFLDB.populate_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.populateDataBase.PopulateNFLDB.populate_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>his is a method to populate the PlayStatistics table in the
+database. It uses a statisticsProvider object to download list of
+Statistical information from the NFL.com API</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return True:</th><td class="field-body">if the statistics table is successfully populated.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return False:</th><td class="field-body">otherwise</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="scripts.populateDataBase.PopulateNFLDB.populate_teams">
+<code class="descname">populate_teams</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/populateDataBase.html#PopulateNFLDB.populate_teams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.populateDataBase.PopulateNFLDB.populate_teams" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a method to populate the Teams table in the database with a
+range of seasons. It uses a StatsProvider object to download the
+playerTeams information from the NFL.com API.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return True:</th><td class="field-body">If  the Teams table is successfully populated.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return False:</th><td class="field-body">Otherwise.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="scripts.populateDataBase.PopulateNFLDB.populate_weather">
+<code class="descname">populate_weather</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/populateDataBase.html#PopulateNFLDB.populate_weather"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.populateDataBase.PopulateNFLDB.populate_weather" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a method to populate the game_conditions table in the
+database. It uses a statisticsProvider object to download the
+current week of weather predictions and game conditions (like
+whether or not a game is being played in a dome.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return True:</th><td class="field-body">If the game_conditions are successfully inserted         into the database.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return False:</th><td class="field-body">Otherwise</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="wrapper_classes.DbMaintenance.html" class="btn btn-neutral float-right" title="DbMaintenance package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Utilities.html" class="btn btn-neutral" title="Utilities package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Derrick Smith.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

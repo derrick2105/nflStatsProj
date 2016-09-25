@@ -11,7 +11,7 @@ This is where all of the logging functions are defined. :doc:`Documentation for 
 Populate Database
 =================
 A set of functions that are used to populate the database with data pulled from the internet
-using a statisticsProvider. :doc:`Documentation for Populating Database can be found </scripts.populateDataBase>`.
+using a statisticsProvider. :doc:`Documentation for Populating Database </scripts.populateDataBase>`.
 
 Wrapper Classes
 ===============

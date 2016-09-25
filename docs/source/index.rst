@@ -4,12 +4,11 @@
    contain the root `toctree` directive.
 
 Welcome to NFL Stats Project's documentation!
-======================================
-
-A Python package to aid in fantasy football lineup setting. The 
+=============================================
+A Python package to aid in fantasy football lineup setting. The
 following is all you need to get started using my framework. In the
 introduction you will find a brief explanation of the project and why I
-started it. Following that there is a `Getting Started <quick_start.html>`_ 
+started it. Following that there is a `Getting Started <quick_start.html>`_
 guide which is a quick way to get up and running. 
 
 Contents:

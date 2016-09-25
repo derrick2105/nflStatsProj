@@ -14,18 +14,25 @@ class RandomForest(object):
 
     def train(self, features, labels):
         """
+        A method for training the random forest Classifier on the provided \
+        training set (features, labels).
 
-        :param features:
-        :param labels:
-        :return:
+        :param features: A list of 1d numpy arrays used as the feature vectors \
+        for training.
+        :param labels: A list of the appropriate labels for each training \
+        feature vector.
         """
         self._clf.fit(features, labels)
 
     def predict_class(self, feature):
         """
+        A method to predict the label for the provided feature vector. In this \
+        context, a label is the predicted fantasy score of the player \
+        associated with the feature vector.
 
-        :param feature:
-        :return:
+        :param feature: a numpy 1d array that is used as the feature vector \
+        for Random Forest classification.
+        :return label: A label for the provided feature vector.
         """
         return self._clf.predict(feature)
 
@@ -44,18 +51,25 @@ class Neighbors(object):
 
     def train(self, features, labels):
         """
+        A method for training the nearest neighbor Classifier on the provided \
+        training set (features, labels).
 
-        :param features:
-        :param labels:
-        :return:
+        :param features: A list of 1d numpy arrays used as the feature vectors \
+        for training.
+        :param labels: A list of the appropriate labels for each training \
+        feature vector.
         """
         self._clf.fit(features, labels)
 
     def predict_class(self, feature):
         """
+        A method to predict the label for the provided feature vector. In this \
+        context, a label is the predicted fantasy score of the player \
+        associated with the feature vector.
 
-        :param feature:
-        :return:
+        :param feature: a numpy 1d array that is used as the feature vector \
+        for Nearest Neighbor classification.
+        :return label: A label for the provided feature vector.
         """
         return self._clf.predict(feature)
 

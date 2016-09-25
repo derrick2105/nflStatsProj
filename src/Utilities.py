@@ -1,8 +1,6 @@
 import datetime
 import os.path
 
-from wrapper_classes import DbMaintenance
-
 
 # ----------------------- start default config and data paths ---------------- #
 base_dir = '/home/derrick/Documents/customModules/nflStatsProj/'
@@ -14,6 +12,8 @@ point_breakdown_path = os.path.join(data_path, 'point_breakdowns')
 stadium_file = os.path.join(data_path, 'stadiums/stadiums.csv')
 # ----------------------- end default config and data paths ------------------ #
 
+# ----------------------- Default db config file path ------------------------ #
+db_config = os.path.join(config_path, 'config.yml')
 
 # --------------------------- start logging utilities ------------------------ #
 log_path = os.path.join(base_dir, 'logs/')
@@ -27,11 +27,14 @@ class_log = os.path.join(log_path, 'classifierLog.txt')
 
 def log(message, outfile='./log.txt'):
     """
+    A simple logging function that prepends a timestamp to ``message`` and \
+    writes it to ``outfile``.
 
-    :param message:
-    :param outfile:
-    :return:
+    :param message: a string containing the message to be printed to \
+    ``outfile``.
+    :param outfile: A string with the absolute path to a file to be written to.
     """
+
     with open(outfile, 'a') as f:
         f.write(str(datetime.datetime.now()) + ': ' + message.strip('\r\n') +
                 '\n')
@@ -40,25 +43,31 @@ def log(message, outfile='./log.txt'):
 # A simple extension to uniformly log exceptions
 def log_exception(e, log_file):
     """
+    A simple logging function that prepends a timestamp to the provided \
+    exception type and exception arguments writes it to ``outfile``.
 
-    :param e:
-    :param log_file:
-    :return:
+    :param e: An exception object.
+    :param log_file: A string with the absolute path to a file to be written to.
     """
+
     template = "Exception: {0}. Arguments: {1!r}"
     message = template.format(type(e).__name__, e.args)
     log(message, log_file)
     log(str(e), log_file)
-# -------------------------- end logging urilities --------------------------- #
+# -------------------------- end logging utilities --------------------------- #
 
 
 # ------------------- start time conversion helper methods ------------------- #
 def convert_to_24(time):
     """
+    A function to convert from meridiem time(AM/PM) to universal time (24 hour).
 
-    :param time:
-    :return:
+    :param time: A string representation of the time in 12 hour form. Ex. \
+    '11:00 AM'
+
+    :return: A string representation of the time in 24 hour format.
     """
+
     time, meridiem = time.split(' ')
 
     time_list = time.split(':')
@@ -87,9 +96,14 @@ starting_year = 2010
 
 def update_week(new_week):
     """
+    An optional setter function for the current_week global variable. While \
+    not required, the use of this function is preferred because it tests the \
+    input for basic validity. Future refactoring with transform the underling \
+    global variable into a class property.
 
-    :param new_week:
-    :return:
+    :return int: The new week if ``new_week`` is a valid update. I.E. \
+    `new_week`` is an int an 1 <= `new_week`` <= 17
+    :return int: -1 otherwise
     """
     global current_week
     current_week = new_week
@@ -98,111 +112,49 @@ def update_week(new_week):
 
 def update_season(new_season):
     """
+    An optional setter function for the current_season global variable. While \
+    not required, the use of this function is preferred because it tests the \
+    input for basic validity. Future refactoring with transform the underling \
+    global variable into a class property.
 
-    :param new_season:
-    :return:
+    :return int: The new nfl season if ``new_season`` is a valid update
+    :return int: -1 otherwise
     """
+
     global current_season
+    if not isinstance(new_season, int):
+        return -1
     current_season = new_season
     return current_season
 
 
 def get_current_season():
     """
+    An optional getter function. Currently this method is not very useful,
+    because it just returns the value of a global variable, but future
+    refactoring will encapsulate the current season attribute.
 
-    :return:
+    :return int: The current nfl season. The default value is 2010.
     """
+
     global current_season
     return current_season
+
+
+def get_current_week():
+    """
+    An optional getter function. Currently this method is not very useful,
+    because it just returns the value of a global variable, but future
+    refactoring will encapsulate the current week attribute.
+
+    :return int: The current week in the nfl season. The default value is 1.
+    """
+
+    global current_week
+    return current_week
+
+
 # -------------------- end season and week helper methods -------------------- #
-
-
-# -------------------------- start Common db calls --------------------------- #
-db_config = os.path.join(config_path, 'config.yml')
-db = DbMaintenance.DbMaintenance()
-db.import_db_config(db_config)
-
-
-def import_db_config(config_file):
-    """
-
-    :param config_file:
-    :return:
-    """
-    return db.import_db_config(config_file)
-
-
-def execute_procedure(procedure_name, args, log_file):
-    """
-
-    :param procedure_name:
-    :param args:
-    :param log_file:
-    :return:
-    """
-    log('Entering execute_procedure.', log_file)
-
-    global db
-    if db.execute_stored_procedure(procedure_name, args):
-        data = db.get_results(stored=True)
-    else:
-        log('Could not execute the stored procedure.', log_file)
-        data = []
-    db.close_connection()
-    log('Entering execute_procedure.', log_file)
-    return data
-
-
-def populate_db(statement, log_file, values):
-    """
-
-    :param statement:
-    :param log_file:
-    :param values:
-    :return:
-    """
-    log('Entering populate_db.', log_file)
-
-    global db
-    if not db.prepare_statement(statement):
-        log("Could not prepare statement.", log_file)
-        return False
-
-    if not db.execute_statement(values=values, commit=True):
-        log("Could not execute statement.", log_file)
-        return False
-
-    db.close_connection()
-
-    log('Exiting populate_db.', log_file)
-    return True
-
-
-def pull_from_db(statement, log_file, values_list=None):
-    """
-
-    :param statement:
-    :param log_file:
-    :param values_list:
-    :return:
-    """
-    log('Entering pull_from_db.', log_file)
-
-    global db
-    results = None
-    if values_list:
-        db.prepare_statement(statement)
-    if db .execute_statement(statement=statement, values=values_list):
-        results = db.get_results()
-    else:
-        log("Could not execute statement.", log_file)
-
-    db.close_connection()
-
-    log('Exiting pull_from_db.', log_file)
-    return results
-# --------------------------- end Common db calls ---------------------------- #
-
 
 # -------------------------- start statType enum class ----------------------- #
 class StatType:

@@ -106,10 +106,10 @@ class PopulateNFLDB:
         message = "Inserting values into the database."
 
         Utilities.log(message, Utilities.populate_log)
-        if not Utilities.populate_db(statement1, Utilities.populate_log,
-                                     insert_tuples1) \
-            or not Utilities.populate_db(statement2, Utilities.populate_log,
-                                         insert_tuples2):
+        if not self.DB.populate_db(statement1, Utilities.populate_log,
+                                   insert_tuples1) \
+            or not self.DB.populate_db(statement2, Utilities.populate_log,
+                                       insert_tuples2):
                 Utilities.log("Problem executing statement in the database."
                               " Aborting.", Utilities.populate_log)
 
@@ -137,8 +137,8 @@ class PopulateNFLDB:
             for value in result:
                 insert_tuples.append((int(value['id']), str(value['name'])))
 
-            if not Utilities.populate_db(statement, Utilities.populate_log,
-                                         insert_tuples):
+            if not self.DB.populate_db(statement, Utilities.populate_log,
+                                       insert_tuples):
                 Utilities.log("Problem executing statement in the database."
                               " Aborting.", Utilities.populate_log)
 
@@ -169,16 +169,16 @@ class PopulateNFLDB:
         put_statement2 = "Insert Ignore into ByeWeeks (seasonId, teamId) " \
                          "values (%s, %s);"
 
-        max_season_id = Utilities.pull_from_db(get_statement1,
-                                               Utilities.populate_log)
+        max_season_id = self.DB.pull_from_db(get_statement1,
+                                             Utilities.populate_log)
 
         if max_season_id:
             max_season_id = max_season_id[0][0]
         else:
             max_season_id = 0
 
-        games_max_id = Utilities.pull_from_db(get_statement2,
-                                              Utilities.populate_log)
+        games_max_id = self.DB.pull_from_db(get_statement2,
+                                            Utilities.populate_log)
 
         if games_max_id:
             games_max_id = games_max_id[0][0]
@@ -219,18 +219,18 @@ class PopulateNFLDB:
 
                         insert_tuples2.append(tup)
 
-                if not Utilities.populate_db(put_statement1,
-                                             Utilities.populate_log,
-                                             insert_tuples1):
+                if not self.DB.populate_db(put_statement1,
+                                           Utilities.populate_log,
+                                           insert_tuples1):
                     Utilities.log("Problem executing statement in the "
                                   "database...Aborting.",
                                   Utilities.populate_log)
 
                     return False
 
-                if not Utilities.populate_db(put_statement2,
-                                             Utilities.populate_log,
-                                             insert_tuples2):
+                if not self.DB.populate_db(put_statement2,
+                                           Utilities.populate_log,
+                                           insert_tuples2):
                     Utilities.log("Problem executing statement in the "
                                   "database...Aborting.",
                                   Utilities.populate_log)
@@ -243,8 +243,7 @@ class PopulateNFLDB:
 
         return True
 
-    @staticmethod
-    def populate_games_from_data(data_path=None):
+    def populate_games_from_data(self, data_path=None):
         """
         This is a method to populate the Games table in the database with
         old games. It reads in the .csv files located at data_path and
@@ -314,14 +313,14 @@ class PopulateNFLDB:
                         Utilities.log_exception(e, Utilities.populate_log)
                         return False
 
-        if not Utilities.populate_db(put_statement1, Utilities.populate_log,
-                                     insert_tuples1):
+        if not self.DB.populate_db(put_statement1, Utilities.populate_log,
+                                   insert_tuples1):
             Utilities.log("Couldn't insert games int the database.",
                           Utilities.populate_log)
 
             return False
-        if not Utilities.populate_db(put_statement2, Utilities.populate_log,
-                                     insert_tuples2):
+        if not self.DB.populate_db(put_statement2, Utilities.populate_log,
+                                   insert_tuples2):
             Utilities.log("Couldn't insert games int the database.",
                           Utilities.populate_log)
 
@@ -369,8 +368,8 @@ class PopulateNFLDB:
                            'injurySeverity) values (%s, %s);'
 
         insert_tuples = []
-        id_tuples = Utilities.pull_from_db(get_statement,
-                                           Utilities.populate_log)
+        id_tuples = self.DB.pull_from_db(get_statement,
+                                         Utilities.populate_log)
 
         for id_tup in id_tuples:
 
@@ -388,8 +387,8 @@ class PopulateNFLDB:
         message = "Inserting player Injury Statuses into the database."
 
         Utilities.log(message, Utilities.populate_log)
-        if not Utilities.populate_db(insert_statement, Utilities.populate_log,
-                                     insert_tuples):
+        if not self.DB.populate_db(insert_statement, Utilities.populate_log,
+                                   insert_tuples):
             Utilities.log("Problem executing statement in the database. "
                           "Aborting.", Utilities.populate_log)
 
@@ -452,8 +451,8 @@ class PopulateNFLDB:
 
         message = 'Inserting player stats into db.'
         Utilities.log(message, Utilities.populate_log)
-        if not Utilities.populate_db(statement, Utilities.populate_log,
-                                     insert_tuples):
+        if not self.DB.populate_db(statement, Utilities.populate_log,
+                                   insert_tuples):
             Utilities.log("Problem executing statement in the database. "
                           "Aborting.", Utilities.populate_log)
 
@@ -496,8 +495,8 @@ class PopulateNFLDB:
 
             # Needed for international games
             insert_tuples.append(('NFL', 'NFL international', '33'))
-            if not Utilities.populate_db(statement, Utilities.populate_log,
-                                         insert_tuples):
+            if not self.DB.populate_db(statement, Utilities.populate_log,
+                                       insert_tuples):
                 Utilities.log(
                     "Problem executing statement in the database. "
                     "Aborting.", Utilities.populate_log)
@@ -509,8 +508,7 @@ class PopulateNFLDB:
             return False
         return True
 
-    @staticmethod
-    def populate_seasons(start=2010, end=2016):
+    def populate_seasons(self, start=2010, end=2016):
         """
         This is a method to populate the Season table in the database with a
         range of seasons.
@@ -528,8 +526,8 @@ class PopulateNFLDB:
         """
 
         Utilities.log('Entering populate_seasons', Utilities.populate_log)
-        season_id = Utilities.pull_from_db("select max(seasonId) from Season;",
-                                           Utilities.populate_log)
+        season_id = self.DB.pull_from_db("select max(seasonId) from Season;",
+                                         Utilities.populate_log)
 
         if start > end or start > Utilities.get_current_season() + 1:
             Utilities.log('Starting and end index is out of range.',
@@ -553,8 +551,8 @@ class PopulateNFLDB:
                 insert_tuples.append(((season_id + j), int(j), int(i)))
             season_id += 17
 
-        if not Utilities.populate_db(statement, Utilities.populate_log,
-                                     insert_tuples):
+        if not self.DB.populate_db(statement, Utilities.populate_log,
+                                   insert_tuples):
             Utilities.log('Problem executing statement in the database. '
                           'Aborting.', Utilities.populate_log)
 
@@ -595,8 +593,8 @@ class PopulateNFLDB:
                     'values (%s, %s, %s, %s, %s, %s, %s, %s);'
 
         # get location information
-        results = Utilities.pull_from_db(location_id_statement,
-                                         Utilities.populate_log)
+        results = self.DB.pull_from_db(location_id_statement,
+                                       Utilities.populate_log)
         if not results:
             Utilities.log('Cannot pull stadium info from the database.',
                           Utilities.populate_log)
@@ -607,10 +605,9 @@ class PopulateNFLDB:
             stadiums[tup[0]] = (int(tup[1]), tup[2])
 
         # get game information
-        results = Utilities.pull_from_db(game_statement, Utilities.populate_log,
-                                         (int(weather_data['Week']),
-                                          Utilities.get_current_season()
-                                          ))
+        results = self.DB.pull_from_db(game_statement, Utilities.populate_log,
+                                       (int(weather_data['Week']),
+                                        Utilities.get_current_season()))
 
         if not results:
             Utilities.log('Cannot pull game info from the database.',
@@ -643,8 +640,8 @@ class PopulateNFLDB:
             insert_tuples.append(new_tup)
 
         # insert tuples into the database. Replace them if they already exist
-        if not Utilities.populate_db(statement, Utilities.populate_log,
-                                     insert_tuples):
+        if not self.DB.populate_db(statement, Utilities.populate_log,
+                                   insert_tuples):
             Utilities.log('Problem executing statement in the database. '
                           'Aborting.', Utilities.populate_log)
 
@@ -655,8 +652,7 @@ class PopulateNFLDB:
             Utilities.populate_log)
         return True
 
-    @staticmethod
-    def populate_locations():
+    def populate_locations(self):
         """
         This is a method to populate the TeamLocations and TurfType tabled
         in the database. It uses the default stadium data directory (
@@ -683,9 +679,8 @@ class PopulateNFLDB:
             stadiums = [line.strip('\r\n').split(',') for line in open(
                 Utilities.stadium_file)]
 
-            teams_tuples = Utilities.pull_from_db(get_statement,
-                                                  Utilities.populate_log
-                                                  )
+            teams_tuples = self.DB.pull_from_db(get_statement,
+                                                Utilities.populate_log)
             teams_dict = {}
             for team in teams_tuples:
                 teams_dict[team[1]] = team[0]
@@ -701,15 +696,15 @@ class PopulateNFLDB:
 
                 location_id += 1
 
-            if not Utilities.populate_db(put_statement1, Utilities.populate_log,
-                                         insert_tuples1):
+            if not self.DB.populate_db(put_statement1, Utilities.populate_log,
+                                       insert_tuples1):
                 Utilities.log("Couldn't insert stadiums into the database.",
                               Utilities.populate_log)
                 return False
 
-            if not Utilities.populate_db(put_statement2,
-                                         Utilities.populate_log,
-                                         insert_tuples2):
+            if not self.DB.populate_db(put_statement2,
+                                       Utilities.populate_log,
+                                       insert_tuples2):
                 Utilities.log("Couldn't insert turf into the database.",
                               Utilities.populate_log)
                 return False
@@ -744,12 +739,11 @@ class PopulateNFLDB:
 
         return insert_tuples
 
-    @staticmethod
-    def _get_season_id(week, year):
+    def _get_season_id(self, week, year):
         statement = "select seasonId from Season where week = %s and " \
                     "seasonYear = %s;"
-        res = Utilities.pull_from_db(statement, Utilities.populate_log,
-                                     (week, year))
+        res = self.DB.pull_from_db(statement, Utilities.populate_log,
+                                   (week, year))
         if not res:
             Utilities.log("Couldn't set the correct seasonId",
                           Utilities.populate_log)
@@ -786,4 +780,4 @@ class PopulateNFLDB:
 
 if __name__ == '__main__':
     populator = PopulateNFLDB()
-    populator.populate_player_stats(1, 2016)
+    populator.populate_all()
