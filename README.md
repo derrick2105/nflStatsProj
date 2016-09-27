@@ -27,7 +27,7 @@ Linux:
 
 Documentation
 -------------
-  All documentation is generated using Sphinx.
+  All documentation is generated using Sphinx. See the documentation for installing sphinx and the required theme. 
   
   If you would like to generate documentation `cd` into docs and `type make html`. This builds all of the html files and drops
 them in `./build/html`.
