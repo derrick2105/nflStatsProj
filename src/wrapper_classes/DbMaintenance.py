@@ -265,6 +265,7 @@ class DbMaintenance:
         if self.cursor is None:
             if not self.get_cursor(stored=True):
                 return []
+        data = []
 
         try:
             res = self.cursor.callproc(procedure, args)
@@ -276,7 +277,7 @@ class DbMaintenance:
         except sql_module.Error, e:
             Utilities.log_exception(e, Utilities.db_log_file)
             Utilities.log('Could not execute the stored procedure.', log_file)
-            data = []
+
         finally:
             Utilities.log('Exiting execute_procedure.', log_file)
             self.close_connection()

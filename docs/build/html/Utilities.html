@@ -146,7 +146,7 @@
 <dl class="class">
 <dt id="Utilities.Positions">
 <em class="property">class </em><code class="descclassname">Utilities.</code><code class="descname">Positions</code><a class="reference internal" href="_modules/Utilities.html#Positions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Utilities.Positions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Positions enum class with quarterback, running_back, kicker, defense
+<dd><p>Positions enum class with quarterback, running_back, kicker, defense,
 wide_receiver, and tight_end</p>
 <dl class="staticmethod">
 <dt id="Utilities.Positions.get_positions">
@@ -167,7 +167,7 @@ wide_receiver, and tight_end</p>
 <dt id="Utilities.StatType">
 <em class="property">class </em><code class="descclassname">Utilities.</code><code class="descname">StatType</code><a class="reference internal" href="_modules/Utilities.html#StatType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Utilities.StatType" title="Permalink to this definition">¶</a></dt>
 <dd><p>StatType enum class with playerInfo, statistics, playerWeekly, weather,
-injury, games, teams, byes.</p>
+injury, games, teams, and byes.</p>
 </dd></dl>
 
 <dl class="function">
@@ -239,7 +239,7 @@ refactoring will encapsulate the current week attribute.</p>
 <dl class="function">
 <dt id="Utilities.log_exception">
 <code class="descclassname">Utilities.</code><code class="descname">log_exception</code><span class="sig-paren">(</span><em>e</em>, <em>log_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Utilities.html#log_exception"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Utilities.log_exception" title="Permalink to this definition">¶</a></dt>
-<dd><p>A simple logging function that prepends a timestamp to the provided     exception type and exception arguments writes it to <code class="docutils literal highlight highlight-python"><span class="n">outfile</span></code>.</p>
+<dd><p>A simple logging function that prepends a timestamp to the provided     exception type and exception arguments. It is then written it to     <code class="docutils literal highlight highlight-python"><span class="n">outfile</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -278,7 +278,7 @@ refactoring will encapsulate the current week attribute.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return int:</th><td class="field-body">The new week if <code class="docutils literal highlight highlight-python"><span class="n">new_week</span></code> is a valid update. I.E.     <cite>new_week`</cite> is an int an 1 &lt;= <cite>new_week`</cite> &lt;= 17</td>
+<tr class="field-odd field"><th class="field-name">Return int:</th><td class="field-body">The new week if <code class="docutils literal highlight highlight-python"><span class="n">new_week</span></code> is a valid update. I.E.     <cite>new_week`</cite> is an int s.t. 1 &lt;= <cite>new_week`</cite> &lt;= 17</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return int:</th><td class="field-body">-1 otherwise</td>
 </tr>

@@ -1,6 +1,8 @@
 Stored Procedures
 *****************
-There are stored procedures available in the the database
+There are stored procedures available in the database that preform useful and
+common queries. Below is a list of the current stored procedures defined for
+this application.
 
 .. highlight:: py
 

@@ -3,9 +3,9 @@ Getting Started
 
 Introduction
 ============
-This section contains information on how to clone the repo, install the \
-modules, and run the provided scripts. There is also a section on installing \
-sphinx and the sphinx_rst_theme.
+This section contains information on how to clone the repo, install the
+modules, import the MySQL schema/stored procedures, and run the provided
+scripts. There is also a section on installing sphinx and the sphinx_rtd_theme.
 
 
 Clone and install the project Module
@@ -22,6 +22,21 @@ bash profile.
     export PYTHONPATH=$HOME/nflStatsProj/src
 
 This is assuming the name of your project dir is nflStatsProj and is located in your home folder. 
+
+
+Import database schema and stored procedures
+============================================
+
+The Database schema and stored procedure scripts are located in the
+nflStatsProj/DB Schema/ folder. It is easiest to import the scripts using
+MySQL workbench, but you can also use the command line to create the db.
+
+.. testcode::
+
+    $ mysql -u <username> -p # enter password when prompted
+    mysql>CREATE DATABASE nflStats1;
+    mysql>source \home\nflStats1\DB_Schema\NFL_DB_Schema.sql
+    mysql>source \home\nflStats1\DB_Schema\NFL_DB_Stored_Procs.sql
 
 
 Run the populateDataBase script

@@ -403,6 +403,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cursor</span><span class="p">(</span><span class="n">stored</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
                 <span class="k">return</span> <span class="p">[]</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">callproc</span><span class="p">(</span><span class="n">procedure</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
@@ -414,7 +415,7 @@
         <span class="k">except</span> <span class="n">sql_module</span><span class="o">.</span><span class="n">Error</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">Utilities</span><span class="o">.</span><span class="n">log_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">Utilities</span><span class="o">.</span><span class="n">db_log_file</span><span class="p">)</span>
             <span class="n">Utilities</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#39;Could not execute the stored procedure.&#39;</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">Utilities</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#39;Exiting execute_procedure.&#39;</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">close_connection</span><span class="p">()</span>

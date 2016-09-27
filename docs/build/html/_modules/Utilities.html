@@ -182,7 +182,8 @@
 <div class="viewcode-block" id="log_exception"><a class="viewcode-back" href="../Utilities.html#Utilities.log_exception">[docs]</a><span class="k">def</span> <span class="nf">log_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">log_file</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A simple logging function that prepends a timestamp to the provided \</span>
-<span class="sd">    exception type and exception arguments writes it to ``outfile``.</span>
+<span class="sd">    exception type and exception arguments. It is then written it to \</span>
+<span class="sd">    ``outfile``.</span>
 
 <span class="sd">    :param e: An exception object.</span>
 <span class="sd">    :param log_file: A string with the absolute path to a file to be written to.</span>
@@ -240,7 +241,8 @@
 <span class="sd">    global variable into a class property.</span>
 
 <span class="sd">    :return int: The new week if ``new_week`` is a valid update. I.E. \</span>
-<span class="sd">    `new_week`` is an int an 1 &lt;= `new_week`` &lt;= 17</span>
+<span class="sd">    `new_week`` is an int s.t. 1 &lt;= `new_week`` &lt;= 17</span>
+<span class="sd">    </span>
 <span class="sd">    :return int: -1 otherwise</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">global</span> <span class="n">current_week</span>
@@ -298,7 +300,7 @@
 <div class="viewcode-block" id="StatType"><a class="viewcode-back" href="../Utilities.html#Utilities.StatType">[docs]</a><span class="k">class</span> <span class="nc">StatType</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        StatType enum class with playerInfo, statistics, playerWeekly, weather,</span>
-<span class="sd">        injury, games, teams, byes.</span>
+<span class="sd">        injury, games, teams, and byes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">playerInfo</span><span class="p">,</span> <span class="n">statistics</span><span class="p">,</span> <span class="n">playerWeekly</span><span class="p">,</span> <span class="n">weather</span><span class="p">,</span> <span class="n">injury</span><span class="p">,</span> <span class="n">games</span><span class="p">,</span> <span class="n">teams</span><span class="p">,</span> <span class="n">byes</span> <span class="o">=</span>\
         <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
@@ -311,7 +313,7 @@
 <span class="c"># ----------------------- start position enum class -------------------------- #</span></div>
 <div class="viewcode-block" id="Positions"><a class="viewcode-back" href="../Utilities.html#Utilities.Positions">[docs]</a><span class="k">class</span> <span class="nc">Positions</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">       Positions enum class with quarterback, running_back, kicker, defense</span>
+<span class="sd">       Positions enum class with quarterback, running_back, kicker, defense,</span>
 <span class="sd">       wide_receiver, and tight_end</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">quarterback</span><span class="p">,</span> <span class="n">running_back</span><span class="p">,</span> <span class="n">kicker</span><span class="p">,</span> <span class="n">defense</span><span class="p">,</span> <span class="n">wide_receiver</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>

@@ -44,7 +44,8 @@ def log(message, outfile='./log.txt'):
 def log_exception(e, log_file):
     """
     A simple logging function that prepends a timestamp to the provided \
-    exception type and exception arguments writes it to ``outfile``.
+    exception type and exception arguments. It is then written it to \
+    ``outfile``.
 
     :param e: An exception object.
     :param log_file: A string with the absolute path to a file to be written to.
@@ -102,7 +103,8 @@ def update_week(new_week):
     global variable into a class property.
 
     :return int: The new week if ``new_week`` is a valid update. I.E. \
-    `new_week`` is an int an 1 <= `new_week`` <= 17
+    `new_week`` is an int s.t. 1 <= `new_week`` <= 17
+
     :return int: -1 otherwise
     """
     global current_week
@@ -160,7 +162,7 @@ def get_current_week():
 class StatType:
     """
         StatType enum class with playerInfo, statistics, playerWeekly, weather,
-        injury, games, teams, byes.
+        injury, games, teams, and byes.
     """
     playerInfo, statistics, playerWeekly, weather, injury, games, teams, byes =\
         range(8)
@@ -173,7 +175,7 @@ class StatType:
 # ----------------------- start position enum class -------------------------- #
 class Positions:
     """
-       Positions enum class with quarterback, running_back, kicker, defense
+       Positions enum class with quarterback, running_back, kicker, defense,
        wide_receiver, and tight_end
     """
     quarterback, running_back, kicker, defense, wide_receiver = range(5)
