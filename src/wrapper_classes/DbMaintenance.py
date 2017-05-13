@@ -141,7 +141,7 @@ class DbMaintenance:
                 return False
         try:
             if not stored:
-                self.cursor = self.conn.cursor(prepared=True, buffered=True)
+                self.cursor = self.conn.cursor(prepared=True)
             else:
                 self.cursor = self.conn.cursor()
             return True
@@ -348,7 +348,7 @@ class DbMaintenance:
 
         .. testcode::
 
-            Select * from Players; # static statement
+            Select * fom Players; # static statement
             Select * from Players where playerId = %s; # prepared statement \
 that requires a value_list
 

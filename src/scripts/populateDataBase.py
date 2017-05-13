@@ -41,14 +41,13 @@ class PopulateNFLDB:
         """
         This is a method that runs all of the below methods with their default
         parameters. Use this method to populate an empty database will all of
-        data from season i s.t. i in [2010, 2016).
+        data from season i s.t. i in [2010, 2017).
 
         """
         # Add all of the non player specific information.
-        self.populate_seasons()
-        self.populate_new_season(Utilities.current_season)
-        self.populate_teams()
-        self.populate_games_from_data(Utilities.schedule_data_path)
+        # self.populate_seasons()
+        # self.populate_teams()
+        # self.populate_games_from_data(Utilities.schedule_data_path)
         self.populate_new_season_games()
         self.populate_stats()
 
@@ -215,8 +214,7 @@ class PopulateNFLDB:
                         result['awayTeam'] = 'JAX'
                     tup = (games_max_id + int(result['gameWeek']),
                            str(result['homeTeam']), str(result['awayTeam']),
-                           str(Utilities.convert_to_24(
-                               result['gameTimeET'])))
+                           str(Utilities.convert_to_24(result['gameTimeET'])))
                     insert_tuples1.append(tup)
 
                 results2 = self.provider.get_data(
@@ -326,19 +324,19 @@ class PopulateNFLDB:
 
         if not self.DB.populate_db(put_statement1, Utilities.populate_log,
                                    insert_tuples1):
-            Utilities.log("Couldn't insert games int the database.",
+            Utilities.log("Couldn't insert games into the database.",
                           Utilities.populate_log)
 
             return False
         if not self.DB.populate_db(put_statement2, Utilities.populate_log,
                                    insert_tuples2):
-            Utilities.log("Couldn't insert games int the database.",
+            Utilities.log("Couldn't insert bye weeks into the database.",
                           Utilities.populate_log)
 
             return False
         return True
 
-    def populate_new_season(self, year=None):
+    def populate_new_season(self, year=Utilities.get_current_season() + 1):
         """
         This is a method to populate the Season table in the database with
         a new season.
@@ -351,9 +349,6 @@ class PopulateNFLDB:
         :return False: Otherwise.
 
         """
-
-        if not year:
-            year = Utilities.get_current_season() + 1
 
         if year - Utilities.get_current_season() == 1:
             Utilities.update_season(year)
@@ -528,7 +523,7 @@ class PopulateNFLDB:
             return False
         return True
 
-    def populate_seasons(self, start=2010, end=2016):
+    def populate_seasons(self, start=2010, end=Utilities.current_season + 1):
         """
         This is a method to populate the Season table in the database with a
         range of seasons.
@@ -546,24 +541,20 @@ class PopulateNFLDB:
         """
 
         Utilities.log('Entering populate_seasons', Utilities.populate_log)
-        season_id = self.DB.pull_from_db("select max(seasonId) from Season;",
-                                         Utilities.populate_log)
+        season_tuples = self.DB.pull_from_db(
+                            "select max(seasonId), CAST(max(seasonYear) AS "
+                            "unsigned) from Season;",
+                            Utilities.populate_log)
 
+        (season_id, season_year) = (1, 2010) if not season_tuples else \
+            season_tuples[0]
+
+        start = max(start, season_year + 1)
         if start > end or start > Utilities.get_current_season() + 1:
             Utilities.log('Starting and end index is out of range.',
                           Utilities.populate_log)
             Utilities.log('Exiting populate_seasons', Utilities.populate_log)
             return False
-        if season_id is None or season_id[0][0] is None:
-            season_id = 0
-        else:
-            try:
-                season_id = season_id[0][0]
-            except IndexError, e:
-                Utilities.log_exception(e, Utilities.populate_log)
-                Utilities.log('Exiting populate_seasons',
-                              Utilities.populate_log)
-                return False
 
         statement = 'insert IGNORE into Season (SeasonId, week, seasonYear) ' \
                     'values ( %s, %s, %s);'

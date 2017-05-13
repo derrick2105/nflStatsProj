@@ -55,42 +55,28 @@ def log_exception(e, log_file):
     message = template.format(type(e).__name__, e.args)
     log(message, log_file)
     log(str(e), log_file)
+
 # -------------------------- end logging utilities --------------------------- #
 
 
 # ------------------- start time conversion helper methods ------------------- #
-def convert_to_24(time):
+def convert_to_24(curr_time):
     """
     A function to convert from meridiem time(AM/PM) to universal time (24 hour).
 
-    :param time: A string representation of the time in 12 hour form. Ex. \
+    :param curr_time: A string representation of the time in 12 hour form. Ex. \
     '11:00 AM'
 
-    :return: A string representation of the time in 24 hour format.
+    :return: A string representation of the time in 24 hour format HH:MM:SS.
     """
+    dt = datetime.datetime.strptime(curr_time, '%I:%M %p')
+    return datetime.datetime.strftime(dt, '%H:%M:%S')
 
-    time, meridiem = time.split(' ')
-
-    time_list = time.split(':')
-    if len(time_list) == 2:
-        hours, minutes = time_list
-        seconds = '00'
-    elif len(time_list) == 3:
-        hours, minutes, seconds = time_list
-    else:
-        return None
-    if meridiem == 'PM' and int(hours) != 12:
-        hours = str(int(hours) + 12)
-    elif meridiem == 'AM' and int(hours) == 12:
-        hours = '00'
-    time = ":".join([hours, minutes, seconds])
-
-    return time
 # ------------------- end time conversion helper methods --------------------- #
 
 
 # ------------------- start season and week helper methods ------------------- #
-current_season = 2016
+current_season = 2017
 current_week = 1
 starting_year = 2010
 
